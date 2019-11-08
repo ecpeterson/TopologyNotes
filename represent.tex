@@ -1,0 +1,330 @@
+% -*- root: main.tex -*-
+
+\chapter{Representability}
+
+
+
+
+\section{Brown representability (9)}
+
+Early on, our description of the pasting lemma was that $\CatOf{Spaces}(-, T)$ satisfied a \define{sheaf condition}.  Today we prove a converse in the homotopy category.
+
+\begin{theorem}[Brown]
+Take $F\co h\CatOf{Spaces}^{\op}_{\mathrm{conn}, */} \to \CatOf{Sets}_{*/}$ satisfying
+\begin{description}
+    \item[Wedge axiom] $F(\bigvee_\alpha X_\alpha) \cong \prod_\alpha F(X_\alpha)$.
+    \item[Sheaf condition] If $X = A_1 \cup A_2$, $f_1 \in F(A_1)$, $f_2 \in F(A_2)$, and $f_1|_{A_1 \cap A_2} = f_2|_{A_1 \cap A_2}$, then there exists $f \in F(X)$ with $f_1 = f|_{A_1}$ and $f_2 = f|_{A_2}$.
+\end{description}
+Then there exists a CW-complex $Y$ and an element $u \in F(Y)$ such that $[T, Y] \to F(T)$ given by $\phi \mapsto \phi^*(u)$ is a natural bijection, and there is a compatible bijection between natural transformations $F \to F'$ and homotopy classes $Y \to Y'$.
+\end{theorem}
+
+We construct this in stages.  Say an element $u \in Y$ is \define{$n$--universal} if $[S^q, Y] \to F(S^q)$ is onto for $q \le n$ and iso for $q < n$.  (Note that these are the building blocks of CW-complexes of dimension $\le n$.)  Suppose we have an $n$--universal element $u_n$ on a cmplex $Y$; we set about trying to fix $[S^{n+1}, Y] \to F(S^{n+1})$ and $[S^n, Y] \to F(S^n)$.  Consider\todo{Margin note: ``sufficient because $S^{q > 0}$ is an $H$--cogroup!''} $\{\alpha \in \pi_n Y \mid \alpha^* u_n = 0\} = A$ and $L = F(S^{n+1})$, and form the mapping cone \[\bigvee_\alpha S^n_\alpha \xrightarrow{\alpha} Y \vee \bigvee_\lambda S^{n+1}_\lambda \to Y'.\]  Applying $F$, we have \[(u_n \vee \bigvee_\lambda \lambda) \mapsto \bigvee_\alpha \alpha^*(u_n) = 0,\] hence there exists $u_{n+1} \in F(Y')$.  Since $Y'$ is formed from $Y$ using $(n+1)$--cells, it agrees with $Y$ on $\pi_{< n}$, and it is fixed at $\pi_n$ exactly.  The wedge over $\lambda$ gives surjectivity at $\pi_{n+1}$.
+
+\begin{lemma}
+For $Y$ a space with universal element $u$, $(X, A)$ a CW-pair, $v \in F(X)$, and cellular $g\co A \to Y$ classifying $v|_A$, then there exists a cellular map classifying $v$ and extending $g$.
+\end{lemma}
+\begin{proof}[Proof idea]
+\todo{There's a picture here.} $u \in F(A_1)$ and $v \in F(A_2)$ gives $w \in F(T)$.  We can extend $T$ to a CW pair $(Y', T)$ with universal element $u'$ restricting to $w$ (and hence to $u$).  The induced weak equivalence $Y \to Y'$ and Whitehead's theorem gives the map $X \to Y' \to Y$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem]
+To get surjectivity, set $A = \{x_0\}$ in the above.  To get injectivity, set $X' = X \times I$ and $A' = X \times \partial I$.  To get the statement about natural transformations, chase $\id$ through \[[Y, Y] \xrightarrow\cong F(Y) \xrightarrow{T} F'(Y) \xleftarrow\cong [Y, Y']\] to produce an element $f$.
+\end{proof}
+
+There is a useful companion result that works with functors $F$ defined only on \emph{finite} CW-complexes.  The idea is to define $\widehat F(X) = \lim_\alpha F(X_\alpha)$, which satisfies the wedge axiom, only a weak form of Mayer-Vietoris, but the usual projection \[F(\lim{}_\alpha X_\alpha) \to \lim{}_\alpha F(X_\alpha)\] is an isomorphism.
+
+\begin{theorem}[Adams]
+If $F$ is a functor to \emph{groups} from \emph{finite} CW-complexes satisfying the two conditions of Brown's theorem, then it is representable.  Natural transformations induce maps of representing objects that are unique up to \emph{weak homotopy}: restricting along an incoming map from \emph{any} finite complex gives two homotopic maps. \qed
+\end{theorem}
+
+\begin{example}
+Eilenberg--Mac Lane spaces arise from these constructions applied to $H^n(-; A)$.
+\end{example}
+
+
+
+
+\section{Spectra (8--8.32)}
+
+We remarked at the end of last time that Brown representability applied to $H^n(-; A)$ gives $K(A, n)$, and a sub-claim of that is that $H^n(-; A)$ satisfies the wedge and Mayer--Vietoris axioms.  In fact, this is most of what it means to be a cohomology theory; the one remaining axiom is:
+
+\begin{definition}[Suspension axiom]
+There is a natural isomorphism \[H^n(X) \xrightarrow\cong H^{n+1}(\Susp X).\]
+\end{definition}
+
+Coupling this to representability gives
+\begin{align*}
+[X, K(A, n)] & \xrightarrow\cong [\Susp X, K(A, n+1)], \\
+\intertext{an adjunction juggle gives}
+[X, K(A, n)] & \xrightarrow\cong [X, \Loops K(A, n+1)], \\
+\intertext{from which the Yoneda lemma gives}
+K(A, n) & \xrightarrow\simeq \Loops K(A, n+1), \\
+\intertext{or, equivalently, a map}
+\Susp K(A, n) & \to K(A, n+1).
+\end{align*}
+
+We would like a category of such systems, which has the following properties:
+\begin{enumerate}
+    \item Cohomology theories live in this category as single objects.
+    \item Spaces map into this category in such a way that $[\text{``}X\text{''}, \text{``}E_n\text{''}] \cong E^n(X)$.
+    \item This embedding of spaces is compatible with the connectivity-stabilized theorems from Ch.\ $\le$6---for instance, $\pi_* \text{``}X\text{''} \cong \pi_{*+1} \text{``}\Susp X\text{''}$ for all values of $*$.
+\end{enumerate}
+
+\begin{definition}
+A \define{spectrum} is a collection $\{E_n\}_n$ of CW complexes such that $\Susp E_n$ is (homeomorphic to) a subcomplex of $E_{n+1}$.  (Note that the mapping cylinder construction can always be used to make the ``subcomplex'' condition apply.)
+\end{definition}
+
+\begin{example}
+$X$ a space gives $(\Susp^\infty X)_n = \Susp^n X$.
+\end{example}
+
+\begin{example}
+The \define{Eilenberg--Mac Lane spectrum} is $(HA)_n = K(A, n)$.
+\end{example}
+
+Maps between spectra are harder to define.  For instance, we know $\pi_n S^n \cong \Z$ for $n \ge 1$, but $\pi_0 S^0 = \{\pm 1\}$, and so if we were to define maps of spectra as commuting sequences\todo{add a diagram} then we would get $\pi_0 \Susp^\infty \S = \{\pm 1\}$---the \emph{wrong} answer.
+
+The solution is to ask for maps to only be defined \emph{eventually}.
+
+\begin{definition}
+A \define{subspectrum} $F \subseteq E$ is a sequence of subcomplexes of $E_n$, forming a spectrum by restriction.  It is \define{cofinal} when every cell $e^m_\alpha \subseteq E_n$ has $\Susp^{j_\alpha} e^m_\alpha \subseteq F_{n+j_\alpha}$---it eventually appears in $F$.  A map $E \to E'$ is required only to be defined on a cofinal $F \subseteq E$, and two maps are equal if they agree on a mutually cofinal subspectrum.
+\end{definition}
+
+\begin{remark}
+The inclusion of a cofinal subspectrum is equivalent to the identity map.
+\end{remark}
+
+\begin{definition}
+Two maps of spectra are \define{homotopic} if there is a common cofinal subspectrum $F'$ and a map $F' \sm I_+ \to E'$ witnessing the homotopy.
+\end{definition}
+
+\begin{definition}
+Spectra have \define{wedge sums}, given levelwise, and \define{mapping cones}, also given level-wise.
+\end{definition}
+
+This is enough to copy the proof (which we did not give) of Whitehead:
+
+\begin{theorem}
+Set $\pi_n E = [\Susp^\infty S^n, E] \cong \colim \pi_{n+k} E_k$.  If a map $f\co E \to E'$ induces a weak equivalence, then it's a homotopy equivalence. \qed
+\end{theorem}
+
+\begin{corollary}
+The spectra $\{E_n \sm S^1\}_n$ and $\{E_{n+1}\}_n$ are equivalent. \qed
+\end{corollary}
+
+\begin{corollary}
+The spectrum $\{E_{n-1} \sm S^1\}_n$ is equivalent to $E$. \qed
+\end{corollary}
+
+\begin{corollary}
+$[E, E']$ is an abelian group, since $[E, E'] \cong [\Susp^2 E, \Susp^2 E']$. \qed
+\end{corollary}
+
+Spectra are also set up to short-circuit Brown representability:
+
+\begin{lemma}
+$\CatOf{Spectra}(\Susp^\infty X, E) \cong \CatOf{Spaces}(X, \Loops^\infty E)$, where $\Loops^\infty E = \colim_k (\Loops^k E_k)$.
+\end{lemma}
+\begin{proof}
+Definitionally,
+\begin{align*}
+\CatOf{Spectra}(\Susp^\infty X, E) & \cong \colim{}_n \CatOf{Spaces}(\Susp^n X, E_n) \\
+& \cong \colim{}_n \CatOf{Spaces}(X, \Loops^n E_n) \\
+& \cong \CatOf{Spaces}(X, \colim{}_n \Loops^n E_n)
+\end{align*}
+when $X$ is CW.
+\end{proof}
+
+
+
+
+\section{Co/homology theories from spectra (8.33--)}
+
+We defined spectra in such a way that a cohomology theory gives rise to a spectrum.  Our definition was lax enough, though, that the converse is not quite as clear.
+
+\begin{definition}
+For a spectrum $E$, we define two functors $\CatOf{Spaces}^{\op}_{*/} \to \CatOf{AbGroups}$: $\widetilde E_n(X) = \pi_n(E \sm X)$ and $\widetilde E^n(X) = [\Susp^\infty X, \Susp^n E] = [\Susp^{-n} \Susp^\infty X, E]$, where $(E \sm X)_n = E_n \sm X$ is induced up from spaces.
+\end{definition}
+
+In order to see that these are co/homology functors, it's useful to record
+\begin{lemma}
+$[\Susp^\infty X, \Susp^\infty Y] = \colim_m [\Susp^m X, \Susp^m Y]$ and $E = \colim_n \Susp^{-n} \Susp^\infty E_n$, so $[\Susp^\infty X, E] = \colim_{n,m} [\Susp^m X, \Susp^{m-n} E_n]$. \qed
+\end{lemma}
+
+\begin{remark}
+In general, homotopy classes of maps of spectra are presented by $\pi_0$ of a kind of pro-ind-space.
+\end{remark}
+
+Now we check the axioms:
+\begin{enumerate}
+    \item We've built in suspension invariance:
+    \begin{align*}
+    \widetilde E_{n+1}(\Susp X) & \cong [S^{n+1}, E \sm \Susp X] \cong [S^n, E \sm X] \cong \widetilde E_n(X), \\
+    \widetilde E^{n+1}(\Susp X) & \cong [\Susp^\infty \Susp X, \Susp^{n+1} E] \cong [\Susp^\infty X, \Susp^n E] \cong \widetilde E^n(X).
+    \end{align*}
+    \item Cofiber sequences $A \xrightarrow i X \to X \cup_i CA$ are converted to long exact sequences: $E \sm A \to E \sm X \to E \sm (X \cup_i CA) = (E \sm X) \cup_i C(E \sm A)$ is again coexact, so $\pi_n E \sm A \to \pi_n E \sm X \to \pi_n E \sm C(i)$ is exact.  For cohomology, $\Susp^\infty A \to \Susp^\infty X \to \Susp^\infty (X \cup_i CA)$ is coexact, so mapping into $E$ is exact.
+    \item The cohomological wedge axiom is easy: $[\bigvee_\alpha \Susp^\infty X_\alpha, E] = \prod_\alpha [\Susp^\infty X_\alpha, E]$ because coproducts pull out on the left to products.  Homology is harder and requires a filtration trick: homology satisfies the \emph{finite} wedge axiom by the above, and smash products commute with colimits, so \[E \sm \colim_{\substack{S \subseteq A \\ \text{$S$ finite}}} \bigvee_{\alpha \in S} X_\alpha \cong \colim_S E \sm \bigvee_{\alpha \in S} X_\alpha \cong \colim_S \bigvee_{\alpha \in S} E \sm X_\alpha \cong \bigvee_\alpha E \sm X_\alpha.\]
+\end{enumerate}
+
+\begin{remark}
+The suspension invariance of the individual spaces $E_n$ extracted from the Brown representation of a cohomology functor makes the system in the Lemma \emph{constant}.  This is called an ``$\Omega$--spectrum''.
+\end{remark}
+
+\begin{remark}
+Cohomology \emph{does not} commute with colimits.  Instead, there is a \define{Milnor sequence}: \[0 \to R^1 \lim_\alpha E^{n-1} X_\alpha \to E^n(\lim_\alpha X_\alpha) \to \lim_\alpha E^n(X_\alpha) \to 0.\]
+\end{remark}
+
+\begin{remark}
+To check that these two constructions from cohomology theories to spectra and back are inverses requires Whitehead's theorem in $\CatOf{Spectra}$ and what amounts to a spectral sequence argument in $\CatOf{CohomologyTheories}$.  We'll delay this for a moment.
+\end{remark}
+
+We can lift maps of cohomology theories up to maps of spectra, granting the remark.  A map $E^* \xrightarrow f F^*$ induces by Brown representability a unique sequence of maps $E_n \xrightarrow{f_n} F_n$ and hence a map $\widetilde f\co E \to F$ of spectra.  It's even natural to extend the definition of cohomology to $F^0(E) = [E, F]$, of which $\widetilde f$ is a natural element.
+
+\begin{example}
+The spectrum $HA$ represents cohomology with coefficients in $A$.
+\end{example}
+
+\begin{example}
+The spectrum $\S := \Susp^\infty S^0$ has associated homology theory \define{stable homotopy}.
+\end{example}
+
+\begin{example}
+The functor $X \mapsto (\pi_*^s X) \otimes \Z_{(p)}$ is exact, hence has an associated spectrum $\S_{(p)}$, the \define{$p$--local sphere spectrum}.
+\end{example}
+
+\begin{example}
+The functor $X \mapsto \CatOf{AbGps}(\pi_0^s X, \Q/\Z)$ is exact, hence has an associated spectrum $\I$.  This is called the \define{Brown--Comenetz dualizing object}.
+\end{example}
+
+We'll probably find more as we go.
+
+\begin{theorem}[Hurewicz]
+There is a map $\S \to H\Z$ which $0$--connected fiber.  By consequence, the difference between $\S_*(X)$ and $H\Z_*(X)$ begins one degree above the bottommost cell in $X$.  By consequence, for $X$ $n$--conenected and $n \ge 1$, $\pi_n X \cong \pi_n^s X \cong H\Z_n X$. \qed
+\end{theorem}
+
+
+
+
+\section{Smash products}
+
+For all our discussion of homotopy and homology \emph{groups}, we have not found a framework for the cohomology \emph{ring} of a space.  Since we have constructed an object $HR$ embodying the ordinary cohomology functor, it is reasonable to expect the ring structure on $R$ to induce structure on $HR$ (which in turn induces it on $H^*(-; R)$).  The following observation is key:
+
+\begin{definition}
+A \define{ring} is a (commutative, unital) monoid in $\CatOf{AbelianGroups}$, using the $\otimes$--product in place of the Cartesian / categorical $\times$.
+\end{definition}
+
+We, too, would like a monoidal structure on $\CatOf{Spectra}$ compatible with our other monoidal structures: \[\CatOf{AbelianGroups} \xrightarrow H \CatOf{Spectra} \xleftarrow{\Susp^\infty} \CatOf{Spaces}_{*/}.\]
+
+Step 1: For $X$ a space, we have previously defined $E \sm X = (E_n \sm X)_n$ by smashing through levelwise.  This definition is set up so that $\Susp^\infty X \sm \Susp^\infty X_2 = \Susp^\infty(X_1 \sm X_2)$.
+
+Step 2: In general, a spectrum is a (sequential, or ind-)system of formal desuspensions of suspension spectra.  The system ``$(E_n)$'' might be more honestly written as $\{\cdots \to \Susp^{-n} \Susp^\infty E_n \to \Susp^{-(n+1)} \Susp^\infty E_{n+1} \to \cdots\}$.  Category theory indicates a useful notion of the tensor of two such:
+\[\left(
+\begin{tikzcd}
+\Susp^\infty(E_0 \sm F_0) \arrow{r} \arrow{d} & \Susp^{-1} \Susp^\infty(E_0 \sm F_1) \arrow{r} \arrow{d} & \cdots \\
+\Susp^{-1} \Susp^\infty(E_1 \sm F_0) \arrow{d} \arrow{r} & \Susp^{-2} \Susp^\infty(E_1 \sm F_1) \arrow{r} \arrow{d} & \cdots \\
+\vdots & \vdots
+\end{tikzcd}
+\right)\]
+This system is grid-indexed rather than sequence, which we ``must'' correct.
+
+Bad idea: Identifying ind-systems with their colimits, we might restrict to any cofinal subsystem.  However, this destroys e.g. associativity.
+
+Good idea / Step 3: ``Sum over possible choices'': we set $(E \sm F)_n$ to be the colimit of the diagram under the $n$\textsuperscript{th} antidiagonal (after replacing the maps by cofibrations).
+
+\begin{theorem}
+In the homotopy category, this determines a symmetric monoidal product, $\sm$, on $\CatOf{Spectra}$.
+\end{theorem}
+
+\textbf{Warning:} This product is \emph{not} especially nice before passing to the homotopy category.  It turns out that this is unavoidable.
+
+\begin{corollary}
+$K(R, n) \times K(R, m) \xrightarrow{\cup} K(R, n+m)$ induces $HR \sm HR \to HR$. \qed
+\end{corollary}
+
+\begin{example}
+The sphere spectrum, $\S$, is the unit and hence also a ring.
+\end{example}
+
+\begin{remark}
+In fact, any ring-valued theory acquires a product as in the Corollary.
+\end{remark}
+
+Given a multiplication, we can define the cohomology product like so:
+\[\left\{ \begin{array}{c} \omega_n\co X \to E_n, \\ \omega_m\co X \to E_m \end{array}\right\} \rightsquigarrow \left\{ \begin{array}{c} \omega_n\co \Susp^{-n} \Susp^\infty X \to E, \\ \omega_m\co \Susp^{-m} \Susp^\infty X \to E \end{array}\right\} \rightsquigarrow \Susp^{-(n+m)} X \xrightarrow{\Delta} \Susp^{-(n+m)}(X \sm X) \to E \sm E \xrightarrow\mu E.\]
+
+\begin{remark}
+This same product makes $E^* X$ (and $E_* X$) into $E_*$--modules.
+\end{remark}
+
+The product structure is also where the duality pairing for co/homology comes from.  Given $(\sigma\co \S^n \to E \sm \Susp^\infty X) \in E_n X$ and $(\omega \co \S^m \sm \Susp^\infty X \to E) \in E^m(X)$, we get \[\<\omega, \sigma\>\co \S^{n+m} \xrightarrow{\Susp^m \sigma} E \sm \S^m \sm \Susp^\infty X \xrightarrow{1 \sm \omega} E \sm E \xrightarrow\mu E.\]  Under this pairing, the maps $f^*$, $f_*$ induced by $f$ are adjoint:
+\begin{center}
+\begin{tikzcd}
+\S^{n+m} \arrow["\Susp^m \sigma"]{r} \arrow["\Susp^m f_* \sigma"]{rd} & E \sm \S^m \sm \Susp^\infty X \arrow["1 \sm 1 \sm f"]{d} \arrow["1 \sm f^* \omega"]{rd} \\
+& E \sm \S^m \sm \Susp^\infty Y \arrow["\omega"]{r} & E \sm E \arrow["\mu"]{r} & E,
+\end{tikzcd}
+\end{center}
+hence $\<f^* \omega, \sigma\> = \<\omega, f_* \sigma\>$.
+
+\begin{remark}
+$- \sm E$ preserves colimits and there is a version of the adjoint functor theorem that guarantees \emph{function spectra}.  Or, conversely, use Brown representability on $F(E_1, E_2)^*(X) = \text{``}\pi_0 F(E_1 \sm X, E_2)\text{''} = \CatOf{Spectra}(E_1 \sm X, E_2)$.
+\end{remark}
+
+
+
+
+\section{The Serre spectral sequence}
+
+In this section, we introduce one of the most routinely useful spectral sequences ever encountered, used to analyze the homology of a fibration.  Its utility comes from how you're not ``supposed'' to be able to do this---homology is for \emph{cofibrations} and \emph{homotopy} is for fibrations.
+
+Fix $F \to E \xrightarrow p B$ a fibration over a CW base $B$.  The associated-graded of $B$ is a wedge of spheres---its cells.  Pull back the cellular filtration on $B$ to get a filtration on $E$: $E_n = p^{-1}(B^{(n)})$.  The associated-graded of $E$ looks like $E_n / E_{n-1} = (B^{(n)} / B^{(n-1)}) \times F$.  Applying a homology theory $h_*$ gives a spectral sequence with $E^1_{*, *} = h_*(E_n, E_{n-1}) = C^{\mathrm{cell}}_*(B) \otimes h_*(F)$.
+
+\begin{theorem}[Serre]
+If $\pi_1 B$ acts trivially on $h_* F$ (e.g., if $\pi_1 B = 0$), then $d^1 = d^{\mathrm{cell}}$, so $E^2_{p, q} = H_p(B; h_q F) \Rightarrow h_{p+q}(E)$. \qed
+\end{theorem}
+
+\begin{remark}
+There is a version of this without the hypothesis on $\pi_1 B$, where ``local coefficients'' / ``twisted homology'' are used.  We won't need it.
+\end{remark}
+
+\begin{remark}
+If $h_*$ is a field, then $H_*(B; h_* F) = H_*(B; h_*) \otimes_{h_*} h_* F$.
+\end{remark}
+
+It is remarkable how much this automates.
+
+\begin{example}
+$S^1 \to S^{2n+1} \to \CP^n$, $S^1 \to * \to \CP^\infty$.
+\end{example}
+
+The construction is \emph{natural} against maps of fiber sequences (by using cellular base maps), inducing maps of spectral sequences.  There are edge homomorphisms induced by
+\begin{center}
+\begin{tikzcd}
+F \arrow[equal]{r} \arrow{d} & F \arrow{d} \arrow{r} & * \arrow{d} \\
+F \arrow{r} \arrow{d} & E \arrow{r} \arrow{d} & B \arrow[equal]{d} \\
+* \arrow{r} & B \arrow{r} & B
+\end{tikzcd}
+\end{center}
+converging to the behavior of $h_* F \to h_* E \to h_* B$.
+
+\begin{theorem}[Freudenthal]
+For $X$ $n$--connected, $X \to \Loops \Susp X$ is an $n$--equivalence.
+\end{theorem}
+\begin{proof}
+Consider the Serre spectral sequence for $\Loops \Susp X \to P \Susp X \to \Susp X$.
+\todo{inject picture}
+The only way for this to converge to $H_* P \Susp X = H_*(*)$ is for $d_r\co H_r \Susp X \xrightarrow\cong H_{r-1} \Loops \Susp X$ to be an isomorphism for $r \le 2n+2$.  We grab teh part of $H_* \Loops \Susp X$ belonging to $X$ by mapping in a (non-fiber!!) sequence:
+\begin{center}
+\begin{tikzcd}
+X \arrow{d} \arrow{r} & CX \arrow["J"]{d} \arrow{r} & \Susp X \arrow[equal]{d} \\
+\Loops \Susp X \arrow{r} & P \Susp X \arrow{r} & \Susp X
+\end{tikzcd}
+\end{center}
+inducing
+\begin{center}
+\begin{tikzcd}
+\widetilde H_r X \arrow["j_*"]{d} & H_{r+1}(CX, X) \arrow["\cong", "\partial"']{l} \arrow["J_*"]{d} \arrow["\cong"]{r} & \widetilde H_{r+1}(\Susp X) \arrow[equal]{d} \\
+\widetilde H_r F & H_{r+1}(E, F) \arrow["\partial"]{l} \arrow["\pi_*"]{r} & H_{r+1}(B) \arrow[bend left, "\text{transgressive $d^r$}"]{ll}.
+\end{tikzcd}
+\end{center}
+The composite $H_r X \xrightarrow\sigma H_{r+1} \Susp X \xrightarrow{d^1} H_r \Loops \Susp X$ is an equivalence for $r \le 2n+2$.\todo{A lot of this proof got cut off in the scanner, and I think I've garbled it here.}
+\end{proof}

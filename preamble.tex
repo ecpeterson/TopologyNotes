@@ -1,0 +1,89 @@
+% -*- root: main.tex -*-
+
+\documentclass[twoside,nofonts,notoc]{tufte-book}
+
+\setcounter{secnumdepth}{2}
+
+\usepackage{amsmath,amsthm}
+\usepackage[urw-garamond]{mathdesign}
+\usepackage[protrusion=true,expansion=true]{microtype}
+
+\usepackage{todonotes}
+% \usepackage{spectralsequences}
+\usepackage{tikz-cd}
+
+\usepackage{cleveref}
+
+\usepackage{appendix}
+\usepackage{chngcntr}
+\usepackage{etoolbox}
+
+\AtBeginEnvironment{subappendices}{%
+\newpage
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+}
+
+\newcommand{\CatOf}[1]{\mathsf{#1}}
+\newcommand{\define}[1]{\textit{#1}}
+\newcommand{\OS}[2]{\underline{\smash{#1}}_{#2}}
+
+\newcommand{\A}{\mathcal A}
+\renewcommand{\C}{\mathbb C}
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\CP}{\C \mathrm{P}}
+\newcommand{\F}{\mathbb F}
+\newcommand{\GL}{\mathrm{GL}}
+\renewcommand{\H}{\mathbb H}
+\newcommand{\I}{\mathbb I}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\RP}{\R \mathrm{P}}
+\renewcommand{\S}{\mathbb S}
+\newcommand{\Z}{\mathbb Z}
+
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\Sp}{\mathit{Sp}}
+\newcommand{\Sq}{\mathrm{Sq}}
+
+\newcommand{\co}{\colon\thinspace}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\eps}{\epsilon}
+\newcommand{\from}{\leftarrow}
+\newcommand{\Loops}{\Omega}
+\newcommand{\mmod}{/\!\!/}
+\renewcommand{\phi}{\varphi}
+\newcommand{\sm}{\wedge}
+\newcommand{\Susp}{\Sigma}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\fib}{fib}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Tor}{Tor}
+
+\theoremstyle{plain}
+\newtheorem{dummy}{Dummy}[section]
+\newtheorem{theorem}[dummy]{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{proposition}[dummy]{Proposition}
+\newtheorem{lemma}[dummy]{Lemma}
+\newtheorem{corollary}[dummy]{Corollary}
+\newtheorem{conjecture}[dummy]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[dummy]{Definition}
+\newtheorem{construction}[dummy]{Construction}
+\newtheorem{warning}[dummy]{Important Warning}
+\theoremstyle{remark}
+\newtheorem{remark}[dummy]{Remark}
+\newtheorem{example}[dummy]{Example}
+\newtheorem{problem}[dummy]{Problem}
+\newtheorem{task}[dummy]{Task}
+
+\title[Topology from an Algebraic Viewpoint]{Topology from an \\ Algebraic Viewpoint \\ \vspace{3\baselineskip}{\tiny \today}}
+\author{Eric Peterson}

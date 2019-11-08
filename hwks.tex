@@ -1,0 +1,309 @@
+% -*- root: main.tex -*-
+
+\section{Homework \#1}
+
+\begin{problem}
+Consider the unreduced mapping cylinder $M_f$ of a map $f\co X \to Y$, together with its inclusion $i\co Y \to M_f$.  Show that the usual retraction $r\co M_f \to Y$ of $i$ (which projects down from the interval coordinate) induces an isomorphism $r_*\co \pi_* M_f \to \pi_* Y$.  (We used this fact when constructing the homotopy long exact sequence of an arbitrary pair.)
+\end{problem}
+
+\begin{problem}
+Show that if $f\co X \to Y$ is a homotopy equivalence, then $f_*\co \pi_*(X, x_0) \to \pi_*(Y, f(x_0))$ is an isomorphism for all choices of $x_0 \in X$ and $* \ge 0$.
+\end{problem}
+
+\begin{problem}
+In class, I used the mysterious phrase ``limit condition'' twice.  Given a functor $F\co \CatOf J \to \CatOf C$, thought of as a $\CatOf J$--shaped diagram in $\CatOf C$, we define a \textit{cone} of $F$ to be a constant functor $x\co \CatOf J \to \CatOf C$ together with a natural transformation $x \to F$.  A \textit{limit} of $F$ is a terminal object in the category of cones.
+\begin{enumerate}
+    \item Expand the definition of natural transformation and constant functor to reveal that a cone is equivalent to the data of an object $x \in \CatOf C$ together with maps $f_j\co x \to F(j)$ for each object $j \in J$ such that for any map $g\co j \to j'$ in the diagram there is a commuting triangle
+    \begin{center}
+    \begin{tikzcd}
+    & x \arrow["f_j"']{ld} \arrow["f_{j'}"]{rd} \\
+    F(j) \arrow["F(g)"]{rr} & & F(j').
+    \end{tikzcd}
+    \end{center}
+    \item Now expand the definition of limit to see that a limit, expressed as an object $\ell$ together with maps $h_j$, has the property that any other cone point $x$ and its maps $f_j$ factor uniquely through a map $x \to \ell$.
+    \item Show that the product $X \times Y$ is the limit of the diagram with objects $X$ and $Y$ and no non-identity arrows.
+    \item Show that the equalizer $E$ of a pair of functions $X \rightrightarrows Y$ of sets is indeed the limit of that diagram.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+A functor $G\co \CatOf C^{\op} \to \CatOf{Sets}$ is called \textit{representable} when there exists an object $Y$ and a natural isomorphism \[G \xrightarrow{\simeq} \CatOf{Sets}(-, Y).\]
+\begin{enumerate}
+    \item From a morphism $t\co Y \to Y'$ of representing objects, construct a natural transformation $t_*\co G \to G'$ of the functors they represent.
+    \item From a natural transformation $G \to G'$ of represented functors, construct a morphism $Y \to Y'$ of the representing objects.
+    \item Show also that your assignments respect composition of natural transformations and of morphisms.
+    \item Show that your assignments are mutual inverses, i.e., a natural transformation of representable functors is exactly the same information as a morphism of representing objects.
+\end{enumerate}
+Congratulations! You have proved the Yoneda lemma: the functor \[\CatOf{C} \to \CatOf{Categories}(\CatOf{C}^{\op}, \CatOf{Sets})\]
+describes a fully faithful embedding.
+\end{problem}
+
+\begin{problem}
+Explain convincingly why the usual recipe for forming a group structure on $\pi_1(X, x_0)$ does not apply to the set of relative homotopy classes $\pi_1(I, \partial I)$.
+\end{problem}
+
+\begin{problem}
+Let $p\co E \to B$ be a map and consider \[Z = \{(e, \gamma) \in E \times B^I \co p(e) = \gamma(0)\} \subseteq E \times B^I.\]  A \textit{path lifting function} for $p$ is a map $\lambda\co Z \to E^I$ with $\lambda(e, \gamma)(0) = e$ and $p \circ \lambda(e, \gamma) = \gamma$.
+\begin{enumerate}
+    \item Show that $p$ is a fibration if and only if there is a path lifting function $\lambda$ for $p$.
+    \item Let $p\co E \to B$ be a fibration with fiber $F$, and let $P_p$ be the pathspace construction $p$ described in class.  Given a path lifting function $\lambda\co Z \to E^I$ for $p$, define maps
+    \begin{align*}
+    g\co F & \to P_p, & f & \mapsto (f, \omega_0), \\
+    h\co P_p & \to F, & (e, \gamma) & \mapsto [\lambda(e, \gamma^{-1})](1),
+    \end{align*}
+    where ``$\gamma^{-1}$'' denotes the path $\gamma$ run backwards.  Show that $g$ and $h$ present the two halves of a homotopy equivalence.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Show that if $(X, A)$ is a relative CW-complex, then $X/A$ is a CW-complex.  Given CW-complexes $X$ and $Y$, use this to concoct appropriate conditions so that $X \sm Y$ is a CW-complex.
+\end{problem}
+
+\begin{problem}
+Suppose $(X, A)$ is a relative CW-complex and $p\co E \to B$ is a weak fibration.  Show that for any map $f\co X \to E$ and homotopies $F\co X \times I \to B$, $H\co A \times I \to E$ with $F_0 = p \circ f$, $H_0 = f|_A$, and $p \circ H = F|_{A \times I}$ there is a homotopy $G\co X \times I \to E$ lifting $F$ with $G/(A \times I) = H$, $G_0 = f$, and $p \circ G = F$.  Diagrammatically, these conditions are summarized as
+\begin{center}
+\begin{tikzcd}
+(X \times \{0\}) \cup (A \times I) \arrow["f \cup H"]{r} \arrow[hookrightarrow]{d} & E \arrow["p"]{d} \\
+X \times I \arrow[densely dotted, "G"]{ru} \arrow["F"]{r} & B.
+\end{tikzcd}
+\end{center}
+\end{problem}
+
+\begin{problem}
+Suppose $X$ is obtained from $A$ by attending $n$--cells $\{e_\beta^n \mid \beta \in B\}$.  Show that $X / A \cong \bigvee_{\beta \in B} S^n_\beta$, and that the homeomorphism can be chosen so that the diagram
+\begin{center}
+\begin{tikzcd}
+& (S^n, *) \arrow["i_\beta"]{r} & (\bigvee_\beta S^n_\beta, *) \arrow["\cong"]{dd} \\
+(D^n, S^{n-1}) \arrow["p'"]{ru} \arrow["f_\beta"]{rd} \\
+& (X, A) \arrow["p"]{r} & (X/A, *)
+\end{tikzcd}
+\end{center}
+commutes, where $f_\beta$ is the characteristic map of $e^n_\beta$.
+\end{problem}
+
+
+
+
+\section{Homework \#2}
+
+\begin{task}
+Read Chapter 5 to see a ``proper'' definition of a CW-structure on a pre-existing space.
+\end{task}
+
+\begin{task}
+Skim through Chapter 6 and look at all the proofs we skipped.  Try reading a few.  Then try reading a few more.  Move on to the rest of the problem set whenever you like.
+\end{task}
+
+\begin{problem}
+Show that if $(X, A)$ is a relative CW-complex, then $X/A$ is a CW-complex.  Given CW-complexes $X$ and $Y$, use this to concoct appropriate conditions so that $X \sm Y$ is a CW-complex.
+\end{problem}
+
+\begin{problem}
+Suppose $(X, A)$ is a relative CW-complex and $p\co E \to B$ is a weak fibration.  Show that for any map $f\co X \to E$ and homotopies $F\co X \times I \to B$, $H\co A \times I \to E$ with $F_0 = p \circ f$, $H_0 = f|_A$, and $p \circ H = F|_{A \times I}$ there is a homotopy $G\co X \times I \to E$ lifting $F$ with $G|_{A \times I} = H$, $G_0 = f$, and $p \circ G = F$.  Diagrammatically, these conditions are summarized as
+\begin{center}
+\begin{tikzcd}
+(X \times \{0\}) \cup (A \times I) \arrow["f \cup H"]{r} \arrow[hookrightarrow]{d} & E \arrow["p"]{d} \\
+X \times I \arrow[densely dotted, "G"]{ru} \arrow["F"]{r} & B.
+\end{tikzcd}
+\end{center}
+\end{problem}
+
+\begin{problem}
+Suppose $X$ is obtained from $A$ by attending $n$--cells $\{e_\beta^n \mid \beta \in B\}$.  Show that $X / A \cong \bigvee_{\beta \in B} S^n_\beta$, and that the homeomorphism can be chosen so that the diagram
+\begin{center}
+\begin{tikzcd}
+& (S^n, *) \arrow["i_\beta"]{r} & (\bigvee_\beta S^n_\beta, *) \arrow["\cong"]{dd} \\
+(D^n, S^{n-1}) \arrow["p'"]{ru} \arrow["f_\beta"]{rd} \\
+& (X, A) \arrow["p"]{r} & (X/A, *)
+\end{tikzcd}
+\end{center}
+commutes, where $f_\beta$ is the characteristic map of $e^n_\beta$.
+\end{problem}
+
+\begin{problem}
+Show that if $f\co X \to Y$ is a cellular map of CW-complexes, then $Y \cup_f CX$ is naturally a CW-complex.
+\end{problem}
+
+\begin{problem}
+Justify some of our ad hoc constructions from class by proving the following: let $\CatOf C$ be a category with finite products and a zero object and let $F\co \CatOf C^{\op} \to \CatOf{Groups}$ be a group-valued functor.  Show that if $F$ is represented by an object $Y$ by a natural transformation $t\co \CatOf{C}(-, Y) \to F$, then $Y$ carries a group structure which causes $\CatOf{C}(-, Y)$ to be group-valued and the comparison natural isomorphism $t$ to respect the group structure.
+\end{problem}
+
+
+
+
+\section{Homework \#3}
+
+\begin{problem}
+Consider a diagram of three inverse systems of abelian groups
+\begin{center}
+\begin{tikzcd}
+\cdots \arrow{r} & 0 \arrow{d} \arrow{r} & 0 \arrow{r} \arrow{d} & \cdots \\
+\cdots \arrow{r} & A_{n+1} \arrow{d} \arrow["f_{n+1}"]{r} & A_n \arrow{r} \arrow{d} & \cdots \\
+\cdots \arrow{r} & B_{n+1} \arrow{d} \arrow["g_{n+1}"]{r} & B_n \arrow{r} \arrow{d} & \cdots \\
+\cdots \arrow{r} & C_{n+1} \arrow{d} \arrow["h_{n+1}"]{r} & C_n \arrow{r} \arrow{d} & \cdots \\
+\cdots \arrow{r} & 0 \arrow{r} & 0 \arrow{r} & \cdots, \\
+\end{tikzcd}
+\end{center}
+such that every column forms a short exact sequence.
+\begin{enumerate}
+    \item Show that the limit of, say, $(A_n)$ can be described by the kernel sequence \[\lim A_n \xrightarrow{\operatorname{ker}} \prod_n A_n \xrightarrow{\prod_n \operatorname{id} - \prod_n f_n} \prod_n A_n.\]
+    \item The map on limits $\lim A_n \to \lim B_n \to \lim C_n$ no longer need be short-exact.  Define $\lim{}^1 A_n$ to be the \emph{cokernel} of the map described above, and show that there is instead an exact sequence of the form \[0 \to \lim A_n \to \lim B_n \to \lim C_n \to \lim{}^1 A_n \to \lim{}^1 B_n \to \lim{}^1 C_n \to 0.\]
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Consider a tower of fibrations \[\cdots \to X_{n+1} \xrightarrow{f_{n+1}} X_n \to \cdots.\]  Show that there is a short exact sequence, called the \textit{Milnor sequence}, given by \[0 \to \lim_n{}^1 \left( \pi_{m+1} X_n \right) \to \pi_m \left( \lim_n X_n \right) \to \lim_n \left( \pi_m X_n \right) \to 0.\]  (Hint: find a model for the limit of the tower of fibrations analogous to the one for the colimit of a tower of inclusions presented in Switzer 7.53.  This model is itself inspired by rewriting the tower as an endomorphism of an infinite product, and filtering this model by ``near the start'' and ``near the end'' of the endomorphism.)
+\end{problem}
+
+\begin{problem}\footnote{This problem can also be done independently of Problem 2, by directly using the endomorphism-cylinder construction presented in Switzer and applying cohomology to that, rather than taking the time to figure out what its dual looks like and remembering that cohomology appears as the homotopy of a certain spectral object.}
+Produce the Milnor short exact sequence for a generalized cohomology theory $E$ applied to an increasing union of spaces $X_n$: \[0 \to \lim_n{}^1 (E^{m-1} X_n) \to E^m \left(\colim_n X_n\right) \to \lim_n (E^m X_n) \to 0.\]
+\end{problem}
+
+\begin{problem}
+\begin{enumerate}
+    \item Use this to calculate the integral cohomology of ``the circle with $p$ inverted''.  This space is given by infinitely iterating the mapping cylinder construction on the $p$--fold covering \[S^1 \xrightarrow{p} S^1.\]  (That is: the first stages of this look like $S^1 \cup_p (S^1 \times I)$, then $(S^1 \cup_p (S^1 \times I)) \cup_p (S^1 \times I)$, \ldots.)\footnote{If you haven't seen this construction before, you should check that for a ring element $r \in R$ and an $R$--module $M$, \[\colim \left(M \xrightarrow{r} M \xrightarrow{r} M \xrightarrow{r} \cdots\right) = M[r^{-1}].\]}
+    \item Compare your answer with the \emph{homology} of this same space and analyze the behavior of the universal coefficient sequence.
+\end{enumerate}
+\end{problem}
+
+\begin{task}
+Read pages 158--163 of Switzer, which describe the representability of sheaf-like functors defined only on \emph{finite} CW-complexes.  (In particular, this makes fairly intensive use of the understanding of inverse limits which you have just developed.)
+\end{task}
+
+\begin{task}
+Strongly consider reading pages 346--351 of Switzer, which actually goes through the identification of the Serre $E^2$ term.  It's very tedious, but it's worth seeing once.  Alternatively, you could these course notes, which give a much prettier description of the Serre spectral sequence in terms of a double complex: \texttt{http://math.mit.edu/classes/18.906/spr09/sss.pdf} .  As trade, you then have to additionally work out how such a spectral sequence arises as a filtration spectral sequence.
+\end{task}
+
+\begin{problem}
+As in class, define $\S_{(p)}$ to be the spectrum representing $X \mapsto h\CatOf{Spectra}(\Susp^\infty X, \S) \otimes_{\Z} \Z_{(p)}$.
+\begin{enumerate}
+    \item Describe the homology functor associated to $\S_{(p)}$.  (Hint: restrict attention to finite complexes $X$, where $DX = F(X, \S)$ defines an involutive dual.)
+    \item Demonstrate $E_{(p)} \simeq E \sm \S_{(p)}$ for any spectrum $E$.  In particular, this gives $\S_{(p)} \sm \S_{(p)} \simeq \S_{(p)}$.
+    \item Define $\pi_{n,(p)} E = [\S^n_{(p)}, E]$.  Show $\pi_{n,(p)} E_{(p)} = \pi_n E_{(p)}$.
+    \item Conclude the more general adjunction \[h\CatOf{Spectra}(F, E_{(p)}) \cong h\CatOf{Spectra}(F_{(p)}, E_{(p)}).\]
+    \item Finally, we can also give a concrete construction of $\S_{(p)}$.  Consider the infinite directed system \[\S \xrightarrow p \S \xrightarrow p \S \xrightarrow p \cdots.\]  Form the mapping telescope $T$ associated to this system and check that this gives a model for $\S_{(p)}$ in $h\CatOf{Spectra}$.
+\end{enumerate}
+\end{problem}
+
+
+
+
+\section{Homework \#4}
+
+\begin{problem}
+Prove the transgressive differential lemma from class.  Let $F \xrightarrow{i} E \to B$ be a fibration, and let \[B \xleftarrow{\pi} C(i) \xrightarrow{\delta} \Susp F\] by the naturally induced maps.  Show that the following situations are equivalent:
+\begin{itemize}
+    \item A class $x \in H_n B$ has $d_{< n}(x) = 0$ and $d_n(x) = y$ for some class $y \in H_{n-1} F$ (up to some indeterminacy).
+    \item There is a class $\tau(x) \in H_n C(i)$ with $\delta_* \tau x = y$ and $\pi_* \tau x = x$.
+\end{itemize}
+\end{problem}
+
+\newcommand{\BSS}{\mathrm{BSS}}
+
+\begin{problem}
+The \textit{($2$--adic) Bockstein spectral sequence} is the filtration spectral sequence arising from the diagram
+\begin{center}
+\begin{tikzcd}
+\Z^\wedge_2 \arrow{r} & \cdots \arrow{r} & \Z \arrow["2"]{r} \arrow{d} & \Z \arrow["2"]{r} \arrow{d} & \Z \arrow{d} \\
+& \cdots & \Z/2 & \Z/2 & \Z/2.
+\end{tikzcd}
+\end{center}
+Applying $H^*(X; -)$ to this diagram of coefficients gives a spectral sequence of signature \[E_1^{*, *} = \bigoplus_* H^*(X; \F_2) \cong \F_2[w] \otimes H^*(X; \F_2) \Rightarrow H^*(X; \Z^\wedge_2),\] where the $E_1$--page consists of many duplicated copies of $H^*(X; \F_2)$, which we can think of as tagged by monomials in $w$.\footnote{There is (of course) also a homological version of this construction, which you should also be aware of.}
+\begin{enumerate}
+    \item Show that the differentials in this spectral sequence are ``$w$--linear'', i.e., $d^{\BSS}_r(w^k x) = w^k d^{\BSS}_r(x)$.
+    \item Show that a torsion-free class $x \in H^*(X; \Z^\wedge_2)$ is in $\ker d^{\BSS}_r$ on all pages $E_r$ and never in $\im d^{\BSS}_r$.  Demonstrate that this condition is equivalent to the corresponding class in the spectral sequence being $w$--torsion--free.
+    \item More generally, show that the order of $w$--torsion of a class on the $E_\infty$ page of the spectral sequence is identical to the $2$--primary torsion order of the corresponding cohomology class in $H^*(X; \Z^\wedge_2)$.
+    \item Show that $d^{\BSS}_1$ in this spectral sequence is computed by the Steenrod square $\Sq^1$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Use this spectral sequence to make a calculation of $H^*(K(\Z/2, 2); \Z^\wedge_2)$ from the calculation of $H^*(K(\Z/2, 2); \F_2)$ given in class.  You will want to know the following mysterious formula:\footnote{This is Proposition 6.8 of May's \textit{A general algebraic approach to Steenrod operations}.} for any class $x \in H^{\mathrm{even}}(X; \F_2)$ where $d_r^{\BSS}(x)$ is defined, we have \[d^{\BSS}_r(x^2) = \begin{cases} \Sq^1(x) \cdot x + \Sq^{|x|}\Sq^1(x) & \text{for $r = 2$}, \\ d^{\BSS}_{r-1}(x) \cdot x & \text{for $r > 2$}. \end{cases}\]
+\end{problem}
+
+\begin{problem}
+Let $F \xrightarrow{j} E \xrightarrow{p} B$ be a fiber sequence, let $u \in H^n(F; \F_2)$ be class that transgresses to $\tau(u) \in H^{n+1}(B; \F_2)$, and suppose that for some integer $i \ge 1$ there is a Bockstein differential $d^{\BSS}_i v = \tau(u)$.  Show that $d^{\BSS}_{i+1} p^* v$ is then defined and that $j^* d^{\BSS}_{i+1} p^*(v) = d^{\BSS}_1(u)$, where again $d^{\BSS}_1$ is the first Bockstein differential.\footnote{I haven't actually tried to work this out. You might find it helpful to know that there's a re-indexing of the Bockstein spectral sequence, where you instead use the inverse system $\{\Z/(2^j)\}_{j=1}^\infty$ and identify all the \emph{fibers} of these maps as $\Z/2$---or maybe not.}
+\end{problem}
+
+\begin{problem}
+\textbf{I may not have done a good job of stating this problem. If you run into issues with solving this, please email me so that I can fix whatever mistakes I've made.  (The algebra extensions in part 2 seem particularly fishy\ldots.)}
+In this problem, you will reinvent one of the main results of unstable rational homotopy.  For a simply connected space $X$, we inductively define its \textit{rationalization} to be a space $\Q \otimes X$ under $X$ as follows: given a Postnikov fibration \[K(\pi_n X, n) \to X[0, n] \to X[0, n),\] and the rationalization map $X[0, n) \to (\Q \otimes X)[0, n)$, we construct a corresponding Postnikov fibration for $\Q \otimes X$ as the back face in
+\begin{center}
+\begin{tikzcd}
+& K(\Q \otimes \pi_n X, n) \arrow{dd} \arrow[equal]{rr} & & K(\Q \otimes \pi_n X, n) \arrow{dd} \\
+K(\pi_n X, n) \arrow[equal, crossing over]{rr} \arrow{dd} \arrow{ru} & & K(\pi_n X, n) \arrow{ru} \\
+& (\Q \otimes X)[0, n] \arrow{rr} \arrow{dd} & & * \arrow{dd} \\
+X[0, n] \arrow[crossing over]{rr} \arrow{ru} \arrow{dd} & & * \arrow{ru} \arrow[leftarrow, crossing over]{uu} \\
+& (\Q \otimes X)[0, n) \arrow{rr} & & K(\Q \otimes \pi_n X, n+1) \\
+X[0, n) \arrow{rr} \arrow{ru} & & K(\pi_n X, n+1) \arrow{ru} \arrow[leftarrow, crossing over]{uu}.
+\end{tikzcd}
+\end{center}
+Here the nodes $X[0, n]$ and $(\Q \otimes X)[0, n]$ are \emph{defined} as the total spaces of the pullback fibrations, and the map between them is induced by the universal map of fibrations.  We set $\Q \otimes X$ to be the homotopy inverse limit \[\Q \otimes X = \lim{\!}_n (\Q \otimes X)[0, n],\] which has the factorization property
+\begin{center}
+\begin{tikzcd}
+\pi_* X \arrow[bend left=15]{rr} \arrow{r} & \Q \otimes \pi_* X \arrow["\simeq"]{r} & \pi_* (\Q \otimes X).
+\end{tikzcd}
+\end{center}
+
+\vspace{\baselineskip}
+\noindent \textit{Now, justify the following claims:}
+\begin{enumerate}
+    \item The rational cohomology of rational Eilenberg--Mac Lane spaces is given by \[H^*(K(\Q, n); \Q) = \begin{cases} \Q[x_n] & \text{if $n$ is even}, \\ \Q[x_n] / x_n^2 & \text{if $n$ is odd}. \end{cases}\]
+    \item The cohomology $H^*(X(n, \infty); \Q)$ \emph{as well as its ring structure} are completely determined by the cohomology ring $H^*(X[n, \infty); \Q)$.
+    \item The map $X \to \Q \otimes X$ is an isomorphism on rational cohomology.
+    \item The Postnikov fibrations $K(\Q \otimes \pi_n X, n) \to (\Q \otimes X)[0, n] \to (\Q \otimes X)[0, n)$ give a model for $C^*(X; \Q)$ whose underlying graded-commutative algebra is \emph{free} and which uses the minimal number of algebra generators.\footnote{Such a presentation of the rational cochain complex is called a \textit{Sullivan minimal model}.  It may please you to check that two such models are related by a chain homotopy equivalence.}
+    \item Any rational commutative differential-graded algebra $A^*$ with $A^0 = \Q$ and $A^1 = 0$ inductively receives a quasi-isomorphism from a Sullivan model.\footnote{In fact, this happens in a natural way: a map $A^* \to B^*$ of cDGAs induces a map of their Sullivan models.}\footnote{It's fun / instructive to see the natural algorithm for this \emph{fail} in the case of $C^*(S^1 \vee S^1; \Q)$.}
+    \item There is a sequence of Postnikov sections $X[0, n) \to K(\pi_n X, n+1)$, hence a space $X$, whose Sullivan model is the one associated to $A^*$.
+    \item Given a Sullivan model for $C^*(X; \Q)$, its indecomposables compute the rational homotopy groups of $X$.
+    \item The rational homotopy groups of $S^n$, $n > 1$, are given by \[\Q \otimes \pi_* S^n = \begin{cases} \Susp^n \Q & \text{if $n$ is odd}, \\ \Susp^n \Q \oplus \Susp^{2n-1} \Q & \text{if $n$ is even}. \end{cases}\]
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+\begin{enumerate}
+    \item The tensor product of line bundles induces a map \[BU(1) \times BU(1) \xrightarrow{\otimes} BU(1)\] on the object $BU(1)$ representing the functor $X \mapsto \{\text{iso-classes of line bundles on $X$}\}$.  Describe the behavior of this map in ordinary cohomology with $\Z$ coefficients.
+    \item In general, the tensor product of vector bundles induces a similar map \[BU(n) \times BU(m) \xrightarrow{\otimes} BU(nm).\]  Describe the behavior of this map in ordinary cohomology as well.
+    % \item $K$--theory is a sorely neglected topic in this class: it is a cohomology theory on finite complexes $X$ formed out of formal sums and differences of vector bundles on $X$.  Perhaps unsurprisingly, the $K$--theoretic total Chern class of a line bundle is \emph{defined} to be \[c(\L)(t) = 1 - \L \in K^0(X),\] and since we can make sense of products of vector bundles directly in $K(X)$, we \emph{define}   Deduce a formula for the first Chern class of a tensor product of line bundles.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+The dual Steenrod algebra is a \textit{Hopf algebra}, meaning that it not only has a multiplication map but also a diagonal map $\Delta\co \mathcal A_* \to \mathcal A_* \otimes \mathcal A_*$ and an antipode map $\chi\co \mathcal A_* \to \mathcal A_*$.  In class, we deduced a formula for $\Delta$, and we showed that as an algebra the dual Steenrod algebra forms a polynomial ring.  The antipode fits into the commutative diagram
+\begin{center}
+\begin{tikzcd}
+& \mathcal A \otimes \mathcal A \arrow["\chi \otimes 1"]{rr} & & \mathcal A \otimes \mathcal A \arrow["\mu"]{rd} \\
+\mathcal A \arrow["\Delta"]{ru} \arrow["\varepsilon"]{rr} \arrow["\Delta"]{rd} & & \F_2 \arrow["\eta"]{rr} & & \mathcal A \\
+& \mathcal A \otimes \mathcal A \arrow["1 \otimes \chi"]{rr} & & \mathcal A \otimes \mathcal A \arrow["\mu"]{ru},
+\end{tikzcd}
+\end{center}
+along with the algebra unit $\eta$ and counit $\varepsilon$.  Use all this to give a recursive formula for the behavior of $\chi$.
+\end{problem}
+
+
+
+
+\section{Homework \#5}
+
+\begin{problem}
+Suppose you believe in complex Bott periodicity, so that the homotopy groups of $BU(n)$ have the form $\pi_{\mathrm{odd}} BU(n) = 0$ and $\pi_{\mathrm{even}} BU(n) = \Z$ in the range $[0, 2n]$.  Set $n = 3$ and describe the action of the Steenrod algebra on $H^*(BU(3); \F_2)$.  Then try $n = 4$.  Then $n = 5$.  Stop once you get sick of the exercise.
+\end{problem}
+
+\begin{problem}
+Return to the picture of the Adams spectral sequence computing $\pi_* ko$ described in class.  At a glance, it appears that there could be a potential differential $d_r h_1 = h_0^{r+1}$.  \emph{Without} assuming Bott periodicity, argue why this differential cannot occur.  (Hint: $h_0 h_1 = 0$.)
+\end{problem}
+
+\begin{problem}
+Compute the first several terms (until you get tired) of a free resolution of $\F_2$ as a module over the Steenrod algebra.  (To check your answer, you can find a considerable chunk of such a resolution on page 85 of this PDF: \texttt{https://www.math.cornell.edu/~hatcher/AT/ATch5.pdf}.)  Once you have the resolution, use it to compute $\Ext$ and compare your answer with the part of the Adams spectral sequence drawn in class.
+\end{problem}
+
+\begin{problem}
+Let $E(1)$ denote the exterior $\F_2$--algebra on two generators $e_1$ and $e_3$, of degrees $1$ and $3$ respectively.  Calculate $\Ext_{E(1)}^{*, *}(\F_2, \F_2)$.
+\end{problem}
+
+\begin{task}
+Try to read Section 8 of Steve Wilson's \textit{Brown--Peterson Homology: An Introduction and Sampler}.  He gives a calculation of the mod--$p$ Steenrod algebra there---try to convert it into a calculation of the mod--$2$ Steenrod algebra, which simplifies his discussion considerably.  (The space he calls $\underline{K}_q$ is what we are calling $K(\F_p, q)$.)  (You shouldn't need any of the meat of the previous 7 sections to read this---except for the definition of a ``Hopf ring'', which is at the start of Section 7.)
+\end{task}
+
+\begin{problem}
+Figure out both the statement and the proof of the $5$--Lemma and the Snake Lemma in mod--$\mathcal C$ homological algebra.
+\end{problem}
