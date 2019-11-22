@@ -383,6 +383,7 @@ Any map $f\co X \to Y$ extends to a coexact sequence \[X \xrightarrow f Y \xrigh
 \end{lemma}
 \begin{proof}
 We first define the \define{cone} of $X$ by $CX = X \sm I$, and we use this to set \[Z = Y \cup_f CX = \frac{Y \sqcup CX}{f(x) \sim (x, 1)}.\]
+\todo{Define ``mapping cone''.}
 We claim that the inclusion $g\co Y \to Z$ induces the desired exact sequence on mapping sets.
 To check this, consider a test space $T$, the induced sequence \[[Y \cup_f CX, T] \to [Y, T] \to [X, T],\] and a function $\phi\co Y \to T$.
 If $\phi \circ f\co X \to T$ is null, then a choice of null-homotopy defines a map $CX \to T$ agreeing with $f$ on the edge of $I$.
@@ -499,7 +500,8 @@ There is a long exact sequence \[\cdots \to \pi_{n+1}(X, A) \to \pi_n A \to \pi_
 These groups track the discrepancy between $\pi_* A$ and $\pi_* X$.
 This observation moves us to remark on when there is \emph{no} discrepancy:
 
-\begin{definition}\marginnote{\citep[3.12--13 and 3.17]{Switzer}}
+\begin{definition}\label{ConnectedDefn}%
+\marginnote{\citep[3.12--13 and 3.17]{Switzer}}
 A pair $A \subseteq X$ is \define{$n$--connected} if $\pi_{\le n}(X, A) = 0$.
 Equivalently, the map $\pi_* A \to \pi_* X$ is an isomorphism for $* < n$ and an epimorphism for $* = n$.
 The pair $A \subseteq X$ is a \define{weak equivalence} if it is $\infty$--connected.
@@ -718,7 +720,7 @@ There is a long exact sequence \[\cdots \to \pi_n F \to \pi_n E \to \pi_n B \to 
 Set $B' = \{b_0\}$ in the above, and identify these terms respectively with \[\cdots \to \pi_n F \to \pi_n E \to \pi_n(E, F) \to \pi_{n-1} F \to \cdots. \qedhere\]
 \end{proof}
 
-\begin{corollary}\marginnote{\citep[Corollary 4.8]{Switzer}}
+\begin{corollary}\label{LoopsShiftsPi}\marginnote{\citep[Corollary 4.8]{Switzer}}
 If $E$ is contractible (e.g., as in the fibration $\mathit{ev}\co PX \to X$), then the going-around map $\pi_{n+1} B \to \pi_n F$ is an isomorphism. \qed
 \end{corollary}
 
@@ -766,7 +768,8 @@ To construct a local section, note there is an open neighborhood $U$ of the stan
 On $U$, the local section is defined by applying Gram--Schmidt to the block matrix of columns $[e_1 \mid \cdots \mid e_n \mid u_{n+1} \mid \cdots \mid u_{n+k}]$ to produce an element of $O(n+k)$.
 \end{example}
 
-\begin{example}[Grassmannians]\marginnote{\citep[Examples 4.14.2]{Switzer}}
+\begin{example}[Grassmannians]\label{GrassmanniansAreFiberBundles}%
+\marginnote{\citep[Examples 4.14.2]{Switzer}}
 The further quotient by \[\left\{ \left[ \begin{array}{c|c} O(n) & 0 \\ \hline 0 & O(k) \end{array} \right] \right\} \le O(n+k)\] gives the space of $k$--dimensional subspaces in $\R^{n+k}$.
 Consider the open neighborhood $U$ of $(e_{n+1}, \ldots, e_{n+k})$ consisting of those subspaces $W$ which trivially intersect the subspace $\<e_1, \ldots, e_n\>$.
 By projecting $e_{n+1}, \ldots, e_{n+k}$ into $W$ and applying Gram--Schmidt, this produces an orthonormal $k$--frame, i.e., a section landing in $O(n+k) / O(n)$.
@@ -820,7 +823,7 @@ For $[x] \in X/G$, choose a neighborhood $U_x$ guaranteed by \eqref{PropDiscon1}
 If $\pi_0 X = 0$, then in the short exact sequence of pointed sets \[0 \to \pi_1 X \to \pi_1 X/G \to \pi_0 G \to 0\] the last map is actually a group homomorphism.
 \end{remark}
 
-\begin{example}\marginnote{\citep[Remarks 4.21.iv]{Switzer}}
+\begin{example}\label{Pi1S1Calculation}\marginnote{\citep[Remarks 4.21.iv]{Switzer}}
 $\Z$ acting on $\R$ by $1 \cdot x = x+1$ is properly discontinuous.
 Since $\R$ is contractible, we may conclude \[\pi_n S^1 = \begin{cases} \Z & \text{when $n = 1$}, \\ 0 & \text{otherwise}. \end{cases}\]
 \end{example}

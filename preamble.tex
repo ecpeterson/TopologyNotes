@@ -14,10 +14,13 @@
 
 \usepackage{cleveref}
 
+% for bigast
+\usepackage{relsize}
+
+% for per-chapter appendices
 \usepackage{appendix}
 \usepackage{chngcntr}
 \usepackage{etoolbox}
-
 \AtBeginEnvironment{subappendices}{%
 \newpage
 \counterwithin{figure}{section}
@@ -35,6 +38,7 @@
 \newcommand{\F}{\mathbb F}
 \newcommand{\GL}{\mathrm{GL}}
 \renewcommand{\H}{\mathbb H}
+\newcommand{\HP}{\H \mathrm{P}}
 \newcommand{\I}{\mathbb I}
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\R}{\mathbb R}
@@ -46,6 +50,7 @@
 \newcommand{\Sp}{\mathit{Sp}}
 \newcommand{\Sq}{\mathrm{Sq}}
 
+\newcommand{\bigast}{\mathop{\scalebox{2.5}{\raisebox{-0.35ex}{$\ast$}}}}
 \newcommand{\co}{\colon\thinspace}
 \renewcommand{\epsilon}{\varepsilon}
 \newcommand{\eps}{\epsilon}

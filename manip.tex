@@ -1,52 +1,100 @@
 % -*- root: main.tex -*-
 
-\chapter{Manipulating Homotopy Types}
+\chapter{(De)composition of Homotopy Types}
+
+\todo[inline]{Inject introduction}
+
+Sufficiently armed with an ample supply of algebraic invariants extracted from homotopy types (e.g., homotopy groups), we now turn to the study of operations on homotopy types.
+This can be approached from two complementary perspectives.
+Suppose that we have a ``target'' homotopy type $X$ in mind, which carries potentially complicated invariants.
+\begin{enumerate}
+    \item How can $X$ be decomposed into pieces with simpler invariants?
+    \item How can $X$ be constructed by pieces with very simple invariants?
+\end{enumerate}
 
 
 
 
-\section{CW complexes (5)}
+\section{CW complexes}
 
-A \define{CW-structure} on a space $X$ is a presentation of $X$ by inductively ``attaching $n$--cells''.
+Our first framework for studying these kinds of questions is that of a \define{cell structure} on $X$.
+Informally, such a structure is a kind of presentation of $X$ given by inductively ``attaching $n$--cells''.
 
-\begin{definition}
-Given a space $Y$ and a continuous map $g\co \bigvee_\alpha S^{n-1}_\alpha \to Y$, we say that $Y \cup_g \bigvee_\alpha CS^{n-1}$ is \define{formed from $Y$ by attaching $n$--cells}.
+\begin{definition}\marginnote{\citep[Definition 5.10]{Switzer}}
+Consider a space $Y$ and a continuous map $g\co \bigvee_\alpha S^{n-1}_\alpha \to Y$.
+We say that $Y \cup_g \bigvee_\alpha CS^{n-1}$ is \define{formed from $Y$ by attaching $n$--cells} (along $g$).
 \end{definition}
 
-\begin{definition}
-Let $X^{-\infty} = \cdots = X^{-1} = \{x_0\}$, and let $X^n$ be formed from $X^{n-1}$ by attaching $n$--cells.  The union $X$ of the $X^n$ (with the weak topology) is called a \define{CW-structure} on $X$.  (Or, if $A$ is a CW-complex, then setting $X^{-\infty} = \cdots = X^{-1} = A$ gives rise to a relative CW-structure $(X, A)$.)
-\end{definition}
+\noindent
+There are several motivations for considering this definition.
+Mostly directly, it falls under the second heading: many commonly considered geometric spaces can be constructed by iteratively applying this operation.
+Less directly, it also falls under the first heading: the homotopy class $g \in \pi_{n-1} Y$ is given an explicit null-homotopy in $Y \cup_g CS^{n-1}$, so that $g$ vanishes when pushed forward into $Y \cup_g CS^{n-1}$.
 
-\begin{example}
+We here codify the entire inductive process that we mean:
+
+\begin{definition}\marginnote{\citep[Definitions 5.1--3]{Switzer}}
+We define a \define{CW--structure} on a space $X$ to be a choice of sequence of spaces $X_n$ satisfying certain properties.
+The head of the bi-infinite sequence is fixed as $X^{-\infty} = \cdots = X^{-1} = \{x_0\}$.
+Otherwise, $X^n$, called the \define{$n$--skeleton}, must be formed from $X^{n-1}$ by attaching $n$--cells.
+Lastly, $X$ must be the union of the $X^n$ (with the weak topology).
+\marginnote{If $A$ is a CW-complex, then setting $X^{-\infty} = \cdots = X^{-1} = A$ gives rise to a relative CW-structure $(X, A)$.}
+If $X$ admits a CW--structure, then we say that it is a \define{CW--complex}.
+\marginnote{%
+Some topological facts about CW--complexes that might interest you:
 \begin{itemize}
-    \item $S^n$ with 
-    \todo[inline]{Finish copying these pictures.}
+    \item Every CW--complex is Hausdorff.
+    \item Every CW--complex is the disjoint union of the interiors of its cells.
+    \item Each cell has only finitely many immediate faces.
+    \item More generally, any compact subset has this property.
+\end{itemize}
+}
+\end{definition}
+
+\begin{example}\marginnote{\citep[Examples 5.4]{Switzer}}
+Some common spaces come with the following natural CW--structures:
+\begin{itemize}
+    \item $S^n$ can be equipped with a CW--structure with only an $n$--cells, with boundary attached to the basepoint $\{x_0\}$.
+    \todo{Picture}
+    \item More elaborately, $S^n$ can be equipped with an inductive CW--structure: one can form $S^n$ from $S^{n-1}$ by attaching two $n$--cells, both along the identity map $S^{n-1} \to S^{n-1}$, which serve as the upper- and lower-hemispheres of $S^n$.
+    \todo{Picture}
+    \item The second collection of CW--structures are \define{compatible}, in the sense that the $m$--skeleton of $S^{n-1}$ agrees with the $m$--skeleton of $S^n$ for all $m < n$.  Using this, the union of these CW--structures puts a CW--structure on their colimit $S^\infty$.
+    \item Each projective space $\RP^n$ (resp.\ $\CP^n$, $\HP^n$) can be endowed with a CW--structure where the $k$--skeleton is given by $\RP^k$ (resp.\ $\CP^k$, $\HP^k$), and one attaches $\R^n \cong CS^{n-1}$ (resp.\ $\C^n \cong CS^{2n-1}$, $\H^n \cong CS^{4n-1}$) along $\RP^{n-1}$ (resp.\ $\CP^{n-1}$, $\HP^{n-1}$) as the $0$\textsuperscript{th} affine chart to its complement.
+    \item These CW--structures are also mutually compatible, so that one may form CW--structures on their respective colimits $\RP^\infty$, $\CP^\infty$, and $\HP^\infty$.
 \end{itemize}
 \end{example}
 
-The inductive presentation means we can attack problems cell-by-cell. For instance:
-\begin{corollary}
-A function $f\co X \to Y$ is continuous if and only if $\bigvee_n \bigvee_{\alpha \in A_n} CS^{n-1}_\alpha \to X \to Y$ is continuous. \qed
+The inductive presentation means we can attack problems cell-by-cell.
+For instance, we have the following simple applications of the gluing operation for topological spaces:
+\begin{corollary}\marginnote{\citep[Proposition 5.5]{Switzer}}
+Let $X$ be a space equipped with a CW--structure as above.
+A function $f\co X \to Y$ is continuous if and only if the restriction \[\bigvee_n \bigvee_{\alpha \in A_n} CS^{n-1}_\alpha \to X \to Y\] to the ensemble of $n$--cells is continuous. \qed
 \end{corollary}
 
-\begin{lemma}
-If $X$ is CW and $Y$ is \emph{finite} CW, then $X \times Y$ is CW using the homeomorphism $D^n \times D^m \cong D^{n+m}$. \qed
+\noindent
+Since each $CS^{n-1}$ has a simple structure as a topological space, this is often an easier condition to manage.
+
+It is also often possible to transfer CW--structures along other common topological operations.
+
+\begin{lemma}\marginnote{\citep[pg.\ 71]{Switzer}}
+If $X$ carries a CW--structure and $Y$ carries a \emph{finite} CW--structure, then $X \times Y$ carries an induced CW--structure.
+\marginnote{If $X$ and $Y$ are infinite, then the weak topology on $X \times Y$ may not agree with the product of the weak topologies.  We mostly concede this point and pick the one we want (usually the former).}
+\end{lemma}
+\begin{proof}[Proof sketch]
+Repeatedly use the homeomorphism $D^n \times D^m \cong D^{n+m}$.
+\end{proof}
+
+\begin{lemma}\marginnote{\citep[Exercise 5.14]{Switzer}}
+If $X$ carries a CW--structure and $A \subseteq X$ is a subcomplex, then $X/A$ carries an induced CW--structure. \qed
 \end{lemma}
 
-\begin{lemma}
-If $X$ is CW and $A \subseteq X$ is a subcomplex, then $X/A$ is CW. \qed
-\end{lemma}
-
-\begin{corollary}
-Homotopies can also be constructed inductively. \qed
+\begin{corollary}\marginnote{\citep[Proposition 5.6]{Switzer}}
+By consequence, homotopies and relative homotopies can also be constructed inductively over cells. \qed
 \end{corollary}
 
-\begin{remark}
-If $X$ and $Y$ are infinite, then the weak topology on $X \times Y$ may not agree with the product of the weak topologies.  We mostly concede this point and pick the one we want (usually the former).
-\end{remark}
+These cell decompositions imbue maps from some common spaces with moduli-theoretic interpretations.
 
 \begin{example}
-$S^n \to Y$ agrees with maps $D^n \to Y$ sending $\partial D^n$ to $y_0$.
+The set of maps $S^n \to Y$ agrees with the set of maps $D^n \to Y$ which send $\partial D^n$ to $y_0$.
 \end{example}
 
 \begin{example}
@@ -58,32 +106,34 @@ CS^{n-1} \arrow[shift left]{ru} \arrow[shift right]{ru},
 \end{tikzcd}
 \end{center}
 we can form a difference class $S^n \to Y$.
+Conversely, a map $S^n \to Y$ can be considered as the difference class associated to the null-homotopies of the restriction to the equator witnessed by the action of the map on two hemispheres.
 \end{example}
 
 \begin{example}
-Given $\omega\co S^1 \to Y$ and a null-homotopy
+The space $\RP^2$ also participates in such a description.
+Given a class $\omega\co S^1 \to Y$ and a null-homotopy of its double
 \begin{center}
 \begin{tikzcd}
 S^1 \arrow["2\omega"]{r} \arrow{d} & Y \\
 D^2 \arrow["H"]{ru},
 \end{tikzcd}
 \end{center}
-we can form $\RP^2 \to Y$.
+we can form a map $\RP^2 \to Y$.
+Conversely, a map $\RP^2 \to Y$ restricts to a class on $\RP^1$ whose double carries a specified null-homotopy.
 \end{example}
 
-Some topological facts that might interest you:
-\begin{itemize}
-    \item Every CW complex is Hausdorff.
-    \item Every CW complex is the disjoint union of the interiors of its cells.
-    \item Each cell has only finitely many immediate faces.
-    \item More generally, any compact subset has this property.
-\end{itemize}
+We close out today by recording a technical topological result that will be absolutely crucial in underpinning the results in the next two Lectures.
+Although we do not intend to offer careful proofs of those results, so that it is not \emph{necessary} to state this technical result either, we feel that a topology lecture would be remiss without it and that it gives some intuition as to why these nice results for CW--complexes are possible.
 
-\begin{lemma}
-Let $X = A \cup_g e^n$, $(K, L)$ a \emph{finite} simplicial pair, and $(|K|, |L|) \xrightarrow{f} (X, A)$ some map.  There exists a subdivision $(K', L')$ of $(K, L)$ and a map $f'\co (|K'|, |L'|) \to (X, A)$ such that
+\begin{lemma}[Simplicial approximation]%
+\marginnote{\citep[Proposition 6.8]{Switzer}}
+Let $A$ be a CW--complex, and let $X = A \cup_g e^n$ consist of $A$ with a single $n$--cell attached.
+Take $(K, L)$ to be a \emph{finite} simplicial pair, and consider a continuous map of pairs $f\co (|K|, |L|) \to (X, A)$.
+There exists a subdivision $(K', L')$ of $(K, L)$ and a map $f'\co (|K'|, |L'|) \to (X, A)$ with the following properties:
 \begin{enumerate}
-    \item $f|_{f^{-1}(A)} = f'|_{f^{-1}(A)}$ and $f \simeq_{rel f^{-1}(A)} f'$, and
-    \item for $\sigma \in K'$, if $f'(|\sigma|)$ means $\overset \circ e^n$ then $f'(|\sigma|) \subseteq \overset \circ e^n$ \emph{and} $f'|_{|\sigma|}$ is a linear map. \qed
+    \item The two maps agree on $A$: \[f|_{f^{-1}(A)} = f'|_{f^{-1}(A)}.\]
+    \item The two maps are homotopic while fixing their behavior on $A$: \[f \simeq_{\text{rel $f^{-1}(A)$}} f'.\]
+    \item For each simplex $\sigma \in K'$, if $f'(|\sigma|)$ meets the interior $\overset \circ e^n$ of the new cell in $X$, then $f'(|\sigma|) \subseteq \overset \circ e^n$ is in fact contained in the new cell \emph{and} $f'|_{|\sigma|}$ restricted to this simplex is a linear map. \qed
 \end{enumerate}
 \end{lemma}
 
@@ -91,345 +141,528 @@ Let $X = A \cup_g e^n$, $(K, L)$ a \emph{finite} simplicial pair, and $(|K|, |L|
 
 
 
-\section{The homotopy theory of CW complexes I (6.3--6.28)}
+\section{The homotopy theory of CW complexes I}
 
-An important feature of CW complexes is that their homotopy type depends only on their assembly data up to homotopy.
+In the previous section, we discussed CW--structures as placed on a preordained topological space $X$.
+One can also take the perspective that the CW--structure is the primary data, and the colimit $X$ simply is whatever it is.
+From this second viewpoint, the most important property of CW--complexes which makes them suitable for use in homotopy theory is that if the attaching maps $g$ are perturbed within their homotopy class to some $g' \sim g$, the resulting CW--complex $X'$ is homotopy equivalent to the original CW--complex $X$.
+As ever, this is easiest to argue cell-by-cell.
 
 \begin{lemma}
-Given two maps $\omega_1, \omega_2\co S^{n-1} \to X$, a homotopy $H\co \omega_1 \sim \omega_2$ begets a homotopy equivalence $X \cup_{\omega_1} CS^{n-1} \xrightarrow{\simeq} X \cup_{\omega_2} CS^{n-1}$.
+\todo{Find me a citation.}
+Given two maps $g_1, g_2\co S^{n-1} \to A$, consider the associated cell complexes $X_1 = CS^{n=1} \cup_{g_1} A$ and $X_2 = CS^{n-1} \cup_{g_2} A$.
+A homotopy $H\co g_1 \sim g_2$ begets a homotopy equivalence $X_1 \xrightarrow{\simeq} X_2$.
 \end{lemma}
-\begin{proof}
-Subdivide $CS^{n-1}$ into an outer annulus ($[1/2, 1]$ in the cone coordinate) and an inner disk.  Extend the identity map on $X$ by running the homotopy $H$ on the annulus, then using the homeomorphism $S^{n-1} \sm [0, 1/2] \cong CS^{n-1}$ to cover the $n$--cells in the target.
+\begin{proof}[Construction] 
+Subdivide $CS^{n-1}$ into an outer annulus (corresponding to the cone coordinate range $[1/2, 1]$) and an inner disk (corresponding to the cone coordinate range $[0, 1/2)$).
+The homotopy equivalence is then given by gluing the identity map on $A$, the homotopy $H$ on the outer annulus, and the homeomorphism $S^{n-1} \sm [0, 1/2] \cong CS^{n-1}$ on the inner disk.
 \end{proof}
 
-In fact, CW complexes are very homotopically well-behaved.  Our goal is to get \emph{familiar} (not prove!) with some of these facts today and to compute $\pi_{* \le n} S^n$.
+This is the most basic property that one could ask of CW--complexes, but in fact they are remarkably well-behaved homotopically.  Our goal today is to get \emph{familiar}\marginnote{But not prove!} with some of these features and to use them to compute $\pi_{* \le n} S^n$.
 
-\begin{lemma}
-For $(X, A)$ a relative CW-complex, $(X, (X, A)^n)$ is $n$-connected. \qed
+\begin{lemma}%
+\marginnote{\citep[Theorem 6.10]{Switzer}}
+\marginnote{cf. \Cref{ConnectedDefn}}
+For $(X, A)$ a relative CW-complex, the relative pair $(X, (X, A)^n)$ formed from the $n$--skeleton is $n$--connected. \qed
 \end{lemma}
 
-\begin{corollary}
-The inclusion $X^n \to X$ is $n$-connected. \qed
+\begin{corollary}\label{XnIntoXIsNConnected}%
+\marginnote{\citep[Theorem 6.11]{Switzer}}
+The inclusion $X^n \to X$ is $n$--connected. \qed
 \end{corollary}
 
-\begin{corollary}
+\begin{corollary}\marginnote{\citep[Corollary 6.12]{Switzer}}
 $\pi_{< n} S^n = 0$.
 \end{corollary}
 \begin{proof}
-There's a cell structure on $S^n$ with $(S^n)^{n-1} = \{s_0\}$, and we have a long exact sequence of relative homotopy groups that shows $\pi_{* < n} S^n = \pi_{* < n} (S^n)^{n-1} = \pi_{* < n} \{s_0\} = 0$.
+We deploy the cell structure on $S^n$ with $(S^n)^{n-1} = \{s_0\}$.
+The long exact sequence of relative homotopy groups\marginnote{\Cref{LexseqOfRelativeHtpy}} takes the form \[\cdots \to \pi_k \{s_0\} \to \pi_k S^n \to \pi_k (S^n, \{s_0\}) \to \pi_{k-1} \{s_0\} \to \cdots.\]
+The outer terms are always zero, as the homotopy groups of a singleton space.
+The relative term $\pi_k (S^n, \{s_0\})$ vanishes for $k < n$, using \Cref{XnIntoXIsNConnected}.
+Altogether, this shows the same of the non-relative groups $\pi_{<n} S^n$.
 \end{proof}
 
-\begin{lemma}
-If $(X, A)$ is $n$--connected, then there exists an equivalence $(X, A) \sim (X', A')$ with $(X', A')^n = A'$.  (Try setting $A = *$.)\footnote{This is a kind of converse to the previous Lemma.} \qed
+\begin{lemma}\label{NConnectedSpacesHaveSmallModels}%
+\marginnote{\citep[Proposition 6.13]{Switzer}}
+If $(X, A)$ is $n$--connected, then there exists an equivalence $(X, A) \sim (X', A')$ with $(X', A')^n = A'$. \qed
+\marginnote{This is a kind of converse to the previous Lemma.}
+\marginnote{Taking $A = *$, this says that if $\pi_{< n} X = 0$, then there is a CW--model of $X$ with no cells below dimension $n$~\citep[Corollary 6.14]{Switzer}.}
 \end{lemma}
 
-\begin{corollary}
-For $X$ $n$--connected and $Y$ $m$--connected, $X \sm Y$ is $(n+m+1)$--connected.
+\begin{corollary}\marginnote{\citep[Corollary 6.15]{Switzer}}
+For $X$ an $n$--connected CW--complex and $Y$ an $m$--connected CW--complex, the CW--complex $X \sm Y$ is $(n+m+1)$--connected.
 \end{corollary}
 \begin{proof}
-The cells in $X \times Y$ take the form $* \times *$, $* \times e_\beta^j$, $e_\alpha^i \times *$, and $e_\alpha^i \times e_\beta^j$.  All the former are in $X \vee Y$, so the first nontrivial cell in $X \sm Y$ lies in dimension $n + m + 2$.\todo{This cell structure argument also feeds into the claim that the suspension of a CW complex has predictable cell structure and predictable attaching maps.}
+The cells in $X \times Y$ take the form $* \times *$, $* \times e_\beta^j$, $e_\alpha^i \times *$, and $e_\alpha^i \times e_\beta^j$.
+All the first three classes lie within $X \vee Y$, so the first nontrivial surviving cell in $X \sm Y$ lies in dimension at least $n + m + 2$.
+\todo{This cell structure argument also feeds into the claim that the suspension of a CW complex has predictable cell structure and predictable attaching maps.}
 \end{proof}
 
-\begin{theorem}[Homotopy excision]
-Take $A, B \subseteq X$ with $(A, A \cap B)$ $n$--connected and $(B, A \cap B)$ $m$--connected.  Then $\pi_*(A, A \cap B) \to \pi_*(X, B)$ is an isomorphism for $* < n+m$ and an epimorphism for $* = n+m$. \qed
+\noindent Some of these miraculous properties again look like theorems we've previously seen for homology---but with a bound imposed, depending on the connectivities of the spaces involved.
+
+\begin{theorem}[Homotopy excision]\label{HomotopyExcision}%
+\marginnote{\citep[Theorem 6.21]{Switzer}}
+Let $A, B \subseteq X$ be subspaces of $X$ such that $(A, A \cap B)$ is an $n$--connected pair and $(B, A \cap B)$ is an $m$--connected pair.
+The natural double inclusion $\pi_*(A, A \cap B) \to \pi_*(X, B)$ is an isomorphism for $* < n+m$ and an epimorphism for $* = n+m$. \qed
 \end{theorem}
 
-\begin{corollary}
-If $(X, A)$ is $n$--connected and $A$ is $m$--connected, then $\pi_*(X, A) \to \pi_* X/A$ is an isomorphism for $1 < * \le n+m$ and onto at $n+m+1$. \qed
-
-\textbf{There's a diagram written in the margin:}
-\begin{tikzcd}
-(X, A) \arrow{r} \arrow{d} & (X \cup_A CA, CA) \arrow["\simeq"]{d} \\
-(X/A, *) \arrow["\simeq"]{r} & (X \cup_A CA/CA, *)
-\end{tikzcd}
+\begin{corollary}\marginnote{\citep[Corollary 6.22]{Switzer}}
+Suppose that $(X, A)$ is an $n$--connected pair and that $A$ is $m$--connected.
+Then the natural map $\pi_*(X, A) \to \pi_* X/A$ is an isomorphism for $1 < * \le n+m$ and an epimorphism at $n+m+1$.
 \end{corollary}
+\begin{proof}
+Consider the space $X \cup_A CA$, as well as the subspaces $CA$ and $X$ inside of it.
+Noting that $CA \cap X = A$ as subspaces of $X \cup_A CA$, \Cref{HomotopyExcision} then gives the desired conclusion for the natural map \[\pi_*(X, A) \to \pi_*(X \cup_A CA, CA).\]
+The right-hand group can be made non-relative by passing along the projection, as in \[(X \cup_A CA, CA) \xrightarrow\simeq (X \cup_A CA/CA, *).\]
+\todo{There should be some Lemma recording that working relative to a contractible subspace is the same as quotienting out the subspace.
+This is 6.6 in Switzer.}
+To conclude, apply \Cref{ConeAndQuotIsRedundant} to produce a weak equivalence \[X/A \xrightarrow\simeq X \cup_A CA/CA. \qedhere\]
+\end{proof}
 
-\begin{corollary}[Freudenthal suspension theorem]
-For $n$--connected $X$,
+\begin{corollary}[Freudenthal suspension theorem]%
+\marginnote{\citep[Theorem 6.26]{Switzer}}
+For an $n$--connected CW--complex $X$, the natural map
+\marginnote{%
+The left-hand vertical map is given by restriction to the boundary.
+Its participation in the long exact sequence of relative homotopy groups shows it to be an equivalence, since $CX$ is contractible.
+}
 \begin{center}
 \begin{tikzcd}
 \pi_{*+1}(CX, X) \arrow{r} \arrow[equal]{d} & \pi_{*+1}(CX/X) \arrow[equal]{d} \\
 \pi_* X \arrow{r} & \pi_{*+1} \Susp X
 \end{tikzcd}
 \end{center}
-is an isomorphism for $* \le 2n$ and an epimorphism for $* = 2n+1$.
+is an isomorphism for $* \le 2n$ and an epimorphism for $* = 2n+1$. \qed
 \end{corollary}
 
-\begin{example}
-There's a fibration
+\begin{example}\label{PinSnWithoutHurewicz}%
+\marginnote{\citep[Theorem 6.28]{Switzer}}
+Consider the following fibration:%
+\marginnote{%
+The top row presents this fibration as a fiber bundle.
+To see that it is a fiber bundle, we rely on \Cref{GrassmanniansAreFiberBundles} and the sequence \[U(1) \to \frac{U(n)}{U(n-1)} \to \frac{U(n)}{U(n-1) \times U(1)}.\]
+}
 \begin{center}
 \begin{tikzcd}
 \C^\times \arrow{r} \arrow["\simeq"]{d} & \C^n \setminus 0 \arrow{r} \arrow["\simeq"]{d} & \CP^{n-1} \arrow["\simeq"]{d} \\
 S^1 \arrow{r} & S^{2n-1} \arrow{r} & \CP^{n-1}.
 \end{tikzcd}
 \end{center}
-Since $S^{2n-1}$ is $(2n-2)$--connected, $\pi_{*+1} \CP^{n-1} \cong \pi_* S^1$ for $* \le 2(n-1)$.  However, $(\CP^{n-1}, \CP^1)$ is $2$--connected, so $\pi_2 \CP^1 \cong \pi_2 \CP^{n-1} \cong \pi_1 S^1 \cong \Z$.  This feeds into Freudenthal: $\pi_n S^n \cong \pi_{n+1} S^{n+1}$ for $n \ge 2$, so $\pi_n S^n \cong \Z$ for all $n \ge 1$.
+Since $S^{2n-1}$ is $(2n-2)$--connected, we conclude $\pi_{*+1} \CP^{n-1} \cong \pi_* S^1$ for $* \le 2(n-1)$.
+Using \Cref{Pi1S1Calculation}, we may conclude \[\pi_* \CP^n \cong \begin{cases} \Z & \text{when $* = 2$}, \\ 0 & \text{when $* < 2n-1$ and $* \ne 2$}, \\ ??? & \text{otherwise}. \end{cases}\]
+We also know that $(\CP^{n-1}, \CP^1)$ is $2$--connected, from which we may conclude $\pi_2 \CP^1 \cong \pi_2 \CP^{n-1} \cong \pi_1 S^1 \cong \Z$, even though this is outside of the range directly accessible by the fibration alone.
+This then feeds into Freudenthal as applied to the sphere, which for $n \ge 2$ gives \[\pi_n S^n \cong \pi_{n+1} S^{n+1}.\]
+Hence, we ultimately conclude $\pi_n S^n \cong \Z$ for all $n \ge 1$.
 \end{example}
 
-\begin{remark}
-That exact sequence is a fibration using Grassmannians:
-\begin{center}
-\begin{tikzcd}
-U(1) \arrow{r} \arrow["\simeq"]{d} & \frac{U(n)}{U(n-1)} \arrow{r} \arrow["\simeq"]{d} & \frac{U(n)}{U(n-1) \times U(n)} \arrow["\simeq"]{d} \\
-S^1 \arrow{r} & S^{2n-1} \arrow{r} & \CP^{n-1}.
-\end{tikzcd}
-\end{center}
-\end{remark}
 
 
 
+\section{The homotopy theory of CW complexes II}
 
-\section{The homotopy theory of CW complexes II (6.29--)}
-
+We continue our study of the pleasant homotopical properties of CW--complexes.
 The following technical lemma appeared in our study of the relative homotopy long exact sequence of a pair $(Y, B)$:
-\begin{lemma}[3.14]
-For all
+\begin{lemma}\marginnote{\citep[Proposition 3.14]{Switzer}}
+\todo{Backreference.}
+For all solid squares
 \begin{center}
 \begin{tikzcd}
 B \arrow{r} & Y \\
-S^{n-1} \arrow["\omega|_{S^{n-1}}"]{u} \arrow{r} & D^n \arrow["\omega"]{u}
+S^{n-1} \arrow["\omega|_{S^{n-1}}"]{u} \arrow{r} & D^n \arrow["\omega"]{u} \arrow[densely dotted, "\omega'"]{lu}
 \end{tikzcd}
 \end{center}
-there exist fillers
-\begin{center}
-\begin{tikzcd}
-B \arrow{r} & Y \\
-S^{n-1} \arrow{u} \arrow{r} & D^n \arrow{u} \arrow["\omega'"]{lu}
-\end{tikzcd}
-\end{center}
+there exists a dashed filler for which the top-right triangle commutes up to homotopy. \qed
 \todo{Add a $2$--cell from $Y$ to filler arrow.}
 \end{lemma}
 
-This can be augmented in two ways:
+\noindent
+This can be augmented in two ways: first, by extending it to cover more complicated sub-complexes, and second, by using it to govern the behavior of maps.
 
-\begin{lemma}
-If $f\co Z \to Y$ is an $n$--equivalence and $\dim(X, A) \le n$, then for all
+\begin{lemma}\label{NEquivsLiftNDimlSources}%
+\marginnote{\citep[Theorem 6.30]{Switzer}}
+If $f\co Z \to Y$ is an $n$--equivalence and $\dim(X, A) \le n$, then for each solid square
 \begin{center}
 \begin{tikzcd}
 Z \arrow["f"]{r} & Y \\
-A \arrow["g"]{u} \arrow{r} & X \arrow["h"]{u}
+A \arrow["g"]{u} \arrow{r} & X \arrow["h"]{u} \arrow[densely dotted]{lu}
 \end{tikzcd}
 \end{center}
-there exist fillers
-\begin{center}
-\begin{tikzcd}
-Z \arrow{r} & Y \\
-A \arrow{u} \arrow{r} & X \arrow{u} \arrow{lu}
-\end{tikzcd}
-\end{center}
+there exists a dashed filler such that the top-right triangle commutes up to homotopy. \qed
 \todo{Add a $2$--cell from $Y$ to filler arrow.}
 \end{lemma}
 
-\begin{corollary}
-For $f\co Z \to Y$ an $n$--equivalence, for all $X$ with $\dim X \le n$, the map $[X, Z] \to [X, Y]$ is onto.  If $\dim X < n$, it's an isomorphism. \qed
+\begin{corollary}\marginnote{\citep[Theorem 6.31]{Switzer}}
+Given an $n$--equivalence $f\co Z \to Y$ and a CW--complex $X$ of dimension at most $n$, the natural map \[f_*\co [X, Z] \to [X, Y]\] is surjective.
+If the dimension of $X$ is exactly $n$, $f_*$ is an isomorphism.
+\qed
 \end{corollary}
 
-\begin{corollary}[Whitehead]
-A weak equivalence $f\co Z \to Y$ of CW-complexes is a homotopy equivalence. \qed
+\noindent
+These results ultimately culminate in the following:
+
+\begin{corollary}[Whitehead]\marginnote{\citep[Theorem 6.32]{Switzer}}
+A weak equivalence $f\co Z \to Y$ of CW-complexes is a homotopy equivalence.
+\qed
 \end{corollary}
 
-Filtering a CW-complex by its skeleta and applying the Lemma yields another useful result:
-\begin{corollary}
-All maps $f\co (X, A) \to (Y, B)$ of CW-complexes are homotopic (relative to $A$) to cellular maps (i.e., $f(X, A)^n \subseteq (Y, B)^n$), and homotopies between cellular maps admit cellular replacements. \qed
+\noindent
+Here, finally, is justification that relative homotopy groups truly do measure the discrepancy between two spaces:
+\marginnote{Provided that those spaces are sufficiently nice!}
+if the discrepancy vanishes, then the two spaces are equivalent in the homotopy category.
+
+Filtering a CW-complex by its skeleta and applying the Lemma yields the second thread of useful results.
+
+\begin{definition}\marginnote{\citep[Definition 6.34]{Switzer}}
+A map $f\co X \to Y$ of CW--complexes $X$ and $Y$ is said to be \define{cellular} if it carries the $k$\textsuperscript{th} skeleton of $X$ to the $k$\textsuperscript{th} skeleton of $Y$: \[f(X^k) \subseteq Y^k.\]
+\end{definition}
+
+\begin{corollary}\marginnote{\citep[Proposition 6.35]{Switzer}}
+Every map $f\co (X, A) \to (Y, B)$ of CW-complexes is homotopic (relative to $A$) to a cellular map, and homotopies between cellular maps admit cellular replacements. \qed
 \end{corollary}
 
-Now recall an observation from last time: for $X$ $n$--connected and $Y$ $m$--connected, we have $(X \times Y, X \vee Y)^{n+m+1} = (X \vee Y)^{n+m+1}$.
+Together, these results grant us serious control over how the homotopy groups of a CW--complex change as its skeleta are built up---in the qualitative sense of \emph{which} groups change.
+This can be deployed to manufacture certain interesting spaces, called Eilenberg--Mac Lane spaces, which we spend the rest of today doing.
 
-\begin{corollary}
-For $* \le n+m$, $\pi_*(X \vee Y) \xrightarrow\cong \pi_*(X \times Y)$. \qed
+\begin{corollary}\marginnote{\citep[Proposition 6.36]{Switzer}}
+Let $X$ be an $n$--connected CW--complex, and let $Y$ be an $m$--connected CW--complex.
+The natural map $X \vee Y \to X \times Y$ induces an isomorphism in homotopy through a range: \[\pi_{\le n+m}(X \vee Y) \xrightarrow\cong \pi_{\le n+m}(X \times Y)\]
 \end{corollary}
-
-\begin{corollary}
-For $n \ge 2$, $\pi_n(\bigvee_\alpha S^n_\alpha) \cong \bigoplus_\alpha \pi_n S^n_\alpha$.  (Also, $\pi_1 \bigvee_\alpha S^1_\alpha \cong *_\alpha \pi_1 S^1_\alpha$.)\todo{Borrow bigast from book project} \qed
-\end{corollary}
-
-\begin{lemma}
-For any abelian group $A$ and index $n \ge 2$, there exists a CW-complex $K(A, n)$ with $\pi_* K(A, n) = \begin{cases} A & \text{if $* = n$}, \\ 0 & \text{otherwise}. \end{cases}$
-\end{lemma}
 \begin{proof}
-Select a presentation $\Z^J \xrightarrow g \Z^I \to A$.  We model the middle node as $\bigvee_I S^n$, and the Corollary gives a map $\bigvee_J S^n \xrightarrow{\widetilde g} \bigvee_I S^n$ induces $g$ on $\pi_n$.  The cone on $g$ gives a complex $X_n$ with $\pi_{* < n} X_n = 0$ and $\pi_n X_n = A$.  We inductively form $X_{n+j+1}$ from $X_{n+j}$ by killing the homotopy in degree $n+j+1$ by taking more mapping cones.
+Last time, we argued that the cellular structure induced on $X \times Y$ was completely contained in $X \vee Y$ through a range: \[(X \times Y, X \vee Y)^{n+m+1} = (X \vee Y)^{n+m+1}.\]
+The relative homotopy groups of the pair thus vanish through this range, and the long exact sequence yields the desired statement.
 \end{proof}
 
-\begin{lemma}
-For $X$ with $\pi_{* < n} = 0$ and $Y$ with $\pi_{* > n} = 0$, homotopy classes $[X, Y]$ biject with homomorphisms $\pi_n X \to \pi_n Y$.
+\begin{corollary}\label{PinOfSphereBouquet}%
+\marginnote{\citep[Corollary 6.37]{Switzer}}
+For $n \ge 2$,
+\marginnote{Also, $\pi_1 \bigvee_\alpha S^1_\alpha \cong \bigast_\alpha \pi_1 S^1_\alpha$.}
+\[\pi_n(\bigvee_\alpha S^n_\alpha) \cong \bigoplus_\alpha \pi_n S^n_\alpha.
+\qed\]
+\end{corollary}
+
+\begin{lemma}\marginnote{\citep[Theorem 6.39.i]{Switzer}}
+For any abelian group $A$ and index $n \ge 2$, there exists a CW--complex $K(A, n)$ whose homotopy groups satisfy \[\pi_* K(A, n) = \begin{cases} A & \text{if $* = n$}, \\ 0 & \text{otherwise}. \end{cases}\]
 \end{lemma}
 \begin{proof}
-There exists a CW model of $X$ with $X^{n-1} = *$, so we have
+Select a presentation \[0 \to \Z^J \xrightarrow g \Z^I \to A \to 0.\]
+\todo{Explain one of the preceding results as saying that coexact sequences of spaces behave like exact sequences through a range.}
+We intend to build a coexact sequence of $(n-1)$--connected spaces whose behavior on $\pi_n$ encodes the chosen presentation.
+Begin by modeling the middle node as $\bigvee_I S^n$.
+Combining \Cref{PinSnWithoutHurewicz} and \Cref{PinOfSphereBouquet} gives \[\pi_n\left( \bigvee_I S^n\right) \cong \bigoplus_I \Z.\]
+The $J$--sized set of elements selected by $g$ gives a $J$--sized set of maps $S^n \to \bigvee_I S^n$, and hence a single map $\widetilde g\co \bigvee_J S^n \to \bigvee_I S^n$ which induces $g$ on $\pi_n$.
+The cone on $g$ gives a complex $X_n$ with $\pi_{* < n} X_n = 0$ and $\pi_n X_n = A$.
+\marginnote{We're not there yet, but $X_n$ is sometimes called a \define{Moore space} (of dimension $n$, for the group $A$), because $H_n(X_n; \Z) \cong A$.}
+We inductively form $X_{n+j+1}$ from $X_{n+j}$ by killing the homotopy in degree $n+j+1$ by coning off any homotopy classes we find.
+Using the long exact sequence of a relative pair, we see that this coning operation never disturbs the homotopy groups at or below $n+j$, so the colimit indeed provides $K(A, n)$.
+\end{proof}
+
+\begin{lemma}\label{ConnToCoconnIsAlgebraic}%
+\marginnote{\citep[Theorem 6.39.ii]{Switzer}}
+Let $X$ be a space satisfying $\pi_{< n} X = 0$, and let $Y$ be a space satisfying $\pi_{> n} Y = 0$.
+\marginnote{$X$ is sometimes said to be \define{$n$--connective} and $Y$ to be \define{$n$--coconnective}.}
+Then homotopy classes $[X, Y]$ biject with homomorphisms $\pi_n X \to \pi_n Y$.
+\end{lemma}
+\begin{proof}
+Using \Cref{NConnectedSpacesHaveSmallModels}, there exists a CW model of $X$ with $X^{n-1} = *$.
+The rest of the presentation of $X$ looks like:
 \begin{center}
 \begin{tikzcd}
 \bigvee_I S^n \arrow[equal]{r} & X^n \arrow{r} & X^{n+1} \arrow{r} & X^{n+2} \arrow{r} & \cdots \arrow{r} & X \\
-& \bigvee_J S^n \arrow{u} & \bigvee S^{n+1} \arrow{u} & \cdots \arrow{u}.
+& \bigvee_J S^n \arrow{u} & \bigvee S^{n+1} \arrow{u} & \bigvee S^{n+2} \arrow{u} & \cdots \arrow{u}.
 \end{tikzcd}
 \end{center}
-Maps into $Y$ can be constructed inductively: we begin with $\bigvee_I S^n \to Y$, then we need the precomposite to vanish $\bigvee_J S^n \to \bigvee_I S^n \to Y$ to guarantee an extension, the unicity of which is measured by $[\Susp \bigvee_J S^n, Y] = 0$.  This only gets easier as we go up the skeletal tower.
+Using this presentation, we can inductively study the available maps into $Y$.
+We begin with \[[X^n, Y] = \left[\bigvee_I S^n, Y\right] = \bigoplus_I \pi_n Y.\]
+To extend along the $(n+1)$--skeleton, the precomposite \[\bigvee_J S^n \to \bigvee_I S^n \to Y\] must vanish, and the unicity of each such extension is measured by $[\Susp \bigvee_J S^n, Y] = 0$, so that we have an exact sequence
+\begin{center}
+\begin{tikzcd}
+{[X^{n+1}, Y]} \arrow{r} \arrow[equal]{d} & {[X^n, Y]} \arrow{r} \arrow[equal]{d} & \left[\bigvee_J S^n, Y\right] \arrow[equal]{d} \\
+\CatOf{Groups}(\pi_n X, \pi_n Y) \arrow{r} & \bigoplus_I \pi_n Y \arrow{r} & \bigoplus_J \pi_n Y.
+\end{tikzcd}
+\end{center}
+\marginnote{%
+For a generic CW--complex $Y$, without assumptions on its $\pi_{>n}$, the relative group $\pi_n(Y^n, Y^{n-1})$ is free on generators $\gamma \cdot [f^n_\alpha]$, where $\gamma \in \pi_1 X^{n-1}$, and $f^n_\alpha$ is the characteristic map of an $n$--cell.
+}
+For all higher stages, both the obstruction to extension vanishes (because $\pi_{n+k} Y = 0$) in addition to the unicity (because $\pi_{n+k+1} Y = 0$).
 \end{proof}
 
-\begin{corollary}
-$K(A, n)$ is independent of choice of presentation. \qed
+\begin{corollary}\marginnote{\citep[Corollary 6.42]{Switzer}}
+$K(A, n)$ is independent of choice of presentation.
 \end{corollary}
+\begin{proof}
+Consider two models $X$, $Y$ for $K(A, n)$.
+Both $X$ and $Y$ satisfy the conditions of the Lemma, so that the identity map $\id\co A \to A$ lifts to a map $\widetilde{\id}\co X \to Y$.
+This map $\widetilde{\id}$ of CW--complexes is an isomorphism on homotopy groups, hence Whitehead's theorem witnesses it as a homotopy equivalence.
+\end{proof}
 
-\begin{remark}
-$\Loops K(A, n) \cong K(A, n-1)$ and $\Susp K(A, n-1) \to K(A, n)$ is an interesting map.
+\begin{remark}\label{ShiftingEMSpaces}\marginnote{\citep[Remark 6.45]{Switzer}}
+Using \Cref{LoopsShiftsPi}, we may conclude that $\Loops K(A, n)$ has the same homotopy groups as $K(A, n-1)$.
+The Corollary shows that it, in fact, does model $K(A, n-1)$ via a map \[\Loops K(A, n) \xrightarrow\simeq K(A, n-1).\]
+However, the adjoint map $\Susp K(A, n-1) \to K(A, n)$ is more mysterious.
+It can be taken to be an inclusion on $(n+1)$--skeleta, but otherwise it appears little can be said about it at this point.
+We will meet it again.
 \end{remark}
 
-\begin{remark}
-$\pi_n(X^n, X^{n-1})$ is free on generators $\gamma \cdot [f^n_\alpha]$, $\gamma \in \pi_1 X^{n-1}$, and $f^n_\alpha$ a characteristic map of an $n$--cell.
-\end{remark}
-
-\begin{remark}
+\begin{remark}\marginnote{\citep[Exercise 6.49]{Switzer}}
 For \emph{all} spaces $X$, there exists a CW-complex $\widetilde X \to X$ such that the map is a weak equivalence.
+\todo{This might be out of place. Trying to justify it probably reveals where it belongs.}
 \end{remark}
 
 
 
 
 \section{Spectral sequences}
-\todo[inline]{The Serre classes section was super thin: basically a list of unproven properties. It would be nice to prove something about arithmetic localizations instead.}
+\marginnote{
+Our treatment here deviates from Switzer's, which can be found on~\citep[pg.\ 336--340]{Switzer}.
+Our approach is closer to that of Boardman~\citep{Boardman}, though he is much more technically intense (and, of course, more rigorous).
+}
 
-These arise \emph{everywhere} in algebraic topology, and they are as fundamental as the notion of a long exact sequence.  Long exact sequences appear when calculating $H_*$ of $A \xrightarrow j X \to X \cup_j CA$.  What if there are many coexact sequences constructing $X$?
+The argument we gave in the proof of \Cref{ConnToCoconnIsAlgebraic} felt quite serendipitous and fragile.
+Had our hypotheses been even slightly weaker, we would have quickly found it very difficult to keep track of all the interacting groups involved.
+However, this kind of scenario is extremely common, where a space $X$ of interest is constructed from an infinite sequence of steps
+\marginnote{As with cells in a CW--complex.}
+and where we hope to compute some invariant, like $\pi_*(X)$, from knowledge of the relative invariants, like $\pi_*(X_n, X_{n-1})$.
+It is so common, in fact, that topologists have worked to codify the formal properties of this scenario, which goes by the name of a \define{spectral sequence}.
+Today we recount a mild specialization of this framework that will suit us well.
+\marginnote{%
+More generally, one might discuss \define{exact couples}.
+}
+
+We begin by arranging into a single diagram the exact sequences associated to each inclusion:
+
+\begin{figure*}[h]
+\begin{center}
+\begin{tikzcd}[column sep=1em]
+0 \arrow{r} & \pi_* X_1 \arrow{r} & \pi_* X_2 \arrow{r} \arrow{dl} & \cdots \arrow{r} \arrow{dl} & \pi_* X_n \arrow{r} \arrow{dl} & \pi_* X_{n+1} \arrow{r} \arrow{dl} & \cdots \arrow{r} \arrow{dl} & \pi_* X \\
+& \pi_*(X_2, X_1) \arrow[red]{u} & \pi_*(X_3, X_2) \arrow[red]{u} & \cdots \arrow[red]{u} & \pi_*(X_{n+1}, X_n) \arrow[red]{u} & \pi_*(X_{n+2}, X_{n+1}) \arrow[red]{u} & \cdots,
+\end{tikzcd}
+\end{center}
+\end{figure*}
+
+\noindent
+where each triangle is a ``rolled up'' exact sequence and each red arrow shifts degree by one, e.g., $\pi_*(X_{n+1}, X_n) \to \pi_{*-1} X_n$.
+Let us study in earnest the problem of recovering $\pi_* X$ only by probing information about the groups $\pi_*(X_{n+1}, X_n)$ on the bottom row.
+\marginnote{If we permitted ourselves access to the top row of $\pi_* X_n$, we could take a colimit and be done.}
+Our first observation is that since each sphere is compact, every class $x \in \pi_* X$ must lift to some $\widetilde x \in \pi_* X_n$.
+However, since this is not a relative group, we are not permitted to make direct use of it, and we should instead consider the image of this class $x_n \in \pi_*(X_n, X_{n-1})$ in the bottom row.
+Our second observation is that at exactly the \emph{minimal} such $n$ to which (a nonzero class) $x$ lifts to $\widetilde x \in \pi_* X_n$, it pushes down to give a nonzero class $x_n \in \pi_*(X_n, X_{n-1})$.
+This explains some of the classes in $\pi_*(X_n, X_{n-1})$.
+How can we discern the classes that come from these minimal preimages?
+What use are those classes that don't?
+
+Let us thus begin from the other vantage point by selecting a class $x_n \in \pi_*(X_n, X_{n-1})$ and asking when there is a class $\widetilde x \in \pi_* X_n$ of which it is the image.
 
 \begin{center}
 \begin{tikzcd}
-* \arrow{r} & X_1 \arrow{r} & X_2 \arrow{r} & \cdots \arrow{r} & X_n \arrow{r} & X_{n+1} \arrow{r} & \cdots \arrow{r} & X \\
-& A_1 \arrow{u} & A_2 \arrow{u} & \cdots & A_n \arrow{u} & A_{n+1} \arrow{u} & \cdots
+& & \textcolor{red}{\partial(x_n)} \arrow[red, |->]{lddd} & \textcolor{red}{(\exists \; \widetilde{x}???)} \arrow[red, densely dotted, |->]{lddd} \\
+\cdots \arrow{r} & \pi_* X_{n-1} \arrow{r} & \pi_* X_n \arrow{r} \arrow{dl} & \pi_* X_{n+1} \arrow{r} \arrow{dl} & \cdots \\
+& \pi_*(X_n, X_{n-1}) \arrow{u} & \pi_*(X_{n+1}, X_n) \arrow{u} & \pi_*(X_{n+2}, X_{n+1}) \arrow{u} \\
+& \textcolor{red}{d_1(x_n)} & \textcolor{red}{x_n} \arrow[red, |->, bend left]{uuu}
 \end{tikzcd}
 \end{center}
 
-If we apply $H_*$ to this diagram, we get a family of long exact sequences:
+From $x_n$, we can manufacture two more classes: $\partial(x_n) \in \pi_* X_n$ and $d_1(x_n) \in \pi_*(X_n, X_{n-1})$.
+The existence of $\widetilde x$ is determined by whether $\partial(x_n)$ is nonzero---but, since it is not on the bottom row, we cannot ask about it directly.
+We are allowed to probe $d_1(x_n)$ directly.
+If it is not zero, then surely $\partial(x_n)$ is also not zero, which settles the question definitively that a lift $\widetilde{x}$ cannot exist.
+On the other hand, if it is zero, then it could be the case that $\partial(x_n)$ is zero (so that $\widetilde{x}$ exists) or that $\partial(x_n)$ is nonzero and merely in the kernel of the map $\pi_* X_n \to \pi_*(X_n, X_{n-1})$.
+In the second case, we can use exactness to build a preimage $i_n^{-1} \partial(x_n) \in \pi_* X_{n-1}$, as in:
+
+\begin{figure*}[h]
 \begin{center}
 \begin{tikzcd}
-0 \arrow{r} & H_* X_1 \arrow{r} & H_* X_2 \arrow{r} \arrow[red]{dl} & \cdots \arrow{r} \arrow[red]{dl} & H_* X_n \arrow{r} \arrow[red]{dl} & H_* X_{n+1} \arrow{r} \arrow[red]{dl} & \cdots \arrow{r} \arrow[red]{dl} & X \\
-& H_* A_1 \arrow{u} & H_* A_2 \arrow{u} & \cdots & H_* A_n \arrow{u} & H_* A_{n+1} \arrow{u} & \cdots,
+& & \textcolor{red}{i_n^{-1} \partial(x_n)} \arrow[red,|->]{r} \arrow[red,|->]{lddd} & \textcolor{red}{\partial(x_n)} \arrow[red, |->]{lddd} & \textcolor{red}{(\exists \; \widetilde{x}???)} \arrow[red, densely dotted, |->]{lddd} \\
+\cdots \arrow{r} & \pi_* X_{n-2} \arrow{r} & \pi_* X_{n-1} \arrow{r} & \pi_* X_n \arrow{r} \arrow{dl} & \pi_* X_{n+1} \arrow{r} \arrow{dl} & \cdots \\
+& \pi_*(X_{n-1}, X_{n-2}) \arrow{u} & \pi_*(X_n, X_{n-1}) \arrow{u} & \pi_*(X_{n+1}, X_n) \arrow{u} & \pi_*(X_{n+2}, X_{n+1}) \arrow{u} \\
+& \textcolor{red}{d_2(x_n)} & \textcolor{red}{0} & \textcolor{red}{x_n} \arrow[red, |->, bend left]{uuu}
 \end{tikzcd}
 \end{center}
-where each red arrow shifts homological degree by one, e.g., $H_* X_{n+1} \to H_{*-1} A_n$.  Suppose we wanted to recover $H_* X$ by inspecting the bottom row of $H_* A_*$, similarly to how in the case of a long exact sequence one expects to recover $H_* X$ from $H_* A$ and $H_*(X \cup_j CA)$.  Start by noticing $H_* X = \colim_n H_* X_n$, so that $x \in H_* X$ arises as $\widetilde x \in H_* X_n$ for some $n$.  Note also that at exactly the \emph{minimal} such $n$, it pushes down to give a nonzero class $a_{n-1} \in H_* A_{n-1}$.
-
-What about a generic class $a_n \in H_* A_n$?  Can we tell when it pushes down from a class that belongs to $H_* X$?  If it doesn't, what then is its role?
-
-\begin{center}
-\begin{tikzcd}
-& & \textcolor{red}{x_n} \arrow[red, |->]{lddd} & \textcolor{red}{(\exists \; x_{n+1}???)} \arrow[red, |->]{lddd} \\
-\cdots \arrow{r} & H_* X_{n-1} \arrow{r} & H_* X_n \arrow{r} \arrow{dl} & H_* X_{n+1} \arrow{r} \arrow{dl} & \cdots \\
-& H_* A_{n-1} \arrow{u} & H_* A_n \arrow{u} & H_* A_{n+1} \arrow{u} \\
-& \textcolor{red}{d_1(a_n)} & \textcolor{red}{a_n} \arrow[red, |->, bend left]{uuu}
-\end{tikzcd}
-\end{center}
-
-\noindent Note that if $d_1(a_n) \ne 0$, then $x_n \ne 0$, hence $a_n \not\in \ker(H_n A_n \to H_* X_n)$, and $\not\exists x_{n+1}$.  On the other hand, if $d_1(a_n) = 0$, then we can form a preimage $x_{n_1}$ of $x_n$, as in
-
-\begin{center}
-\begin{tikzcd}
-& & \textcolor{red}{x_{n-1}} \arrow[red,|->]{r} \arrow[red,|->]{lddd} & \textcolor{red}{x_n} \arrow[red, |->]{lddd} & \textcolor{red}{(\exists \; x_{n+1}???)} \arrow[red, |->]{lddd} \\
-\cdots \arrow{r} & H_* X_{n-2} \arrow{r} & H_* X_{n-1} \arrow{r} & H_* X_n \arrow{r} \arrow{dl} & H_* X_{n+1} \arrow{r} \arrow{dl} & \cdots \\
-& H_* A_{n-2} \arrow{u} & H_* A_{n-1} \arrow{u} & H_* A_n \arrow{u} & H_* A_{n+1} \arrow{u} \\
-& \textcolor{red}{d_2(a_n)} & \textcolor{red}{0} & \textcolor{red}{a_n} \arrow[red, |->, bend left]{uuu}
-\end{tikzcd}
-\end{center}
+\end{figure*}
 
 We make a series of claims:
 \begin{enumerate}
-    \item This assignment $d_2$ is well-defined up to $\im d_1$, and hence it determines a function $d_2\co H_*(H_* A_*; d_1) \to H_{*-1}(H_* A_{*-2}; d_1)$.
-    \item This process continues ad infinitum.  Since $X_0 = *$, eventually $x_0 = 0$ is guaranteed but then $x_j = 0$ for all $j \le n$, and hence there exists $x_{n+1}$.
-    \item The surviving elements in a spectral sequence are the associated graded of a filtration of $H_* X$ (by minimal lift degree).
+    \item This assignment $d_2$ is well-defined up to the image of $d_1$, and hence it determines a function $d_2\co H_*(\pi_*(X_*, X_{*-1}); d_1) \to H_{*-1}(\pi_*(X_{*-2}, X_{*-3}); d_1)$.
+    \item This process continues step-by-step exactly as written.  Since $X_0 = *$, eventually the preimage is guaranteed to be zero, hence $\partial(x_n) = 0$, and hence $\widetilde x$ exists.
+    \item The surviving elements in a spectral sequence are the associated graded of a filtration of $\pi_* X$ (by minimal lift degree).
 \end{enumerate}
+\todo{Introduce some terminology, especially \define{pages}.}
 
 \begin{remark}
-This story is complicated some by using a bi-infinite filtration or by using a cohomology functor / a descending filtration, primarily because such spectral sequences need not \emph{stabilize}.  You have to incorporate taking inverse limits of the subquotients of $H_* A_*$, which can destroy some of the exactness in the third Claim or the argument used in the second Claim.
+This story can be retold with many variations.
+Some introduce no further complexity:
+\begin{itemize}
+    \item In place of exact sequences of spaces and relative homotopy groups, one can use coexact sequences of spaces and a homology functor.
+    \todo{Are there other simple variants?}
+\end{itemize}
+Others introduce substantial complexity:
+\begin{itemize}
+    \item The filtration can be bi-infinite, dropping the assumption that $X_0 = *$.
+    \item The spectral sequence can be ``infinite to the left'' (e.g., when applying a \emph{cohomology} functor to a filtration by coexact sequences).
+    \item If one does not introduce assumptions to avoid this, since homotopy groups of low orders are not abelian groups, their homological algebra is substantially more complicated (especially when coupled to the above variants).
+\end{itemize}
+The essential complexity introduced by the first two points is that such spectral sequences need not \emph{stabilize}.
+In order to handle this, one has to incorporate taking inverse limits of the subquotients of $H_* A_*$, which can destroy some of the exactness in the third Claim or the argument used to justify the second Claim.
 \end{remark}
 
+Spectral sequences have the simultaneous pleasant features of being valuable computational tools while also being sufficiently rigid that one can use them to prove theorems without computing anything.
+The following result is an example of their rigidity:
+
 \begin{lemma}
-If a map of spectral sequences is ever an isomorphism, it is an isomorphism forever after.  Hence, their targets are isomorphic by the same map. \qed
+A \define{map of spectral sequences} is a family of homomorphisms from the ``bottom row'' of one to the ``bottom row'' of the other which additionally commute with all of the $d_r$ maps.
+If a map of spectral sequences is an isomorphism on the $r$\textsuperscript{th} page for any $r$, it is an isomorphism forever after.
+Their targets are also isomorphic by the same map. \qed
 \end{lemma}
 
 \begin{example}
-Filter $X$ by skeleta, so $A_n = \bigvee_\alpha S^n_\alpha$ and $H_* A_n = (\Susp^n G)^{\bigoplus_\alpha}$.  The map $d_1$ is exactly the cellular differential:
+Consider the filtration of a CW-complex $X$ by its skeleta.
+The filtration stages participate in coexact sequences with spheres of a fixed dimension, from which we conclude \[\widetilde H_*(X_n, X_{n-1}; A) = \widetilde H_*\left(\bigvee_\alpha S^n_\alpha ; A\right) = \bigoplus_\alpha \Susp^n A.\]
+The map $d_1$ associated to the spectral sequence is exactly the cellular differential, as can be seen by drawing the defining diagram:
 \begin{center}
 \begin{tikzcd}
-H_* X_{n_1} \arrow{r} & H_* X_n \arrow{ld} \\
-H_* \bigvee_\beta S^{n-1}_\beta \arrow{u} & H_* \bigvee_\alpha S^n_\alpha \arrow{u} \arrow["d_1"]{l},
+\widetilde H_* X_{n_1} \arrow{r} & \widetilde H_* X_n \arrow{ld} \\
+\widetilde H_* \bigvee_\beta S^{n-1}_\beta \arrow{u} & \widetilde H_* \bigvee_\alpha S^n_\alpha \arrow{u} \arrow["d_1"]{l}.
 \end{tikzcd}
 \end{center}
-so that $H_*(H_* A_*; d_1) = H_*^{\mathrm{cell}}(X)$.  All higher differentials are zero because $\bigoplus_\alpha \Susp^n G \xrightarrow{[-1]} \bigoplus_\gamma \Susp^{n-r} G$ has the wrong degree.  We say that the spectral sequence \define{collapses at $E_2$}, and this is a proof of that cellular homology computes homology.
+It follows that the $E_2$--page is given by $H_*(H_*(X_*, X_{*-1}); d_1) = \widetilde H_*^{\mathrm{cell}}(X; A)$.
+All higher differentials are zero because \[d_r\co \bigoplus_\alpha \Susp^n A \xrightarrow{[-1]} \bigoplus_\gamma \Susp^{n-r} A\] has the wrong degree.
+We say that the spectral sequence \define{collapses at $E_2$}, and this is a proof of that cellular homology computes homology.
 \end{example}
 
-\begin{corollary}
+\begin{corollary}\label{SpheresDetectEquivalenceOfCohomologyTheories}
 More genrally, if $E$ and $F$ satisfy Eilenberg--Steenrod and $E_*(S^n) \to F_*(S^n)$ is an isomorphism for all $n$, then $E_*(X) \to F_*(X)$ is an isomorphism for all CW complexes $X$. \qed
 \end{corollary}
+
+\begin{example}\label{EMSpacesRepresentOrdinaryCoh}
+The Eilenberg--Mac Lane spaces play another important role in homotopy theory which we will more seriously explore in \Cref{RepChap}.
+Fixing an abelian group $A$ and letting $n$ vary, the functors \[X \mapsto [X, K(A, n)]\] satisfy the Eilenberg--Steenrod axioms: they carry wedge sums to products, and they convert coexact sequences of spaces to long exact sequences of groups.
+Moreover, there is a natural transformation
+\begin{align*}
+{[X, K(A, n)]} & \to H^n(X; A), \\
+f & \mapsto f^* \iota_n,
+\end{align*}
+where $\iota_n \in H^n(K(A, n); A)$ represents the identity map \[H_n(K(A, n); \Z) \cong A \xrightarrow{\id} A.\]
+It then follows from \Cref{SpheresDetectEquivalenceOfCohomologyTheories} that this natural transformation is actually a natural \emph{isomorphism}.
+\end{example}
 
 
 
 
 \section{Obstruction theory}
 
-Obstruction theory is generally concerned with trying to extend a diagram like
+Today we exploit the machinery of spectral sequences to organize and extend some of our results in the realm of \define{obstruction theory}.
+Obstruction theory is generally concerned with starting with a map
+\begin{center}
+\begin{tikzcd}
+A \arrow{r} & B
+\end{tikzcd}
+\end{center}
+and extending it to a diagram of the form
 \begin{center}
 \begin{tikzcd}
 A \arrow{r} \arrow{d} \arrow[densely dotted]{rd} & B \\
 X \arrow[densely dotted]{r} \arrow[densely dotted]{ru} & Y \arrow{u}
 \end{tikzcd}
 \end{center}
-along any of the indicated dashed maps.  We are going to summarize our results in terms fo compute $\pi_0 Y^X$, leaving the relative cases of $A \to X$ and $Y \to B$ to the reader.
+where any one of the dashed maps might be the goal.
+We will focus our efforts by setting $A = B = *$, so that we will equivalently describe a method to compute $\pi_0 Y^X$ from the data of $X$ and of $Y$ separately.
+\marginnote{The ``relative'' cases where $A$ and $B$ are nonzero we leave to the interested reader.}
 
-Recall one of our older Lemmas:
-\begin{lemma}
-If $\pi_{<n} Y = 0$ and $\pi_{>n} Z = 0$, then $[Y, Z] \xrightarrow\cong [\pi_n Y, \pi_n Z]$. \qed
+Recall one the following Lemma from our study of the homotopy-theoretical properties of CW--complexes:
+\begin{lemma}\marginnote{\Cref{ConnToCoconnIsAlgebraic}}
+For $Y$ an $n$--connective CW--complex and $Z$ an $n$--coconnective CW--complex,
+\marginnote{Recall that $n$--connective is a synonym for $(n-1)$--connected, and $n$--coconnective for $\pi_{>n} Z = 0$.}
+the natural map $[Y, Z] \to \CatOf{Groups}(\pi_n Y, \pi_n Z)$ is an isomorphism. \qed
 \end{lemma}
 
-\begin{corollary}
-If $Y$ is $(n-1)$--connected, there is a canonical map $Y \to K(\pi_n Y, n)$ inducing an isomorphism on $\pi_n$. \qed
-\end{corollary}
+\noindent
+This Lemma falls squarely into the realm of obstruction theory: it gives an algebraic description of what maps between certain homotopy types exist.
+Its proof also relied on spectral-sequence-style machinery, so it seems ripe for us to generalize now.
+
+In the moment, however, we only needed the Lemma as part of a program to construct and analyze certain spaces called $K(A, n)$.
+It was the key ingredient in showing that the presentation of $A$ used in their construction was purely auxiliary, and that $K(A, n)$ itself was a well-defined object.
+It has another application: the construction of \define{Postnikov towers}.
 
 \begin{corollary}
-For $Y$ $(n-1)$--connected, the fiber of $Y \to K(\pi_n Y, n)$ witnesses the $(n+1)$--truncation of $Y$, $Y(n, \infty)$.  It has the properties \[\pi_* Y(n, \infty) = \begin{cases} \pi_* Y & \text{if $* > n$}, \\ 0 & \text{otherwise} \end{cases}\] and $\pi_* Y(n, \infty) \to \pi_* Y$ is an isomorphism for $* > n$. \qed
+If $Y$ is $n$--connective, then there is a canonical map \[Y \to K(\pi_n Y, n)\] induced by the identity on $\pi_n$. \qed
 \end{corollary}
 
-Successive applications of this lead to the \define{Postnikov tower}:
+\begin{corollary}\label{PostnikovTruncationsExist}
+For $Y$ an $n$--connective space, the exact extension of the canonical map $Y \to K(\pi_n Y, n)$ is called the \define{$(n+1)$--upward-truncation of $Y$}, denoted $Y(n, \infty)$ or $Y[n+1, \infty)$.
+It has the properties \[\pi_* Y(n, \infty) = \begin{cases} \pi_* Y & \text{if $* > n$}, \\ 0 & \text{otherwise} \end{cases}\] and $\pi_* Y(n, \infty) \to \pi_* Y$ is an isomorphism for $* > n$.
+\marginnote{In fact, it is the universal $n$--connected space over $Y$: any map in from any other such $n$--connected space factors through $Y(n, \infty)$.}
+\end{corollary}
+\begin{proof}
+This is entirely an application of the long exact sequence of relative homotopy.
+\end{proof}
+
+\begin{definition}
+Starting with a $0$--connected space and repeatedly applying \Cref{PostnikovTruncationsExist} leads to the \define{Postnikov tower},
+
+\begin{figure*}[h]
 \begin{center}
 \begin{tikzcd}
 Y \arrow{d} & Y(1, \infty) \arrow{l} \arrow{d} & Y(2, \infty) \arrow{l} \arrow{d} & \cdots \arrow{l} & Y(n, \infty) \arrow{l} \arrow{d} & \cdots \arrow{l} & * \arrow{l} \\
 K(\pi_1 Y, 1) & K(\pi_2 Y, 2) & K(\pi_3 Y, 3) & & K(\pi_{n+1} Y, n+1),
 \end{tikzcd}
 \end{center}
-a diagram of interlocking fiber sequences.  This situation is ripe for a spectral sequence.
+\end{figure*}
 
-\begin{remark}
-Applying $\pi_*$ to this diagram gives an extremely boring spectral sequence.
-\end{remark}
-
-Instead, we apply $\pi_* F(X, -)$, where $X$ is some fixed test space.  The functor $F(X, -)$ preserves fiber sequences and $\pi_*$ turns them into long exact sequences, giving
-\begin{definition}
-Federer's spectral sequence has signature \[E^1_{m, n} = \pi_m F(X, K(\pi_{n+1} Y, n+1)) = H^{n-m+1}(X; \pi_{n+1} Y) \Rightarrow \pi_m F(X, Y).\]
+which is a diagram of interlocking exact sequences.
 \end{definition}
 
-\begin{example}
-Another interesting case is when $Y = \OS{E}{0}$ is an infinite-loopspace.  This spectral sequence then recovers the Atiyah--Hirzebruch spectral sequence from the previous lecture.
-\end{example}
+This situation is ripe for a spectral sequence.
+\marginnote{Simply applying $\pi_*$ to this diagram gives an extremely boring spectral sequence!}
+We apply $\pi_* F(X, -)$, where $X$ is some fixed test space.  The functor $F(X, -)$ preserves exact sequences, $\pi_*$ turns them into long exact sequences, and \Cref{EMSpacesRepresentOrdinaryCoh} shows that $\pi_* F(X, K(\pi_{n+1} Y, n+1))$ has a recognizable form.
+Bundling these results together gives:
+
+\begin{definition}
+\define{Federer's spectral sequence} has signature
+\marginnote{%
+As previously remarked, for arbitrary $X$ and $Y$ the objects $\pi_0$ and $\pi_1$ of $F(X, Y)$ are \emph{sets} and \emph{groups} respectively.
+This situation is called a \define{fringed spectral sequence}, which is considerably more obnoxious.
+Ensure $X = \Susp^2 X'$ or $Y = \Loops^2 Y'$ for an easy way to avoid this situation.
+}
+\begin{align*}
+E^1_{m, n} & = \pi_m F(X, K(\pi_{n+1} Y, n+1)) \\
+& = H^{n-m+1}(X; \pi_{n+1} Y) \Rightarrow \pi_m F(X, Y).
+\end{align*}
+\end{definition}
 
 \begin{remark}
-For arbitrary $X$ and $Y$, $\pi_0$ and $\pi_1$ of $F(X, Y)$ are \emph{sets} and \emph{groups} respectively.  This situation is called a \define{fringed spectral sequence} and they are considerably more obnoxious.  Set $X = \Susp^2 X'$ or $Y = \Loops^2 Y'$ to avoid this situation.
+If $\pi_{< n} X = 0$ and $\pi_{> n} Y = 0$, we have $H^{< n}(X; \text{any}) = 0$ and $H^{\text{any}}(X; \pi_{> n} Y) = 0$.
+This puts a single nonvanishing group in the region of the spectral sequence contributing to $\pi_0 Y^X$: \[H^n(X; \pi_n Y) \cong \CatOf{AbGps}(H_n X, \pi_n Y) \cong \CatOf{AbGps}(\pi_n X, \pi_n Y).\]
+Since this group cannot be the source or target of any differentials, we conclude \Cref{ConnToCoconnIsAlgebraic}: \[\CatOf{AbGps}(\pi_n X, \pi_n Y) \cong F(X, Y).\]
 \end{remark}
 
 \begin{remark}
-If $\pi_{< n} X = 0$ and $\pi_{> n} Y = 0$, we have $H^{< n}(X; \text{any}) = 0$ and $H^{\text{any}}(X; \pi_{> n} Y) = 0$.  This puts a single nonvanishing group in the $0$--line of the spectral sequence: $H^n(X; \pi_n Y) \cong \CatOf{AbGps}(H_n X, \pi_n Y) \cong \CatOf{AbGps}(\pi_n X, \pi_n Y)$.
+The relative version of this spectral sequence also recovers \Cref{NEquivsLiftNDimlSources}.
 \end{remark}
 
-\begin{remark}
-The relative version of this spectral sequence also recovers the lifting lemma about \todo{BACKREFERENCE HERE.}
-\end{remark}
-
-What information would we need to understand nontrivial examples of this spectral sequence?  The $d_1$--differential is induced by pushforward along the map $k_n$ in
+Even though we have constructed this very appealing machine, we must stop short of actually using it to do anything.
+Nothing comes for free: the price of organizing the information in the $E_1$--term of a spectral sequence in a pretty way means that the differentials will surely be difficult to understand.
+To see what can happen, consider the $d_1$--differential, which is induced by pushforward along the map $k_n$ in
 \begin{center}
 \begin{tikzcd}
-Y(n-1, \infty) \arrow{dd} & & Y(n, \infty) \arrow{ll} \arrow{dd} \\
-& \Loops K(\pi_n Y, n) \arrow["k_n"]{rd} \\
+Y[n, \infty) \arrow{dd} & & Y(n, \infty) \arrow{ll} \arrow{dd} \\
+& \Loops K(\pi_n Y, n) \arrow{ru} \arrow[red, bend left, "k_n"]{rd} \\
 K(\pi_n Y, n) & & K(\pi_{n+1} Y, n+1).
 \end{tikzcd}
 \end{center}
-This map is part of the homotopy data of $Y$, called the \define{$n$\textsuperscript{th} $k$--invariant} of $Y$.  Note $\Loops K(\pi_n Y, n) \simeq K(\pi_n Y, n-1) \to K(\pi_{n+1} Y, n+1)$ is a map of Eilenberg--Mac Lane spaces, so can be considered as the data of a natural transformation $\sigma\co H^{n-1}(-; \pi_n Y) \to H^{n+1}(-; \pi_{n+1} Y)$.
-
+This map is part of the homotopy data of $Y$ called the \define{$n$\textsuperscript{th} $k$--invariant} of $Y$.
+\marginnote{Indeed, it appears naturally when constructing $Y = X^{S^0}$ from $S^0$ using obstruction theory.  Also, the ``$k$'' is presumably the same ``$K$'' appearing in ``$K(A, n)$''.}
+As noted in \Cref{ShiftingEMSpaces}, we have a weak equivalence \[\Loops K(\pi_n Y, n) \simeq K(\pi_n Y, n-1),\] so that $k_n$ can be considered as a map of Eilenberg--Mac Lane spaces: \[k_n\co K(\pi_n Y, n-1) \to K(\pi_{n+1} Y, n+1).\]
+This induces a natural transformation
+\begin{center}
+\begin{tikzcd}
+{[-, K(\pi_n Y, n-1)]} \arrow["(k_n)_*"]{r} \arrow[equal]{d} & {[-, K(\pi_{n+1} Y, n+1)]} \arrow[equal]{d} \\
+H^{n-1}(-; \pi_n Y) \arrow{r} & H^{n+1}(-; \pi_{n+1} Y).
+\end{tikzcd}
+\end{center}
+This leaves us with some burning questions which we must answer before using this spectral sequence with any seriousness:
 \begin{enumerate}
-    \item What are these? How many are there? How can they be discerned for some random space $Y$?
-    \item This is kind of the ``dual problem'' to compute $[S^m, S^n]$.
+    \item What do natural transformations of the cohomology functor look like in general? How many are there? Is there a classification, or a general formula?
+    \marginnote{This is kind of the ``dual problem'' to trying to compute $[S^m, S^n]$.}
+    \item How can they be discerned / extracted for some space $Y$?
 \end{enumerate}
 
 
@@ -437,6 +670,53 @@ This map is part of the homotopy data of $Y$, called the \define{$n$\textsupersc
 
 \section{A complicated example}
 
-We haven't yet had an example of a spectral sequence in which we can compute.  This is because it is impossible to find a spectral sequence that is easy, tangible, nontrivial, and well-motivated all at once.  Today we will do the first three.
+We haven't yet had an example of a spectral sequence in which we can compute.  This is because at our stage it is impossible to find a spectral sequence that is easy, tangible, nontrivial, and well-motivated all at once.  Today we will retreat to algebra in order to work an example that covers the first three attributes, with the promise that it will become well-motivated later on.
 
-\todo[inline]{I propose swapping this lecture out for some sort of Bockstein spectral sequence---especially if you can find one that has the ``already been hit'' phenomenon.}
+\todo[inline]{This lecture is vastly underbaked.}
+
+$\A(1)_* = \F_2[\xi_1, \xi_2] / (\xi_1^4, \xi_2^2)$ with $\overline \Delta \xi_1 = 0$ and $\overline \Delta \xi_2 = \xi_1 \mid \xi_1^2$.  The \define{(reduced) cobar complex} associated to $\A(1_*$ is given by $C^n(\A(1)_*) = \overline \A(1)^{\otimes n}$ with differential an alternating sum of $\overline \Delta$s.
+
+One can filter this complex using powers of the augmentation ideal, which on the associated graded looks like the cobar complex for an exterior algebra, which has homology given by a polynomial algebra on homology-suspended shifts of the same classes.
+
+\begin{theorem}[May]
+This gives a spectral sequence of algebras \[E_1^{*, *, *} \cong \F_2[h_{10}, h_{11}, h_{20}] \Rightarrow H^*(\A(1)_*). \qed\]
+\end{theorem}
+
+We can even compute differentials in this spectral sequence.
+
+\begin{lemma}
+$d(h_{20}) = h_{10} h_{11}$.
+\end{lemma}
+\begin{proof}
+$h_{20}$ represents $\xi_2$, which has differential $d(\xi_2) = \Delta \xi_2 = \xi_1 \mid \xi_1^2$, which is represented by $h_{10} h_{11}$.
+\end{proof}
+
+\begin{lemma}
+$d(h_{20}^2) = h_{11}^3$.
+\end{lemma}
+\begin{proof}
+$h_{20}^2$ represents $\xi_2 \mid \xi_2$, which has differential \[d(\xi_2 \mid \xi_2) = \xi_1 \mid \xi_1^2 \mid \xi_2 + \xi_2 \mid \xi_1 \mid \xi_1^2,\] which is represented by $2 h_{10} h_{11} h_{20} \equiv 0$.  By finding a preimage of this class along the cobar differential, we can perturb the representative cocycle and get a longer May differential:
+\begin{align*}
+d(\xi_2 \mid \xi_2 + \xi_1 \xi_2 \mid \xi_1^2 + \xi_1 \mid \xi_2 \xi_1^2)
+&       = (\xi_1 \mid \xi_1^2 \mid \xi_2 + \xi_2 \mid \xi_1 \mid \xi_1^2) \\
+& \quad + (\xi_1^2 \mid \xi_1^2 + \xi_1 \mid \xi_2 + \xi_2 \mid \xi_1 + \xi_1 \mid \xi_1^3) \mid \xi_1^2 \\
+& \quad + \xi_1 \mid (\xi_2 \mid \xi_1^2 + \xi_1 \mid \xi_1^4 + \xi_1^2 \mid \xi_2 + \xi_1^3 \mid \xi_1^2) \\
+& = \xi_1^2 \mid \xi_1^2 \mid \xi_1^2,
+\end{align*}
+which is represented by $h_{11}^3$.
+\end{proof}
+
+This is the last differential in the spectral sequence.
+
+\begin{remark}
+\todo[inline]{Expand remark about Leibniz rule into the Christianson-style presentation of the spectral sequence.}
+\end{remark}
+
+\todo[inline]{Include pictures of these SS pages.}
+
+
+
+
+
+
+
