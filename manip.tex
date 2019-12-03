@@ -219,7 +219,7 @@ This is 6.6 in Switzer.}
 To conclude, apply \Cref{ConeAndQuotIsRedundant} to produce a weak equivalence \[X/A \xrightarrow\simeq X \cup_A CA/CA. \qedhere\]
 \end{proof}
 
-\begin{corollary}[Freudenthal suspension theorem]%
+\begin{corollary}[Freudenthal suspension theorem]\label{FreudenthalThm}%
 \marginnote{\citep[Theorem 6.26]{Switzer}}
 For an $n$--connected CW--complex $X$, the natural map
 \marginnote{%
@@ -340,7 +340,7 @@ For $n \ge 2$,
 \qed\]
 \end{corollary}
 
-\begin{lemma}\marginnote{\citep[Theorem 6.39.i]{Switzer}}
+\begin{lemma}\marginnote{\citep[Theorem 6.39.i]{Switzer}}\label{EMSpacesExist}
 For any abelian group $A$ and index $n \ge 2$, there exists a CW--complex $K(A, n)$ whose homotopy groups satisfy \[\pi_* K(A, n) = \begin{cases} A & \text{if $* = n$}, \\ 0 & \text{otherwise}. \end{cases}\]
 \end{lemma}
 \begin{proof}
@@ -615,7 +615,7 @@ This situation is ripe for a spectral sequence.
 We apply $\pi_* F(X, -)$, where $X$ is some fixed test space.  The functor $F(X, -)$ preserves exact sequences, $\pi_*$ turns them into long exact sequences, and \Cref{EMSpacesRepresentOrdinaryCoh} shows that $\pi_* F(X, K(\pi_{n+1} Y, n+1))$ has a recognizable form.
 Bundling these results together gives:
 
-\begin{definition}
+\begin{definition}\label{FedererSSeq}
 \define{Federer's spectral sequence} has signature
 \marginnote{%
 As previously remarked, for arbitrary $X$ and $Y$ the objects $\pi_0$ and $\pi_1$ of $F(X, Y)$ are \emph{sets} and \emph{groups} respectively.
@@ -624,7 +624,7 @@ Ensure $X = \Susp^2 X'$ or $Y = \Loops^2 Y'$ for an easy way to avoid this situa
 }
 \begin{align*}
 E^1_{m, n} & = \pi_m F(X, K(\pi_{n+1} Y, n+1)) \\
-& = H^{n-m+1}(X; \pi_{n+1} Y) \Rightarrow \pi_m F(X, Y).
+& = \widetilde H^{n-m+1}(X; \pi_{n+1} Y) \Rightarrow \pi_m F(X, Y).
 \end{align*}
 \end{definition}
 
@@ -633,6 +633,14 @@ If $\pi_{< n} X = 0$ and $\pi_{> n} Y = 0$, we have $H^{< n}(X; \text{any}) = 0$
 This puts a single nonvanishing group in the region of the spectral sequence contributing to $\pi_0 Y^X$: \[H^n(X; \pi_n Y) \cong \CatOf{AbGps}(H_n X, \pi_n Y) \cong \CatOf{AbGps}(\pi_n X, \pi_n Y).\]
 Since this group cannot be the source or target of any differentials, we conclude \Cref{ConnToCoconnIsAlgebraic}: \[\CatOf{AbGps}(\pi_n X, \pi_n Y) \cong F(X, Y).\]
 \end{remark}
+
+\begin{corollary}\label{OrdinaryCohIsRepresentable}
+Ordinary cohomology is representable: \[\widetilde H^n(X; A) \cong [X, K(A, n)].\]
+\end{corollary}
+\begin{proof}
+Take $Y = K(A, n)$ in \Cref{FedererSSeq}.
+The spectral sequences collapses to give \[\pi_m F(X, K(A, n)) \cong \widetilde H^{n-m}(X; A). \qedhere\]
+\end{proof}
 
 \begin{remark}
 The relative version of this spectral sequence also recovers \Cref{NEquivsLiftNDimlSources}.

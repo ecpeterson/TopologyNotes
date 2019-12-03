@@ -53,7 +53,7 @@ In each of these cases, the property named uniquely determines the space involve
 \footnote{This, too, is fundamentally the Yoneda Lemma.}
 \end{remark}
 
-\begin{remark}
+\begin{remark}\label{HomSheafRemark}
 Together, the coproduct and gluing properties characterize the functor $\CatOf{Spaces}(T, -)$ as a \define{sheaf}.
 \todo{Find time later to characterize a sheaf as a continuous functor off of the opposite category.}
 \end{remark}
@@ -188,7 +188,7 @@ G \arrow["0"]{d} \arrow["\chi \times \id"]{r} & G \times G \arrow["\mu"]{d} & G 
 \end{center}
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{RepresentableGroupsLemma}
 If $G$ is a group object in a category $\CatOf{C}$, then $\CatOf{C}(-, G)$ is a functor from $\CatOf{C}^{\op}$ to $\CatOf{Groups}$.
 \footnote{In fact, this is biconditional: if a representable functor factors through $\CatOf{Groups}$, then the representing object inherits the structure of a group object.}
 \todo{I think this lecture is a better place to introduce Yoneda than the previous one.}
@@ -201,7 +201,7 @@ The inversion $\chi$ on $G$ similarly induces an inversion $\chi_*$ on $\CatOf{C
 \end{proof}
 
 \begin{definition}\marginnote{\citep[Definition 2.9]{Switzer}}
-An \define{$H$--space} $K$ is a pointed space with maps $\mu$ and $\chi$ satisfying the group diagrams up to homotopy (i.e., as diagrams in $h\CatOf{Spaces}_{*/}$).
+An \define{$H$--group} $K$ is a pointed space with maps $\mu$ and $\chi$ satisfying the group diagrams up to homotopy (i.e., as diagrams in $h\CatOf{Spaces}_{*/}$).
 \end{definition}
 
 \begin{corollary}\marginnote{\citep[Proposition 2.14]{Switzer}}
