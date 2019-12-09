@@ -11,7 +11,7 @@ It probably belongs somewhere in this chapter.}
 
 
 
-\section{Brown representability}
+\section{Brown representability}\label{BrownRepSec}
 
 Early on, when we were getting used to the categorical approach to homotopy theory, we noted in \Cref{HomSheafRemark} that $\CatOf{Spaces}(-, T)$ forms a \define{sheaf} on the category $\CatOf{Spaces}$.
 This isn't our only example of such an object: cohomology functors can also be thought of as sheaves, as the Eilenberg--Steenrod axioms include the sheaf axioms as a subset.
@@ -110,10 +110,211 @@ This modification of $F$ satisfies the wedge axiom on the nose, it satisfies onl
 
 
 
+\section{Arithmetic decomposition}
+
+\todo[inline]{Add citations from Sullivan.}
+
+In \Cref{FedererSSeq}, we deduced the existence of a spectral sequence with signature
+\begin{align*}
+E^1_{m, n} & = \pi_m F(X, K(\pi_{n+1} Y, n+1)) \\
+& = \widetilde H^{n-m+1}(X; \pi_{n+1} Y) \Rightarrow \pi_m F(X, Y).
+\end{align*}
+This spectral sequence precisely encodes the claim that the available maps from $X$ to $Y$ are captured by certain cohomology groups, subject to an elaborate cancellation process by way of the spectral sequence's differentials.
+An interesting consequence of the foreground role of algebra is that different primes do not interact much: a $p$--primary component appearing in the spectral sequence can only participate in nonzero differentials which involve other $p$--primary components for the same prime $p$.
+This suggests that the homotopy types $X$ and $Y$ can themselves be pulled apart into pieces associated to the different arithmetic primes.
+Indeed, this turns out to be so.
+
+The specific algebraic reconstruction theorem which we hope to recapture for spaces is:
+\begin{theorem}
+For a finitely generated abelian group $A$,
+\marginnote{%
+Is it possible to drop the finite generation hypotheses, at the price of working with complexes of abelian groups.
+For example, the profinite completion of $A = \Z/p^\infty$ turns out to be $\Susp^{-1} \Z_p$, which presents $A$ via the exact sequence \[\Susp^{-1} \Z_p \to \Susp^{-1} \Q_p \xrightarrow\partial \Z/p^\infty.\]}
+there is a pullback square
+\begin{center}
+\begin{tikzcd}
+A \arrow{r} \arrow{d} & \widehat A \arrow{d} \\
+\Q \otimes A \arrow{r} & \Q \otimes \widehat A,
+\end{tikzcd}
+\end{center}
+where $\widehat A = \lim_{\substack{B \le A \\ \text{$B$ finite}}} A / B$ denotes the profinite completion. \qed
+\end{theorem}
+
+\noindent
+Thus, our first goal will be to define analogues of rationalization and profinite completion for spaces, in such a way that in good cases we have $\pi_n \widehat X = \widehat{\pi_n X}$, $\pi_n \Q \otimes X = \Q \otimes \pi_n X$, and a homotopy pullback square
+\begin{center}
+\begin{tikzcd}
+X \arrow{r} \arrow{d} & \widehat X \arrow{d} \\
+\Q \otimes X \arrow{r} & \Q \otimes \widehat X.
+\end{tikzcd}
+\end{center}
+
+We begin with localization.
+
+\begin{definition}
+A simply connected homotopy type $X$ is said to be \define{rational} when $\pi_* X$ is a rational vector space.
+\marginnote{All of these definitions and constructions can also be made when inverting only a subset of all available primes, giving rise to $p$--localization.}
+The \define{rationalization} $\Q \otimes X$ is a universal rational space under $X$: any other map $X \to Y$ with $Y$ a rational space admits a factorization
+\begin{center}
+\begin{tikzcd}
+X \arrow{rr} \arrow{rd} & & \Q \otimes X \arrow[densely dotted]{ld} \\
+& Y.
+\end{tikzcd}
+\end{center}
+\end{definition}
+
+\begin{lemma}
+\todo{Indications on proof. I think this is where mod--$\CC$ theory is actually valuable.}
+The following are equivalent:
+\begin{itemize}
+    \item A map $\ell\co X \to X'$ is rationalization.
+    \item The map $\ell_* \co \pi_* X \to \pi_* X'$ is rationalization.
+    \item The map $\ell_* \co H_*(X; \Z) \to H_*(X'; \Z)$ is rationalization.
+    \marginnote{%
+    Definitionally, rational spaces are closed under exact sequences.
+    This Lemma also shows that they are closed under coexact sequences.}
+\end{itemize}
+\end{lemma}
+\begin{proof}[Proof sketch]
+The first and second conditions are equivalent via Whitehead's theorem.
+The second and last conditions are equivalent via a modified form of the Hurewicz theorem.
+\todo{Probably flesh this out.}
+\end{proof}
+
+\begin{theorem}
+The rationalization of any simply connected CW--complex $X$ exists.
+\marginnote{}
+\end{theorem}
+\begin{proof}
+We produce two distinct constructions.
+
+Using $\pi_n S^n \cong \Z$ for $n \ge 1$, the rationalization $\Q \otimes S^n$ is simple to produce: \[\Q \otimes S^n = \colim \left( \cdots \to S^n \xrightarrow{p} S^n \right).\]
+
+Second, we can also rationalize the Postnikov tower of $X$.
+\todo{Flesh this out.}
+\marginnote{No rationalization (or localization) functor can preserve all co/exact extensions~\citep[pg.\ 40]{Sullivan}.}
+\end{proof}
+
+The construction of the profinite completion of a space is much more indirect: the profinite completion of the sphere is not obvious, and the example of $B\Z/p^\infty$ indicates that it is not clear how to modify the Postnikov tower.
+Meanwhile, when translating the definition of the profinite completion of an abelian group it is not clear what should play the role of a surjection onto a finite object.
+To alleviate this, note that the profinite completion of an abelian group can also be formed from a larger system: one takes the limit of \emph{all} finite groups under $A$ in the category of \emph{all} groups under $A$.
+
+\begin{definition}
+Consider the representable functor $X(Y) = [Y, X]$ determined by $X$.
+\marginnote{%
+All of these definitions can constructions can also be made when targeting only finite $p$--groups, giving rise to $p$--adic completion.
+In fact, $\widehat X = \prod_p X_p$.}
+The \define{profinite completion} $\widehat X$ of this functor is determined by \[\widehat X(Y) = \lim [Y, F],\] where $F$ ranges over all spaces under $X$ such that $\pi_* F$ is finite.
+\end{definition}
+
+\begin{lemma}
+\todo{Indicate proof?}
+The functor $\widehat X$ satisfies the hypotheses for Brown representability. \qed
+\end{lemma}
+
+\begin{definition}
+The associated homotopy type, $\widehat X$, is the \define{profinite completion} of $X$.
+\end{definition}
+
+\begin{lemma}
+For $X$ a simply connected space of finite type,
+\begin{align*}
+\pi_n \widehat X & = \widehat{\pi_n X}, &
+H_n(\widehat X; \Z) & = \widehat{H_n(X; \Z)}.
+\qed
+\end{align*}
+\end{lemma}
+
+\begin{lemma}\label{WhatIsModPGoodFor}
+If $X$ is of finite type, $Y$ is $p$--complete, and $H_*(X; \F_p) \to H_*(Y; \F_p)$ is an isomorphism, then $X_p \to Y$ is a weak equivalence. \qed
+\end{lemma}
+
+\begin{theorem}
+A simply connected space $X$ can be recovered as the homotopy pullback
+\begin{center}
+\begin{tikzcd}
+X \arrow{r} \arrow{d} & \widehat X \arrow{d} \\
+\Q \otimes X \arrow{r} & \Q \otimes \widehat X.
+\qed
+\end{tikzcd}
+\end{center}
+\end{theorem}
+
+
+
+
+
+% \todo[inline]{Make a much briefer reference to Serre classes, which gives an equivalent theory that is closer to that of Bousfield localization.}
+
+% The idea is to build a version of homotopy theory that only thinks about a particular prime.  We \emph{already} built a version of homotopy theory that only cares about homotopy type---this is an elaboration of that.
+
+% \begin{definition}
+% A \define{class} of abelian groups is a collection $\CC$ such that
+% \begin{enumerate}
+%     \item For $0 \to A' \to A \to A'' \to 0$, $A \in \CC$ if and only if $A', A'' \in \CC$.  (``Closed under $+$, $-$.'')
+%     \item For $A \in \CC$ and $B$ a group, $A \otimes B \in \CC$.  (``Closed under $\cdot$, an ideal.'')\footnote{Sometimes we just ask for $A \otimes A'$ and $\Tor(A, A')$ to lie in $\CC$.}
+%     \item For $A \in \CC$, $H_{* > 0}(BA; \Z) \in \CC$.
+% \end{enumerate}
+% \end{definition}
+
+% \begin{example}
+% $\CC_p$: abelian torsion groups of finite exponent and every order of every element is prime to $p$.
+% \end{example}
+
+% \textbf{Big idea:} Algebra work ``up to $\CC$'': a \define{$\CC$--monomorphism} has kernel in $\CC$.  A \define{$\CC$--epimorphism} has cokernel in $\CC$.  A \define{$\CC$--isomorphism} has both, and two groups are \define{$\CC$--isomorphic} if they're connected by a zig-zag of $\CC$--isomorphisms.
+
+% \textbf{Bigger idea:} Homological algebra also works ``up to $\CC$''.  There are notions of $\CC$--exactness, the $5$--lemma up to $\CC$, the snake lemma up to $\CC$, \ldots .
+
+% \textbf{Biggest idea:} Homotopy theory (of simply connected spaces) works ``up to $\CC$''.
+
+% \begin{theorem}[Hurewicz]
+% For $X$ a simply-connected space, if $\pi_{< n} X \in \CC$ then $H_{< n} X \in \CC$ and $\pi_n X \to H_n X$ is a $\CC$--isomorphism. \qed
+% \end{theorem}
+
+% \begin{theorem}[Whitehead]
+% For $f\co X \to Y$ a map of simply-connected spaces which is an isomorphism on $\pi_2$, $f$ induces a $\CC$--isomorphism on $\pi_{< n}$ and a $\CC$--epimorphism on $\pi_n$ if and only if $f$ induces a $\CC$--isomorphism on $H_{< n}$ and a $\CC$--epimorphism on $H_n$. \qed
+% \end{theorem}
+
+% \begin{theorem}[Approximation]
+% Let $X$, $Y$ by simply-connected spaces and let $f\co Y \to X$ have $\pi_2$ epi.  The following are equivalent:
+% \begin{enumerate}
+%     \item $H^{< n}(X; \Z/p) \to H^{< n}(Y; \Z/p)$ is an isomorphism and $H^n(X; \Z/p) \to H^n(Y; \Z/p)$ is a monomorphism.
+%     \item $H_{< n}(Y; \Z/p) \to H_{< n}(X; \Z/p)$ is an isomorphism and $H_n(Y; \Z/p) \to H_n(X; \Z/p)$ is an epimorphism.
+%     \item $H_{\le n}(X, Y; \Z/p) = 0$.
+%     \item $H_{\le n}(X, Y; \mathbb Z) \in \CC_p$.
+%     \item $\pi_{\le n}(X, Y) \in \CC_p$.
+%     \item $\pi_{< n}(Y) \to \pi_{< n}(X)$ is a $\CC_p$--isomorphism and $\pi_n Y \to \pi_n X$ is a $\CC_p$--epimorphism.
+%     \item $\pi_{< n} X$ and $\pi_{< n} Y$ have isomorphicm $p$--components.
+% \end{enumerate}
+% \end{theorem}
+% \begin{proof}[Proof sketch]
+% The first and second are equivalent by linear duality.  The second and third are connected by the homology long exact sequence of a pair.  The third and fourth and connected by the universal coefficient theorem.  The fourth and fifth are connected by the relative Hurewicz theorem.  The fifth and sixth are connected by the homotopy long exact sequence.  The sixth and seventh are connected by \Cref{Approx7}.
+% \end{proof}
+
+% \begin{proof}[Proof of Ex (3)]
+% The other properties of $\CC_p$ are obvious, but $H_* BA$ is not.  Thankfully, we have the bar spectral sequence, computing $H_* BA \Leftarrow \Tor^{H_* A}_{*, *}(\Z, \Z)$.  We know also that for $q$ the exponent of $A$, the map $BA \xrightarrow\Delta BA^{\times q} \xrightarrow\mu BA$ is null-homotopic, so all classes are $*$--nilpotent of order $q$.  Distributivity finishes the proof.
+% \end{proof}
+
+% \begin{lemma}\label{Approx7}
+% For $f\co A \to B$ a $\CC_p$--isomorphism (of finitely generated groups), $A$ and $B$ have isomorphic $p$--components.
+% \end{lemma}
+% \begin{proof}
+% Let $pA$ denote the subgroup of torsion elements prime to $p$, so that we want $A / pA \cong B / pB$.  In the diagram
+% \begin{center}
+% \begin{tikzcd}
+% 0 \arrow{r} & pA \arrow{r} \arrow{d} & A \arrow{r} \arrow["f"]{d} & A/pA \arrow{r} \arrow["{\widehat f}"]{d} & 0 \\
+% 0 \arrow{r} & pB \arrow{r} & B \arrow{r} & B/pB \arrow{r} & 0,
+% \end{tikzcd}
+% \end{center}
+% $f$ is a $\CC_p$--isomorphism, hence $\widehat f$ is a $\CC_p$--isomorphism by the $\CC_p$--$5$--lemma.  This plus the fundamental theorem of finitely generated abelian groups implies that $\widehat f$ is a monomorphism, $\widehat f$ induces an isomorphism of torsion subgroups, and its image is a subgroup of maximum rank.
+% \end{proof}
+
+
+
 
 \section{Spectra}
 
-Our discussion last time was motivated by our observation in \Cref{EMSpacesExist} that there is a natural isomorphism \[H^n(X; A) \xrightarrow\cong [X, K(A, n)],\] which we generalized to any functor satisfying the wedge and Mayer--Vietoris axioms.
+Our discussion in \Cref{BrownRepSec} was motivated by our observation in \Cref{EMSpacesExist} that there is a natural isomorphism \[H^n(X; A) \xrightarrow\cong [X, K(A, n)],\] which we generalized to any functor satisfying the wedge and Mayer--Vietoris axioms.
 These axioms are most of what it means to be a cohomology theory.
 The remaining axiom, which we have not yet discussed, is the following:
 
@@ -409,286 +610,3 @@ This is a consequence of the following diagram:
 \end{tikzcd}
 \end{center}
 \end{proof}
-
-
-
-
-\section{$G$--bundles and fiber bundles}
-
-A major up-shot of representability is that the tools of algebraic topology can be turned on themselves.
-We have previously announced our intention to understand the collection of natural transformations \[H^n(-; A) \to H^m(-; B).\]
-By appealing to representability, this is not only equivalent to the collection of homotopy classes \[K(A, n) \to K(m, B)\] but also to the cohomology group \[H^m(K(A, n); B).\]
-If we can get a sufficiently explicit handle on $K(A, n)$, we can use such a presentation to finish our original analysis.
-
-There is a particularly restrictive form of fiber bundle that appears very often in geometric contexts:
-
-\begin{definition}\marginnote{\citep[Definition 11.1]{Switzer}}
-A \define{(real) vector bundle (of rank $k$)} over a base $B$ is a fiber bundle $p\co E \to B$ with fiber $\R^k$ and whose transition maps are linear functions.
-\end{definition}
-
-\begin{example}
-The co/tangent bundles of a manifold are vector bundles.
-\end{example}
-
-\noindent
-This constraint on the transition maps admits a universal form:
-
-\begin{definition}\marginnote{\citep[Definition 11.4]{Switzer}}
-A \define{$G$--bundle} is a fiber bundle $p\co E \to B$ where $G$ acts on $E$ (and trivially on $B$, and the map $p$ is equivariant), the identifications $\phi_U\co p^{-1}(U) \cong G \times B$ are equivariant, and the compatibilities $\phi_U|_{U \cap V} = \phi_V|_{U \cap V}$ are equivariant too.
-\end{definition}
-
-\begin{remark}\marginnote{\citep[11.21]{Switzer}}
-This construction is universal in the following sense: if $G$ acts on an auxiliary space $F$, one can extract from a $G$--bundle $p\co E \to B$ an $F$--fiber bundle by \[E' = (F \times E) / (fg, e) \sim (f, ge).\]
-Conversely, a fiber bundle with fiber $F$ has an associated $(\Aut F)$--bundle.
-\end{remark}
-
-\begin{example}\marginnote{\citep[Theorem 11.20, Proposition 11.22]{Switzer}}
-Real vector bundles correspond with $\GL(\R^n)$--bundles under this construction.
-The maximal compact subgroup of $\GL(\R^n)$ is the orthogonal group $O(\R^n)$, and the equivariant retraction $O(\R^n) \to \GL(\R^n)$ gives an equivalence between $O(\R^n)$--bundles and $\GL(\R^n)$--bundles (and hence with real vector bundles as well).
-\end{example}
-
-The local nature of the definition of a vector bundle gives rise to the following observation:
-
-\begin{lemma}\marginnote{\citep[Proposition 11.32]{Switzer}}
-The assignment $X \mapsto \{\text{isomorphism classes of $G$--bundles on $X$}\}$ satisfies the wedge axiom and Mayer--Vietoris. \qed
-\end{lemma}
-
-\begin{corollary}\marginnote{\citep[11.33]{Switzer}}
-There is a homotopy type $BG$ representing this functor. \qed
-\end{corollary}
-
-\noindent
-Purely through abstract principles, one can make an interesting qualitative statement about this homotopy type:
-
-\begin{lemma}\marginnote{\citep[Proposition 11.27, Theorem 11.35]{Switzer}}
-Let $E \to B$ be a $G$--bundle with $E$ $n$--connected.
-The classifying map $B \to BG$ is then an $n$--equivalence.
-It follows that the induced natural transformation $[-, B] \to [-, BG] \to k_G(-)$ is an equivalence on complexes of dimension $\le n$.
-\qed
-\end{lemma}
-
-\begin{corollary}\label{CharacterizationOfBG}
-The universal bundle $EG$ classified by $\id\co BG \to BG$ has \emph{contractible} total space.
-Conversely, $G$--bundle with contractible total space is a model for the universal such bundle.
-\qed
-\end{corollary}
-
-\begin{remark}\marginnote{\citep[11.43]{Switzer}}
-With \Cref{LoopsShiftsPi} and \Cref{ShiftingEMSpaces} in mind, we can now smell the connection between these ideas and our pursuit of Eilenberg--Mac Lane spaces.
-Namely, \Cref{LoopsShiftsPi} shows that the natural map \[G \to \Loops BG\] is an equivalence, so that \[K(A, n+1) \to BK(A, n)\] is also an equivalence.%
-\marginnote{%
-Making sense of this requires a model of $K(A, n)$ as an honest group, rather than as an $H$--group.
-We blithely assert to the reader that such a model exists---its precise form won't turn out to be important.
-}
-\end{remark}
-
-We now turn to the problem of producing a reliable model of $BG$, using \Cref{CharacterizationOfBG} as a guide.
-\marginnote{The first-time reader will probably find it easier to conceptualize the following under the further condition that $G$ be finite (e.g., $\Z/2$).}
-Our route, as ever, will pass through some creative category theory.
-\todo{From here on, you owe the reader citations.}
-
-\begin{definition}
-Let $\CatOf C$ be a category.
-Its \define{nerve} $N(\CatOf C)$ is a simplicial set with $0$--simplices the objects of $\CatOf C$, $1$--simplices the arrows of $\CatOf C$, $2$--simplices commuting triangles, $3$--simplices commuting tetrahedra, \ldots .
-\marginnote{Equivalently: the $n$--simplices are given by length $n$ chains of composable morphisms.}
-\end{definition}
-
-\begin{remark}
-This construction is a very faithful encoding of a category: the original category and its composition law can be recovered from the $0$--. $1$--, and $2$--simplices.
-It also translates categorical ideas to recognizable topological objects: for instance, functors become continuous maps and natural transformations become homotopies of maps.
-\end{remark}
-
-\todo[inline]{Inject a comment about being able to extend this business to topologically enriched categories too.}
-
-\begin{example}
-For $G$ a group, we define two categories:
-\begin{enumerate}
-    \item $G \mmod G$ has objects $g \in G$ and maps $g \xrightarrow h gh$.
-    \item $* \mmod G$ has one object $*$ and maps $* \xrightarrow h *$.
-\end{enumerate}
-\end{example}
-
-\begin{lemma}
-$G \mmod G$ is contractible.
-\end{lemma}
-\begin{proof}[Proof sketch]
-This amounts to showing that any ``outer horn'' (i.e., a chain of morphisms of length $n-1$ and a morphism with either the same ultimate source or same ultimate target) is ``fillable'' (i.e., there is a chain of morphisms of length $n$ which extends the original chain and whose composite is the auxiliary morphism).
-This is so: given \[g_1 \xrightarrow{g_2} g_1 g_2 \xrightarrow{g_3} \cdots \xrightarrow{g_n} g_1 \cdots g_n\] and \[g_1 \xrightarrow{h} h_{n+1},\] we can set $g_{n+1} = g_n^{-1} \cdots g_1^{-1} h_{n+1}$ to get \[g_1 \xrightarrow{g_2} g_1 g_2 \xrightarrow{g_3} \cdots \xrightarrow{g_n} g_1 \cdots g_n \xrightarrow{g_{n+1}} h_{n+1}. \qedhere\]
-\end{proof}
-
-\begin{remark}
-The $G$--action on $G \mmod G$ is \emph{free}.
-\end{remark}
-
-\begin{corollary}
-The quotient map $N(G \mmod G) \to N(* \mmod G)$ has fiber $G$, hence it models models $EG \to BG$. \qed
-\end{corollary}
-
-\begin{remark}
-This is a more conceptual statement than you might think.
-There are equivalences $G \mmod G \to \{\text{$G$--torsors with a trivialization}\}$ and $* \mmod G \to \{\text{$G$--torsors}\}$, and a map $X \to N(\{\text{$G$--torsors}\})$ for $X$ a simplicial set assigns each point in $X$ to a $G$--torsor, each path to a map of torsors, \ldots .
-This \emph{sounds} like it's building a $G$--bundle on $X$ by specifying the fibers.
-The \define{Grothendieck construction} makes this precise.
-\end{remark}
-
-This very concrete model for $BG$ has one really excellent feature: is has a naturally occurring skeletal filtration (viz., by simplex dimension) with identifiable quotients:
-
-\begin{figure*}
-\begin{center}
-\begin{tikzcd}
-BG^{(0)} \arrow[equal]{d} \arrow{r} & BG^{(1)} \arrow{d} \arrow{d} \arrow{r} & BG^{(2)} \arrow{d} \arrow{r} & \cdots \arrow{r} & BG^{(n-1)} \arrow{d} \arrow{r} & BG^{(n)} \arrow{d} \arrow{r} & \cdots \\
-* & \Susp G & (\Susp G)^{\sm 2} & \cdots & (\Susp G)^{\sm (n-1)} & (\Susp G)^{\sm n} & \cdots.
-\end{tikzcd}
-\end{center}
-\end{figure*}
-
-If $h$ is a homology theory with K\"unneth isomorphisms, this gives a spectral sequence \[E^1_{*, *} = (\widetilde h_* \Susp G)^{\otimes *} \Rightarrow h_* BG.\]  More than this, the $d^1$--differential in then identifiable: \[d_1(g_1 \otimes \cdots \otimes g_n) = \sum_{j=2}^n (g_1 \otimes \cdots \otimes g_{j-1} g_j \otimes \cdots \otimes g_n).\]  This is a standard resolution appearing in homological algebra:
-\marginnote{
-This is a very common situation: some ``fully derived'' construction appearing in homotopy theory has behavior mediated by analogous homological algebra and a spectral sequence.
-Since $\Tor^{h_* G}(h_*, h_*) = \pi_*(h_* \otimes_{h_* G}^{\mathbb L} h_*)$, this leads one to think of $BG$ as some kind of $* \times_G *$.
-This turns out to be fruitful.
-}
-\[E_{*, *}^2 = \Tor^{h_* G}_{*, *}(h_*, h_*).\]
-
-
-
-
-\section{The Steenrod algebra: calculation}
-
-\todo{Throughout today, you owe the reader citations.}
-Today we put the machinery of yesterday to work in the case of $H^m(K(\F_2, n); \F_2)$.
-Our method is \emph{inductive}, and it ultimately rests on the following key observations:
-
-\begin{example}
-$\Tor$ algebras are generally remarkably computable: there is an algorithm, due to Tate, which forms a resolution of $h_*$ by a DGA which is levelwise $(h_* G)$--free.
-To cover the algebras appearing in this computation, we will only need the following observations:
-\begin{align*}
-\Tor^{A \otimes B}_{*, *}(\F_2, \F_2) & \cong \Tor^A_{*, *}(\F_2, \F_2) \otimes \Tor^B_{*, *}(\F_2, \F_2), &
-\Tor^{\Lambda[x]}_{*, *}(\F_2, \F_2) & \cong \bigotimes_{j=0}^\infty \Gamma[\sigma x],
-\end{align*}
-where $A$ and $B$ are $\F_2$--algebras, $\Lambda[x]$ denotes an exterior $\F_2$--algebra generated by the lone element $x$, and $\Gamma[\sigma x]$ denotes a divided power $\F_2$--algebra generated by the suspension of the element $x$.
-\end{example}
-
-\begin{lemma}
-The pairing $K(\F_2, n) \times K(\F_2, 1) \xrightarrow\smile K(\F_2, n+1)$ induces a pairing ``$\circ$'' of spectral sequences
-\begin{center}
-\begin{tikzcd}
-\Tor^{H_* (K(\F_2, n); \F_2)}_{*, *} \otimes H_*(K(\F_2, 1); \F_2) \arrow["\circ"]{r} \arrow[Rightarrow]{d} & \Tor^{H_* (K(\F_2, n+1); \F_2)}_{*, *} \arrow[Rightarrow]{d} \\
-H_* (K(\F_2, n+1); \F_2) \otimes H_*(K(\F_2, 1); \F_2) \arrow["\smile"]{r} & H_* (K(\F_2, n+2); \F_2)
-\end{tikzcd}
-\end{center}
-which converges to the cup product and which satisfies $d(x \circ y) = (dx) \smile y$.
-\qed
-\end{lemma}
-
-We begin with the base case:
-\begin{lemma}
-The spectral sequence \[E_{*, *}^2 = \Tor^{H_*(\F_2; \F_2)}_{*, *}(\F_2, \F_2) \Rightarrow H_*(K(\F_2, 1); \F_2)\] collapses to give \[H_*(K(\F_2, 1); \F_2) \cong \Gamma[\sigma a].\]
-\end{lemma}
-\begin{proof}
-We analyze the input to the spectral sequence \[E_{*, *}^2 = \Tor^{H_*(\F_2; \F_2)}_{*, *}(\F_2, \F_2) \Rightarrow H_*(K(\F_2, 1); \F_2).\]
-The homology algebra $H_*(\F_2; \F_2)$ can be equivalently presented as \[H_*(\F_2; \F_2) \cong \F_2[\underline{1}] / (\underline 1^2 = 1) \cong \F_2[\underline 1 - 1] / (\underline 1 - 1)^2.\]
-Since this algebra is exterior, we may compute \[\Tor^{H_*(\F_2; \F_2)}_{*, *} \cong \Gamma[\sigma a],\] for $a = \underline 1 - 1$.
-The homology groups of $K(\F_2, 1) \simeq \RP^\infty$ have one class in every degree.
-The bar spectral sequence also has one class in every degree, and there can therefore be no nonzero differentials, so that the spectral sequence collapses at $E_2$.
-To establish convention, we write \[\Gamma[\sigma a] \cong \F_2[a_{(0)}, a_{(1)}, a_{(2)}, \ldots] / (a_{(j)}^2 = 0)\] for the algebra generators.
-\end{proof}
-
-\begin{theorem}
-The above Lemma generalizes in $n$ to give \[H_* (K(\F_2, n); \F_2) \cong \F_2[a_{(j_1)} \circ \cdots \circ a_{(j_n)}] / (\text{squares}).\]
-\end{theorem}
-\begin{proof}[Proof sketch]
-We proceed by induction, having shown the claim in the case $n = 0$.
-By assumption, $H_* K(\F_2, n)$ is a tensor product of exterior algebras, so the K\"unneth formula for $\Tor$--algebras gives
-\begin{align*}
-\Tor^{H_* K(\F_2, n)}_{*, *}(\F_2, \F_2) & \cong \bigotimes_J \Tor^{\Lambda[a_{(j_1)} \smile \cdots \smile a_{(j_n)}]}_{*, *}(\F_2, \F_2) \\
-& \cong \bigotimes_J \Gamma[a_{(j_1)} \smile \cdots \smile a_{(j_n)}].
-\end{align*}
-One can show the identity \todo{Wilson 8.16} \[(a_{(J)})_{(k)} \equiv a_{(J)} \smile a_{(k)} \pmod{\text{decomposables}}.\]
-It follows that there are no differentials, since the spectral sequence for $H_*(K(\F_2, 1); \F_2)$ had none.
-\end{proof}
-
-This has a great many consequences.
-
-\begin{corollary}\marginnote{\citep[Theorem 18.14]{Switzer}}
-\marginnote{In terms of the operations $\Sq^n$ below, $H^*(K(\F_2, n); \F_2)$ is given by the algebra $\F_2[\Sq^I \iota_n \mid I_j \ge 2I_{j+1}, 2I_1 - I_+ < n]$.}
-On cohomology, we have the calculation \[H^*(K(\F_2, n+1); \F_2) \cong \F_2[a_{(j_1)} \circ \cdots \circ a_{(j_n)}].\]
-\end{corollary}
-\begin{proof}[Proof sketch]
-One employs that the dual of a primitively-generated divided-power Hopf algebra is a primitively-generated polynomial Hopf algebra.
-\end{proof}
-
-\noindent
-This finishes the task we set out for ourselves at the beginning of this excursion, but we can collect a bit more at the level of spectra.
-
-\begin{corollary}\marginnote{\citep[Theorem 18.20]{Switzer}}
-The \define{dual Steenrod algebra} is given by \[\A_* := H\F_2{}_* H\F_2 \cong \F_2[\xi_1, \xi_2, \ldots, \xi_n, \ldots],\] where $|\xi_n| = 2^n - 1$ is represented by $a_{(n)} \in H_{2^n-1}(\Susp^{-1} K(\F_2, 1); \F_2)$.
-\end{corollary}
-\begin{proof}
-From our definition of $H\F_2 \sm H\F_2$, we have \[H\F_2 \sm H\F_2 \simeq H\F_2 \sm (\colim_n \Susp^{-n} K(\F_2, n)) \simeq \colim (H\F_2 \sm \Susp^{-n} K(\F_2, n)),\] so that applying $\pi_m$ gives \[(H\F_2)_m H\F_2 = \lim_n H_{m-n}(K(\F_2, n); \F_2).\]
-The Theorem gives us access to these groups, provided we can describe the maps participating in the colimit.
-These maps turn out to be $- \smile a_{(0)}$, owing to the factorization
-\begin{center}
-\begin{tikzcd}
-S^1 \sm K(\F_2, n) \arrow{rr} \arrow["{a_{(0)} \times \id}"]{rd} & & K(\F_2, n+1) \\
-& K(\F_2, 1) \sm K(\F_2, n) \arrow["\smile"]{ru}.
-\end{tikzcd}
-\end{center}
-\end{proof}
-
-The analogous formula for stable cohomology is harder: the answer as a coalgebra is encoded in the above, but to produce a description as a Hopf algebra we need to understand the comultiplication on $\A_*$.
-This is more complicated, so we merely quote the result:
-\begin{lemma}
-The comuliplication on $\A_*$ is given by
-\[\Delta \xi_n = \sum_{j=0}^n \xi_j \otimes \xi_{n-j}^{2^j}.\]
-The primitive elements of this algebra are $\xi_1^{2^j}$.
-\qed
-\end{lemma}
-\todo{Lots more formulas like this can be read off.  Maybe on your homework?}
-
-\begin{corollary}[{\citep[pg.\ 451]{Switzer}}]
-The Steenrod algebra, $\A^* := H\F_2^* H\F_2$, is noncommutative and generated by elements $\Sq^{2^j}$ dual to $\xi_1^{2^j}$.
-\marginnote{The space-level versions of these calculations are called the \define{unstable (dual) Steenrod algebra}.}
-\todo{How is $\Sq^n$ defined in general?  Dual to $\xi_1^n$?  I don't think so.}
-\qed
-\end{corollary}
-
-\begin{remark}
-A lot can be computed about $\A^*$ by studying universal cases.
-For instance, $\Delta(x^2)^* = 1 \mid (x^2)^* + \xi_1 \mid (x)^* \in \A_* \otimes \widetilde H_* \RP^\infty$ says $\Sq^0(x^2) = x^2$ and $\Sq^1(x) = x^2$ for $|x| = 1$.
-In fact, we have
-\begin{enumerate}
-    \item $\Sq^0(x) = x$.
-    \item $\Sq^{>|x|}(x) = 0$.
-    \item $\Sq^{|x|}(x) = x^2$.
-    \item $\Sq^n(x+y) = \Sq^n x + \Sq^n y$.
-    \item $\Sq^n(xy) = \sum_{n_1 + n_2 = n} \Sq^{n_1}(x) \cdot \Sq^{n_2} y$.
-    \item ``The Adem relations'', summarized by
-    \begin{enumerate}
-        \item $\Sq^{2n-1} \Sq^n = 0$, and
-        \item $d(\Sq^n) = \Sq^{n-1}$ extends to a derivation.
-    \end{enumerate}
-    So, for instance,
-    \begin{align*}
-    0 & = d^3(\Sq^5 \Sq^3) \\
-    & = d(\Sq^3\Sq^3 + \Sq^5 \Sq^1) \\
-    & = \Sq^2 \Sq^3 + \Sq^3 \Sq^2 + \Sq^4 \Sq^1 + \Sq^5 \Sq^0.
-    \end{align*}
-\end{enumerate}
-\end{remark}
-\todo{Emphasize that the cohomology of spaces and spectra have natural actions of these endomorphism algebras.}
-
-
-
-
-\begin{subappendices}
-
-\section{$K$--theory}
-
-\todo[inline]{Since we're talking about $G$--bundles, I think it would be smart to give a brief treatment of complex $K$--theory, even if it doesn't directly factor into our future calculations.}
-
-% \begin{remark}
-% There is a \emph{really} slick proof of complex Bott periodicity that uses these nerve constructions.  It's on your homework.\todo{Inject this.}
-% \end{remark}
-
-\end{subappendices}

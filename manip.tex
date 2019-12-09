@@ -336,7 +336,7 @@ The relative homotopy groups of the pair thus vanish through this range, and the
 \marginnote{\citep[Corollary 6.37]{Switzer}}
 For $n \ge 2$,
 \marginnote{Also, $\pi_1 \bigvee_\alpha S^1_\alpha \cong \bigast_\alpha \pi_1 S^1_\alpha$.}
-\[\pi_n(\bigvee_\alpha S^n_\alpha) \cong \bigoplus_\alpha \pi_n S^n_\alpha.
+\[\pi_n\left(\bigvee_\alpha S^n_\alpha\right) \cong \bigoplus_\alpha \pi_n S^n_\alpha.
 \qed\]
 \end{corollary}
 
@@ -513,7 +513,7 @@ If a map of spectral sequences is an isomorphism on the $r$\textsuperscript{th} 
 Their targets are also isomorphic by the same map. \qed
 \end{lemma}
 
-\begin{example}
+\begin{example}\label{CellularHomologyWorks}
 Consider the filtration of a CW-complex $X$ by its skeleta.
 The filtration stages participate in coexact sequences with spheres of a fixed dimension, from which we conclude \[\widetilde H_*(X_n, X_{n-1}; A) = \widetilde H_*\left(\bigvee_\alpha S^n_\alpha ; A\right) = \bigoplus_\alpha \Susp^n A.\]
 The map $d_1$ associated to the spectral sequence is exactly the cellular differential, as can be seen by drawing the defining diagram:
@@ -547,7 +547,7 @@ It then follows from \Cref{SpheresDetectEquivalenceOfCohomologyTheories} that th
 
 
 
-\section{Obstruction theory}
+\section{Obstruction theory}\label{ObstructionSection}
 
 Today we exploit the machinery of spectral sequences to organize and extend some of our results in the realm of \define{obstruction theory}.
 Obstruction theory is generally concerned with starting with a map
@@ -676,53 +676,160 @@ This leaves us with some burning questions which we must answer before using thi
 
 
 
-\section{A complicated example}
+\begin{subappendices}
+\section{A complicated example}\label{ComplicatedExampleSec}
 
-We haven't yet had an example of a spectral sequence in which we can compute.  This is because at our stage it is impossible to find a spectral sequence that is easy, tangible, nontrivial, and well-motivated all at once.  Today we will retreat to algebra in order to work an example that covers the first three attributes, with the promise that it will become well-motivated later on.
+We haven't yet had an example of a spectral sequence in which we can compute.
+This is because at our stage it is impossible to find a spectral sequence that is easy, tangible, nontrivial, and well-motivated all at once.
+Today we will retreat to algebra in order to work an example that covers the first three attributes, with the promise that it will become well-motivated later on.
 
-\todo[inline]{This lecture is vastly underbaked.}
+Let us consider the Hopf algebra \[\A(1)_* = \F_2[\xi_1, \xi_2] / (\xi_1^4, \xi_2^2)\] whose comultiplication is determined by%
+\marginnote{%
+Topologists often write ``$\mid$'' in place of ``$\otimes$'' to make lengthy formulas less exhausting to write.
+This practice is also where the name ``co/\emph{bar} complex'' comes from.
+}
+\begin{align*}
+\Delta \xi_1 & = 1 \mid \xi_1 + \xi_1 \mid 1, \\
+\Delta \xi_2 & = 1 \mid \xi_2 + \xi_1 \mid \xi_1^2 + \xi_2 \mid 1.
+\end{align*}
+Associated to this Hopf algebra there is a \define{(reduced) cobar complex}, given by \[C^n(\A(1)_*) = \left\{\cdots \to \overline \A(1)^{\otimes n} \xrightarrow{\delta^n} \overline \A(1)^{\otimes (n+1)} \to \cdots \right\},\] where $\overline{\A(1)}$ denotes the quotient of $\A(1)$ by the submodule spanned by the unit class.
+The differential $\delta^n$ is given by the alternating sum \[\delta^n(x_1 \mid \cdots \mid x_n) = \sum_{j=1}^n (-1)^{j+1} \left(x_1 \mid \cdots \mid \Delta(x_j) \mid \cdots \mid x_n\right).\]
 
-$\A(1)_* = \F_2[\xi_1, \xi_2] / (\xi_1^4, \xi_2^2)$ with $\overline \Delta \xi_1 = 0$ and $\overline \Delta \xi_2 = \xi_1 \mid \xi_1^2$.  The \define{(reduced) cobar complex} associated to $\A(1_*$ is given by $C^n(\A(1)_*) = \overline \A(1)^{\otimes n}$ with differential an alternating sum of $\overline \Delta$s.
-
-One can filter this complex using powers of the augmentation ideal, which on the associated graded looks like the cobar complex for an exterior algebra, which has homology given by a polynomial algebra on homology-suspended shifts of the same classes.
+Despite being only of modest size, the cohomology of this complex is still difficult to compute for those uninitiated in coalgebraic techniques.
+To make it easier on us, we can filter this complex using powers of the augmentation ideal.
+The associated graded looks like the cobar complex for an exterior algebra, which has homology given by a polynomial algebra on homology-suspended shifts of the same classes.
 
 \begin{theorem}[May]
-This gives a spectral sequence of algebras \[E_1^{*, *, *} \cong \F_2[h_{10}, h_{11}, h_{20}] \Rightarrow H^*(\A(1)_*). \qed\]
+This gives a spectral sequence of algebras \[E_1^{*, *, *} \cong \F_2[h_{10}, h_{11}, h_{20}] \Rightarrow H^*(\A(1)_*),\] where $h_{ij}$ represents $\xi_i^{2^j}$. \qed
 \end{theorem}
 
-We can even compute differentials in this spectral sequence.
+The first differential in this spectral sequence is tautological to compute:
 
 \begin{lemma}
-$d(h_{20}) = h_{10} h_{11}$.
+$d_1$ is fully specified by
+\begin{align*}
+d_1(h_{10}) & = 0, &
+d_1(h_{11}) & = 0, &
+d_1(h_{20}) & = h_{10} h_{11}.
+\end{align*}
 \end{lemma}
 \begin{proof}
-$h_{20}$ represents $\xi_2$, which has differential $d(\xi_2) = \Delta \xi_2 = \xi_1 \mid \xi_1^2$, which is represented by $h_{10} h_{11}$.
+Recall that $h_{ij}$ represents $\xi_i^{2^j}$.
+The first two equations then follow from $\delta^1(\xi_1^{2^j}) = 0$.
+To analyze $h_{20}$, note that the differential of $\xi_2$ in the cobar complex is \[\delta^1(\xi_2) = \Delta \xi_2 = \xi_1 \mid \xi_1^2.\]
+This is represented by $h_{10} h_{11}$.
 \end{proof}
+
+\noindent
+\marginnote{%
+\DeclareSseqGroup\hzerotower {} {\foreach \y in {1,...,9} { \class(0,\y) }}
+\DeclareSseqGroup\honetower  {} {\foreach \y in {1,...,9} { \class(\y,\y) }}
+\DeclareSseqGroup\AOneWing {} {
+    \class(0,0)
+    \foreach \y in {1,...,9} { \class(0, \y) \structline }
+    \class(1,1) \structline(0,0)(1,1)
+    \foreach \y in {2,...,9} { \class(\y, \y) \structline }
+}
+\begin{sseqdata}[ name = MaySSA1, yscale = 0.3, xscale = 0.3 ]
+\AOneWing(0,0)
+\AOneWing(4,2)
+\AOneWing(8,4)
+\AOneWing(12,6)
+\end{sseqdata}
+\printpage[ name = MaySSA1, page = 2, x range = {0}{10}, y range = {0}{8} ] \\
+Vertical lines indicate classes linked by multiplication by $h_{10}$, and diagonal lines indicate classes linked by multiplication by $h_{11}$.
+}
+Since these form a multiplicative generating set, we can use the Leibniz law to capture the rest of $d_1$: \[d_1(x y) = (d_1 x) y + (-1)^{|x|} x (d_1 y).\]
 
 \begin{lemma}
 $d(h_{20}^2) = h_{11}^3$.
 \end{lemma}
 \begin{proof}
-$h_{20}^2$ represents $\xi_2 \mid \xi_2$, which has differential \[d(\xi_2 \mid \xi_2) = \xi_1 \mid \xi_1^2 \mid \xi_2 + \xi_2 \mid \xi_1 \mid \xi_1^2,\] which is represented by $2 h_{10} h_{11} h_{20} \equiv 0$.  By finding a preimage of this class along the cobar differential, we can perturb the representative cocycle and get a longer May differential:
+The class $h_{20}^2$ is represented by $\xi_2 \mid \xi_2$, which has cobar differential \[\delta(\xi_2 \mid \xi_2) = \xi_1 \mid \xi_1^2 \mid \xi_2 + \xi_2 \mid \xi_1 \mid \xi_1^2,\] which in turn represents \[2 h_{10} h_{11} h_{20} \equiv 0.\]
+That this class vanishes in the spectral sequence indicates that we can produce a longer spectral sequence differential by adding a correcting term of higher filtration to the chosen representative $\xi_2 \mid \xi_2$.
+Namely, we need to find a preimage of $\xi_1 \mid \xi_1^2 \mid \xi_2 + \xi_2 \mid \xi_1 \mid \xi_1^2$ along the cobar differential, up to higher still filtration.
+Some fussing shows that the following fits the bill: \[\xi_1 \xi_2 \mid \xi_1^2 + \xi_1 \mid \xi_2 \xi_1^2,\] from which we compute
 \begin{align*}
 d(\xi_2 \mid \xi_2 + \xi_1 \xi_2 \mid \xi_1^2 + \xi_1 \mid \xi_2 \xi_1^2)
 &       = (\xi_1 \mid \xi_1^2 \mid \xi_2 + \xi_2 \mid \xi_1 \mid \xi_1^2) \\
 & \quad + (\xi_1^2 \mid \xi_1^2 + \xi_1 \mid \xi_2 + \xi_2 \mid \xi_1 + \xi_1 \mid \xi_1^3) \mid \xi_1^2 \\
 & \quad + \xi_1 \mid (\xi_2 \mid \xi_1^2 + \xi_1 \mid \xi_1^4 + \xi_1^2 \mid \xi_2 + \xi_1^3 \mid \xi_1^2) \\
-& = \xi_1^2 \mid \xi_1^2 \mid \xi_1^2,
+& = \xi_1^2 \mid \xi_1^2 \mid \xi_1^2.
 \end{align*}
-which is represented by $h_{11}^3$.
+This last class represents $h_{11}^3$, which is nonzero on the second page of the May spectral sequence.
 \end{proof}
 
-This is the last differential in the spectral sequence.
+\noindent
+\marginnote{%
+\begin{sseqdata}[ name = MaySSA1, update existing ]
+\foreach \j in {0,...,6} {
+    \d2(4+\j,2+\j)(3+\j,3+\j)
+}
+\foreach \j in {0,...,6} {
+    \d2(12+\j,6+\j)(11+\j,7+\j)
+}
+\end{sseqdata}
+\printpage[ name = MaySSA1, page = 3, x range = {0}{10}, y range = {0}{8} ]
+}
+This again is enough to determine the differential on a multiplicative generating set.
+More than this, this is the last differential in the spectral sequence, since the page is now too sparse to support any further differentials.
+In this way, the spectral sequence and its multiplicative structure have converted the computation the cohomology of an infinite complex, a seemingly intractible problem, into two relatively minor calculations in the complex.
 
 \begin{remark}
 \todo[inline]{Expand remark about Leibniz rule into the Christianson-style presentation of the spectral sequence.}
 \end{remark}
 
-\todo[inline]{Include pictures of these SS pages.}
+% We'll talk about this smaller example in a language that generalizes.  The specification of the spectral sequence above is multiplicative, in the sense that the Leibniz rule specifies everything.  Computation can be made \emph{linear} again by working with $E_1^2 = \F_2[h_{10}^2, h_{11}^2, h_{20}^2]$--modules.
+% \[
+% \begin{array}{c|cccccccc}
+% d_1 & 1 & h_{10} & h_{11} & h_{20} & h_{10} h_{11} & h_{11} h_{20} & h_{10} h_{20} & h_{10} h_{11} h_{20} \\
+% \hline
+% 1                    & 0 & 0 & 0 & 0 & 0 &        0 &        0 & h_{10}^2 h_{11}^2 \\
+% h_{10}               & 0 & 0 & 0 & 0 & 0 & h_{11}^2 &        0 & 0 \\
+% h_{11}               & 0 & 0 & 0 & 0 & 0 &        0 & h_{10}^2 & 0 \\
+% h_{20}               & 0 & 0 & 0 & 0 & 0 &        0 &        0 & 0 \\
+% h_{10} h_{11}        & 0 & 0 & 0 & 1 & 0 &        0 &        0 & 0 \\
+% h_{11} h_{20}        & 0 & 0 & 0 & 0 & 0 &        0 &        0 & 0 \\
+% h_{10} h_{20}        & 0 & 0 & 0 & 0 & 0 &        0 &        0 & 0 \\
+% h_{10} h_{11} h_{20} & 0 & 0 & 0 & 0 & 0 &        0 &        0 & 0
+% \end{array},
+% \]
+% hence $Z = E_1^2\{1, h_{10}, h_{11}, h_{10} h_{11}\}$ and $B = \<1 \cdot h_{10} h_{11}, h_{11}^2 \cdot h_{10}, h_{10}^2 \cdot h_{11}, h_{10}^2 h_{11}^2 \cdot 1\>$, from which we see \[E_2 = H = E_1^2\{1 / h_{10}^2 h_{11}^2, h_{10} / h_{11}^2, h_{11} / h_{10}^2\}.\]\todo{include picture}
 
+% To continue the calculation, we need some way to describe longer differentials in the spectral sequence.
 
+% \begin{theorem}[Nakamura]
+% There are operators $\Sq^n$ acting on the May spectral sequence, satisfying\ldots
+% \begin{enumerate}
+%     \item $\Sq^0 h_{ij} = h_{i(j+1)}$.
+%     \item $\Sq^1 h_{ij} = h_{ij}^2$.
+%     \item $\Sq^n$ is linear.
+%     \item $\Sq^n(x \cdot y) = \sum_{i+j=n} \Sq^i(x) \Sq^j(y)$.
+%     \item $\Sq^n(d_? x) = d_? \Sq^n(x)$, where ``$?$'' is \emph{unknown}.
+% \end{enumerate}
+% \end{theorem}
+
+% \begin{example}
+% \[d_?(h_{20}^2) = d_?(\Sq^1 h_{20}) = \Sq^1 d_1 h_{20} = \Sq^1(h_{10} h_{11}) = \Sq^1 h_{10} \Sq^0 h_{11} + \Sq^0 h_{10} \Sq^1 h_{11} = h_{10}^2 h_{12} + h_{11}^3.\]
+% \end{example}
+
+% We compute the subalgebra of squares to be $E_2^2 = \F_2[h_{10}^4, h_{11}^2, h_{20}^4] / (h_{10}^2 h_{11}^2)$, and continuing in this way gives a computation of $d_2$ as an $E_2^2$--linear map.
+% \[
+% \begin{array}{c|cccccc}
+% d_2 & 1 & h_{10}/h_{11}^2 & h_{11}/h_{10}^2 & h_{10}h_{20}^2/h_{11}^2 & h_{11}h_{20}^2/h_{10}^2 & h_{20}^2 \\
+% 1 &                       0 & 0 & 0 & 0 & h_{11}^4 & 0 \\
+% h_{10}/h_{11}^2 &         0 & 0 & 0 & 0 &        0 & 0 \\
+% h_{11}/h_{10}^2 &         0 & 0 & 0 & 0 &        0 & h_{11}^2 \\
+% h_{10}h_{20}^2/h_{11}^2 & 0 & 0 & 0 & 0 &        0 & 0 \\
+% h_{11}h_{20}^2/h_{10}^2 & 0 & 0 & 0 & 0 &        0 & 0 \\
+% h_{20}^2                & 0 & 0 & 0 & 0 &        0 & 0               
+% \end{array}
+% \]
+% This has kernel $Z = \<1, h_{10}, h_{11}, h_{10}h_{20}^2, h_{10}^2h_{20}^2\>$ and image $B = \<h_{11}^4 \cdot 1, h_{11}^2 \cdot h_{11}\>$, hence cohomology \[E_3 = H = E_2^2\{1 / h_{11}^4, h_{10}/h_{11}^2, h_{11} / (h_{10}^2, h_{11}^2), h_{10}h_{20}^2/h_{11}^2, h_{10}^2h_{20}^2 / h_{11}^2\}.\]  This is the last page; we include a sketch below.\todo{sketch}
+
+% The general computation is similar in techniques, but vastly more complicated.  (For $\A(2)$, it still turns out to be completely feasible, and was first worked in (I think...!) by Mahowald and Hopkins.)
+
+\end{subappendices}
 
 
 

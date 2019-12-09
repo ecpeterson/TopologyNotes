@@ -1,0 +1,1042 @@
+% -*- root: main.tex -*-
+
+\chapter{Computations in the Steenrod Algebra}
+
+\todo[inline]{Inject an introduction.}
+
+
+
+
+\section{$G$--bundles and fiber bundles}
+
+A major up-shot of representability is that the tools of algebraic topology can be turned on themselves.
+We have previously announced our intention to understand the collection of natural transformations \[H^n(-; A) \to H^m(-; B).\]
+By appealing to representability, this is not only equivalent to the collection of homotopy classes \[K(A, n) \to K(m, B)\] but also to the cohomology group \[H^m(K(A, n); B).\]
+If we can get a sufficiently explicit handle on $K(A, n)$, we can use such a presentation to finish our original analysis.
+
+There is a particularly restrictive form of fiber bundle that appears very often in geometric contexts:
+
+\begin{definition}\marginnote{\citep[Definition 11.1]{Switzer}}
+A \define{(real) vector bundle (of rank $k$)} over a base $B$ is a fiber bundle $p\co E \to B$ with fiber $\R^k$ and whose transition maps are linear functions.
+\end{definition}
+
+\begin{example}
+The co/tangent bundles of a manifold are vector bundles.
+\end{example}
+
+\noindent
+This constraint on the transition maps admits a universal form:
+
+\begin{definition}\marginnote{\citep[Definition 11.4]{Switzer}}
+A \define{$G$--bundle} is a fiber bundle $p\co E \to B$ where $G$ acts on $E$ (and trivially on $B$, and the map $p$ is equivariant), the identifications $\phi_U\co p^{-1}(U) \cong G \times B$ are equivariant, and the compatibilities $\phi_U|_{U \cap V} = \phi_V|_{U \cap V}$ are equivariant too.
+\end{definition}
+
+\begin{remark}\marginnote{\citep[11.21]{Switzer}}
+This construction is universal in the following sense: if $G$ acts on an auxiliary space $F$, one can extract from a $G$--bundle $p\co E \to B$ an $F$--fiber bundle by \[E' = (F \times E) / (fg, e) \sim (f, ge).\]
+Conversely, a fiber bundle with fiber $F$ has an associated $(\Aut F)$--bundle.
+\end{remark}
+
+\begin{example}\marginnote{\citep[Theorem 11.20, Proposition 11.22]{Switzer}}
+Real vector bundles correspond with $\GL(\R^n)$--bundles under this construction.
+The maximal compact subgroup of $\GL(\R^n)$ is the orthogonal group $O(\R^n)$, and the equivariant retraction $O(\R^n) \to \GL(\R^n)$ gives an equivalence between $O(\R^n)$--bundles and $\GL(\R^n)$--bundles (and hence with real vector bundles as well).
+\end{example}
+
+The local nature of the definition of a vector bundle gives rise to the following observation:
+
+\begin{lemma}\marginnote{\citep[Proposition 11.32]{Switzer}}
+The assignment $X \mapsto \{\text{isomorphism classes of $G$--bundles on $X$}\}$ satisfies the wedge axiom and Mayer--Vietoris. \qed
+\end{lemma}
+
+\begin{corollary}\marginnote{\citep[11.33]{Switzer}}
+There is a homotopy type $BG$ representing this functor. \qed
+\end{corollary}
+
+\noindent
+Purely through abstract principles, one can make an interesting qualitative statement about this homotopy type:
+
+\begin{lemma}\marginnote{\citep[Proposition 11.27, Theorem 11.35]{Switzer}}
+Let $E \to B$ be a $G$--bundle with $E$ $n$--connected.
+The classifying map $B \to BG$ is then an $n$--equivalence.
+It follows that the induced natural transformation $[-, B] \to [-, BG] \to k_G(-)$ is an equivalence on complexes of dimension $\le n$.
+\qed
+\end{lemma}
+
+\begin{corollary}\label{CharacterizationOfBG}
+The universal bundle $EG$ classified by $\id\co BG \to BG$ has \emph{contractible} total space.
+Conversely, $G$--bundle with contractible total space is a model for the universal such bundle.
+\qed
+\end{corollary}
+
+\begin{remark}\marginnote{\citep[11.43]{Switzer}}
+With \Cref{LoopsShiftsPi} and \Cref{ShiftingEMSpaces} in mind, we can now smell the connection between these ideas and our pursuit of Eilenberg--Mac Lane spaces.
+Namely, \Cref{LoopsShiftsPi} shows that the natural map \[G \to \Loops BG\] is an equivalence, so that \[K(A, n+1) \to BK(A, n)\] is also an equivalence.%
+\marginnote{%
+Making sense of this requires a model of $K(A, n)$ as an honest group, rather than as an $H$--group.
+We blithely assert to the reader that such a model exists---its precise form won't turn out to be important.
+}
+\end{remark}
+
+We now turn to the problem of producing a reliable model of $BG$, using \Cref{CharacterizationOfBG} as a guide.
+\marginnote{The first-time reader will probably find it easier to conceptualize the following under the further condition that $G$ be finite (e.g., $\Z/2$).}
+Our route, as ever, will pass through some creative category theory.
+\todo{From here on, you owe the reader citations.}
+
+\begin{definition}
+Let $\CatOf C$ be a category.
+Its \define{nerve} $N(\CatOf C)$ is a simplicial set with $0$--simplices the objects of $\CatOf C$, $1$--simplices the arrows of $\CatOf C$, $2$--simplices commuting triangles, $3$--simplices commuting tetrahedra, \ldots .
+\marginnote{Equivalently: the $n$--simplices are given by length $n$ chains of composable morphisms.}
+\end{definition}
+
+\begin{remark}
+This construction is a very faithful encoding of a category: the original category and its composition law can be recovered from the $0$--. $1$--, and $2$--simplices.
+It also translates categorical ideas to recognizable topological objects: for instance, functors become continuous maps and natural transformations become homotopies of maps.
+\end{remark}
+
+\todo[inline]{Inject a comment about being able to extend this business to topologically enriched categories too.}
+
+\begin{example}
+For $G$ a group, we define two categories:
+\begin{enumerate}
+    \item $G \mmod G$ has objects $g \in G$ and maps $g \xrightarrow h gh$.
+    \item $* \mmod G$ has one object $*$ and maps $* \xrightarrow h *$.
+\end{enumerate}
+\end{example}
+
+\begin{lemma}
+$G \mmod G$ is contractible.
+\end{lemma}
+\begin{proof}[Proof sketch]
+This amounts to showing that any ``outer horn'' (i.e., a chain of morphisms of length $n-1$ and a morphism with either the same ultimate source or same ultimate target) is ``fillable'' (i.e., there is a chain of morphisms of length $n$ which extends the original chain and whose composite is the auxiliary morphism).
+This is so: given \[g_1 \xrightarrow{g_2} g_1 g_2 \xrightarrow{g_3} \cdots \xrightarrow{g_n} g_1 \cdots g_n\] and \[g_1 \xrightarrow{h} h_{n+1},\] we can set $g_{n+1} = g_n^{-1} \cdots g_1^{-1} h_{n+1}$ to get \[g_1 \xrightarrow{g_2} g_1 g_2 \xrightarrow{g_3} \cdots \xrightarrow{g_n} g_1 \cdots g_n \xrightarrow{g_{n+1}} h_{n+1}. \qedhere\]
+\end{proof}
+
+\begin{remark}
+The $G$--action on $G \mmod G$ is \emph{free}.
+\end{remark}
+
+\begin{corollary}
+The quotient map $N(G \mmod G) \to N(* \mmod G)$ has fiber $G$, hence it models models $EG \to BG$. \qed
+\end{corollary}
+
+\begin{remark}
+This is a more conceptual statement than you might think.
+There are equivalences $G \mmod G \to \{\text{$G$--torsors with a trivialization}\}$ and $* \mmod G \to \{\text{$G$--torsors}\}$, and a map $X \to N(\{\text{$G$--torsors}\})$ for $X$ a simplicial set assigns each point in $X$ to a $G$--torsor, each path to a map of torsors, \ldots .
+This \emph{sounds} like it's building a $G$--bundle on $X$ by specifying the fibers.
+The \define{Grothendieck construction} makes this precise.
+\end{remark}
+
+This very concrete model for $BG$ has one really excellent feature: is has a naturally occurring skeletal filtration (viz., by simplex dimension) with identifiable quotients:
+
+\begin{figure*}
+\begin{center}
+\begin{tikzcd}
+BG^{(0)} \arrow[equal]{d} \arrow{r} & BG^{(1)} \arrow{d} \arrow{d} \arrow{r} & BG^{(2)} \arrow{d} \arrow{r} & \cdots \arrow{r} & BG^{(n-1)} \arrow{d} \arrow{r} & BG^{(n)} \arrow{d} \arrow{r} & \cdots \\
+* & \Susp G & (\Susp G)^{\sm 2} & \cdots & (\Susp G)^{\sm (n-1)} & (\Susp G)^{\sm n} & \cdots.
+\end{tikzcd}
+\end{center}
+\end{figure*}
+
+If $h$ is a homology theory with K\"unneth isomorphisms, this gives a spectral sequence \[E^1_{*, *} = (\widetilde h_* \Susp G)^{\otimes *} \Rightarrow h_* BG.\]  More than this, the $d^1$--differential in then identifiable: \[d_1(g_1 \otimes \cdots \otimes g_n) = \sum_{j=2}^n (g_1 \otimes \cdots \otimes g_{j-1} g_j \otimes \cdots \otimes g_n).\]  This is a standard resolution appearing in homological algebra:
+\marginnote{
+This is a very common situation: some ``fully derived'' construction appearing in homotopy theory has behavior mediated by analogous homological algebra and a spectral sequence.
+Since $\Tor^{h_* G}(h_*, h_*) = \pi_*(h_* \otimes_{h_* G}^{\mathbb L} h_*)$, this leads one to think of $BG$ as some kind of $* \times_G *$.
+This turns out to be fruitful.
+}
+\[E_{*, *}^2 = \Tor^{h_* G}_{*, *}(h_*, h_*).\]
+
+
+
+
+\section{The Steenrod algebra: calculation}\label{StableSteenrodAlgCalculation}
+
+\todo{Throughout today, you owe the reader citations.}
+Today we put the machinery of yesterday to work in the case of $H^m(K(\F_2, n); \F_2)$.
+Our method is \emph{inductive}, and it ultimately rests on the following key observations:
+
+\begin{example}
+$\Tor$ algebras are generally remarkably computable: there is an algorithm, due to Tate, which forms a resolution of $h_*$ by a DGA which is levelwise $(h_* G)$--free.
+To cover the algebras appearing in this computation, we will only need the following observations:
+\begin{align*}
+\Tor^{A \otimes B}_{*, *}(\F_2, \F_2) & \cong \Tor^A_{*, *}(\F_2, \F_2) \otimes \Tor^B_{*, *}(\F_2, \F_2), &
+\Tor^{\Lambda[x]}_{*, *}(\F_2, \F_2) & \cong \bigotimes_{j=0}^\infty \Gamma[\sigma x],
+\end{align*}
+where $A$ and $B$ are $\F_2$--algebras, $\Lambda[x]$ denotes an exterior $\F_2$--algebra generated by the lone element $x$, and $\Gamma[\sigma x]$ denotes a divided power $\F_2$--algebra generated by the suspension of the element $x$.
+\end{example}
+
+\begin{lemma}
+The pairing $K(\F_2, n) \times K(\F_2, 1) \xrightarrow\smile K(\F_2, n+1)$ induces a pairing ``$\circ$'' of spectral sequences
+\begin{center}
+\begin{tikzcd}
+\Tor^{H_* (K(\F_2, n); \F_2)}_{*, *} \otimes H_*(K(\F_2, 1); \F_2) \arrow["\circ"]{r} \arrow[Rightarrow]{d} & \Tor^{H_* (K(\F_2, n+1); \F_2)}_{*, *} \arrow[Rightarrow]{d} \\
+H_* (K(\F_2, n+1); \F_2) \otimes H_*(K(\F_2, 1); \F_2) \arrow["\smile"]{r} & H_* (K(\F_2, n+2); \F_2)
+\end{tikzcd}
+\end{center}
+which converges to the cup product and which satisfies $d(x \circ y) = (dx) \smile y$.
+\qed
+\end{lemma}
+
+We begin with the base case:
+\begin{lemma}
+The spectral sequence \[E_{*, *}^2 = \Tor^{H_*(\F_2; \F_2)}_{*, *}(\F_2, \F_2) \Rightarrow H_*(K(\F_2, 1); \F_2)\] collapses to give \[H_*(K(\F_2, 1); \F_2) \cong \Gamma[\sigma a].\]
+\end{lemma}
+\begin{proof}
+We analyze the input to the spectral sequence \[E_{*, *}^2 = \Tor^{H_*(\F_2; \F_2)}_{*, *}(\F_2, \F_2) \Rightarrow H_*(K(\F_2, 1); \F_2).\]
+The homology algebra $H_*(\F_2; \F_2)$ can be equivalently presented as \[H_*(\F_2; \F_2) \cong \F_2[\underline{1}] / (\underline 1^2 = 1) \cong \F_2[\underline 1 - 1] / (\underline 1 - 1)^2.\]
+Since this algebra is exterior, we may compute \[\Tor^{H_*(\F_2; \F_2)}_{*, *} \cong \Gamma[\sigma a],\] for $a = \underline 1 - 1$.
+The homology groups of $K(\F_2, 1) \simeq \RP^\infty$ have one class in every degree.
+The bar spectral sequence also has one class in every degree, and there can therefore be no nonzero differentials, so that the spectral sequence collapses at $E_2$.
+To establish convention, we write \[\Gamma[\sigma a] \cong \F_2[a_{(0)}, a_{(1)}, a_{(2)}, \ldots] / (a_{(j)}^2 = 0)\] for the algebra generators.
+\end{proof}
+
+\begin{theorem}
+The above Lemma generalizes in $n$ to give \[H_* (K(\F_2, n); \F_2) \cong \F_2[a_{(j_1)} \circ \cdots \circ a_{(j_n)}] / (\text{squares}).\]
+\end{theorem}
+\begin{proof}[Proof sketch]
+We proceed by induction, having shown the claim in the case $n = 0$.
+By assumption, $H_* K(\F_2, n)$ is a tensor product of exterior algebras, so the K\"unneth formula for $\Tor$--algebras gives
+\begin{align*}
+\Tor^{H_* K(\F_2, n)}_{*, *}(\F_2, \F_2) & \cong \bigotimes_J \Tor^{\Lambda[a_{(j_1)} \smile \cdots \smile a_{(j_n)}]}_{*, *}(\F_2, \F_2) \\
+& \cong \bigotimes_J \Gamma[a_{(j_1)} \smile \cdots \smile a_{(j_n)}].
+\end{align*}
+One can show the identity \todo{Wilson 8.16} \[(a_{(J)})_{(k)} \equiv a_{(J)} \smile a_{(k)} \pmod{\text{decomposables}}.\]
+It follows that there are no differentials, since the spectral sequence for $H_*(K(\F_2, 1); \F_2)$ had none.
+\end{proof}
+
+This has a great many consequences.
+
+\begin{corollary}\marginnote{\citep[Theorem 18.14]{Switzer}}
+\marginnote{In terms of the operations $\Sq^n$ below, $H^*(K(\F_2, n); \F_2)$ is given by the algebra $\F_2[\Sq^I \iota_n \mid I_j \ge 2I_{j+1}, 2I_1 - I_+ < n]$.}
+On cohomology, we have the calculation \[H^*(K(\F_2, n+1); \F_2) \cong \F_2[a_{(j_1)} \circ \cdots \circ a_{(j_n)}].\]
+\end{corollary}
+\begin{proof}[Proof sketch]
+One employs that the dual of a primitively-generated divided-power Hopf algebra is a primitively-generated polynomial Hopf algebra.
+\end{proof}
+
+\noindent
+This finishes the task we set out for ourselves at the beginning of this excursion, but we can collect a bit more at the level of spectra.
+
+\begin{corollary}\marginnote{\citep[Theorem 18.20]{Switzer}}
+The \define{dual Steenrod algebra} is given by \[\A_* := H\F_2{}_* H\F_2 \cong \F_2[\xi_1, \xi_2, \ldots, \xi_n, \ldots],\] where $|\xi_n| = 2^n - 1$ is represented by $a_{(n)} \in H_{2^n-1}(\Susp^{-1} K(\F_2, 1); \F_2)$.
+\end{corollary}
+\begin{proof}
+From our definition of $H\F_2 \sm H\F_2$, we have \[H\F_2 \sm H\F_2 \simeq H\F_2 \sm (\colim_n \Susp^{-n} K(\F_2, n)) \simeq \colim (H\F_2 \sm \Susp^{-n} K(\F_2, n)),\] so that applying $\pi_m$ gives \[(H\F_2)_m H\F_2 = \lim_n H_{m-n}(K(\F_2, n); \F_2).\]
+The Theorem gives us access to these groups, provided we can describe the maps participating in the colimit.
+These maps turn out to be $- \smile a_{(0)}$, owing to the factorization
+\begin{center}
+\begin{tikzcd}
+S^1 \sm K(\F_2, n) \arrow{rr} \arrow["{a_{(0)} \times \id}"]{rd} & & K(\F_2, n+1) \\
+& K(\F_2, 1) \sm K(\F_2, n) \arrow["\smile"]{ru}.
+\end{tikzcd}
+\end{center}
+\end{proof}
+
+The analogous formula for stable cohomology is harder: the answer as a coalgebra is encoded in the above, but to produce a description as a Hopf algebra we need to understand the comultiplication on $\A_*$.
+This is more complicated, so we merely quote the result:
+\begin{lemma}
+The comuliplication on $\A_*$ is given by
+\[\Delta \xi_n = \sum_{j=0}^n \xi_j \otimes \xi_{n-j}^{2^j}.\]
+The primitive elements of this algebra are $\xi_1^{2^j}$.
+\qed
+\end{lemma}
+\todo{Lots more formulas like this can be read off.  Maybe on your homework?}
+
+\begin{corollary}[{\citep[pg.\ 451]{Switzer}}]
+The Steenrod algebra, $\A^* := H\F_2^* H\F_2$, is noncommutative and generated by elements $\Sq^{2^j}$ dual to $\xi_1^{2^j}$.
+\marginnote{The space-level versions of these calculations are called the \define{unstable (dual) Steenrod algebra}.}
+\todo{How is $\Sq^n$ defined in general?  Dual to $\xi_1^n$?  I don't think so.}
+\qed
+\end{corollary}
+
+\begin{remark}
+A lot can be computed about $\A^*$ by studying universal cases.
+For instance, $\Delta(x^2)^* = 1 \mid (x^2)^* + \xi_1 \mid (x)^* \in \A_* \otimes \widetilde H_* \RP^\infty$ says $\Sq^0(x^2) = x^2$ and $\Sq^1(x) = x^2$ for $|x| = 1$.
+In fact, we have
+\begin{enumerate}
+    \item $\Sq^0(x) = x$.
+    \item $\Sq^{>|x|}(x) = 0$.
+    \item $\Sq^{|x|}(x) = x^2$.
+    \item $\Sq^n(x+y) = \Sq^n x + \Sq^n y$.
+    \item $\Sq^n(xy) = \sum_{n_1 + n_2 = n} \Sq^{n_1}(x) \cdot \Sq^{n_2} y$.
+    \item ``The Adem relations'', summarized by
+    \begin{enumerate}
+        \item $\Sq^{2n-1} \Sq^n = 0$, and
+        \item $d(\Sq^n) = \Sq^{n-1}$ extends to a derivation.
+    \end{enumerate}
+    So, for instance,
+    \begin{align*}
+    0 & = d^3(\Sq^5 \Sq^3) \\
+    & = d(\Sq^3\Sq^3 + \Sq^5 \Sq^1) \\
+    & = \Sq^2 \Sq^3 + \Sq^3 \Sq^2 + \Sq^4 \Sq^1 + \Sq^5 \Sq^0.
+    \end{align*}
+\end{enumerate}
+\end{remark}
+\todo{Emphasize that the cohomology of spaces and spectra have natural actions of these endomorphism algebras.}
+
+
+
+
+\section{The Serre spectral sequence}
+
+In this Lecture, we introduce one of the most important computational tools in algebraic topology.
+We have spent a good deal of time emphasizing the fundamental compatibilities between homotopy groups and exact sequences as well as between co/homology groups and coexact sequences.
+It turns out that a fibration over a CW--complex admits a filtration whose quotients have tractable co/homology, resulting in a spectral sequence governing the co/homology of an \emph{exact} sequence.
+The ability to access this information is sufficiently exotic that it is typically well-worth the price of contending with a spectral sequence.
+
+\begin{definition}
+Fix a fibration over a base CW--complex $B$, as in \[F \to E \xrightarrow p B.\]
+By assumption, $B$ comes with a skeletal filtration whose associated-graded is a wedge of spheres (viz., its cells).
+Pulling back the cellular filtration on $B$ yields the \define{Serre filtration} on $E$: \[E_n = p^{-1}(B^{(n)}).\]
+The associated-graded of this filtration takes the form \[E_n / E_{n-1} \simeq (B^{(n)} / B^{(n-1)}) \times F = \bigvee_\alpha S^n_\alpha \times F.\]
+\todo{Consider using a different symbol for a generic homology theory.}
+Applying a homology theory $h_*$ gives the \define{Serre spectral sequence}.
+\end{definition}
+
+\begin{theorem}[Serre]
+\marginnote{There is a version of this without the hypothesis on $\pi_1 B$, where ``local coefficients'' / ``twisted homology'' are used.  We won't need it.}
+If $\pi_1 B$ acts trivially on $h_* F$,%
+\marginnote{For instance, $\pi_1 B$ acts trivially on $h_* F$ if $\pi_1 B = 0$.}
+then $d^1 = d^{\mathrm{cell}}$, i.e., there is an identification as chain complexes \[E^1_{*, *} = h_*(E_*, E_{*-1}) = C^{\mathrm{cell}}_*(B) \otimes h_*(F).\]
+\marginnote{If $h_*$ is a field, then $H_*(B; h_* F) \cong H_*(B; h_*) \otimes_{h_*} h_* F$.}
+\todo{Add a signature for the differential in this grading.}
+The $E^2$--page is then given by \[E^2_{p, q} = H_p(B; h_q F) \Rightarrow h_{p+q}(E). \qed\]
+\end{theorem}
+
+\begin{example}\label{HomologicalCP2SSeq}
+It is remarkable how much this automates.
+To see what we mean, we consider as an example the fibration \[S^1 \to S^{1 + 2 \cdot 2} \to \CP^2,\] and suppose for the sake of argument that we do not know the homology of $\CP^2$.
+The associated spectral sequence has $E^2$--page given by \[E^2_{p, q} = H_p(\CP^2; H_q S^1),\] which mostly consists of groups that we do not know, since we're ignorant of the homology of $\CP^2$.
+However, it is easy enough to see that $\CP^2$ is connected, so we learn \[H_0(\CP^2; H_q S^1) \cong \begin{cases} \Z & \text{when $q = 0$}, \\ \Z & \text{when $q = 1$}, \\ 0 & \text{otherwise}. \end{cases}\]
+From this, we start to paint the spectral sequence.
+\marginnote[-6\baselineskip]{
+\begin{sseqdata}[ name = FiniteCP2, homological Serre grading, yscale = 0.6 ]
+\class(0,0) % unit class
+\class(0,1) % unit class, tensored with the fundamental class of S^1
+%\d3(1,0)(0,2)
+\end{sseqdata}
+\printpage[ name = FiniteCP2, page = 2 ]
+}
+
+\noindent
+This cannot be the whole story: this spectral sequence is meant to converge to $H_*(S^5)$, and the class in position $(0, 1)$ would contribute a class to $H_1 S^5$ if it were not to participate in a differential.
+Since $H_1 S^5 = 0$, we know that such a differential must exist.
+There is only one option: the earliest page on which a differential could appear is $E^2$, and any later page would require the differential to exit the first quadrant, hence there must exist a class in degree $(2, 0)$ which sources as the source of our sought-after differential.
+\marginnote[-6\baselineskip]{
+\begin{sseqdata}[ name = FiniteCP2, update existing ]
+\class(2,0) % x
+\class(2,1) % ex
+\d2(2,0)(0,1)
+\end{sseqdata}
+\printpage[ name = FiniteCP2, page = 2 ]
+}
+
+Of course, a class in degree $(2, 0)$ must come from a class in $H_2(\CP^2; H_0 S^1)$, which is then also present in $H_2(\CP^2; H_1 S^1)$ and hence also contributes a class to the spectral sequence in degree $(2, 1)$.
+This new class suffers from the same problem: if it were to survive, it would contribute a nonzero summand to $H_3 S^5$, which is not permitted to exist.
+The solution is the same as well: there must exist a class in degree $(4, 0)$ which participates in a differential.
+\marginnote[-6\baselineskip]{
+\begin{sseqdata}[ name = FiniteCP2, update existing ]
+\class(4,0) % x^2
+\class(4,1) % ex^2
+\d2(4,0)(2,1)
+\end{sseqdata}
+\printpage[ name = FiniteCP2, page = 2 ]
+}
+
+\noindent
+With the addition of this new class, we are no longer in contradiction: its survival would contribute a nonzero summand to $H_5 S^5$, which we \emph{require}, and so it cannot participate in a differential.
+\marginnote{%
+There is a little more to explore here for the reader to be fully convinced that there are no features of the spectral sequence missing from our description: no classes in odd degrees, no extra classes in the degrees we've considered, no classes above the row $q = 1$, \ldots.
+The reader is highly encouraged to chase through these thought experiments.
+}
+By indirect consequence, we have achieved a calculation of $H_* \CP^2$, by examining the bottom row of the $E^2$--page: \[E^2_{p, 0} \cong H_*(\CP^2; H_0 S^1) \cong H_*(\CP^2; \Z) \cong \begin{cases} \Z & \text{when $* = 0, 2, 4$}, \\ 0 & \text{otherwise}. \end{cases}\]
+
+There is nothing particular about the dimension of $\CP^2$ in this example: one can just as well compute the homology of $\CP^n$, or even of $\CP^\infty$, using the same methods.
+\end{example}
+
+Let us now exploit the naturality of the Serre spectral sequence to put it to real work.
+\marginnote{Part of the fun of spectral sequences in algebraic topology, as opposed to their appearances in other fields like algebraic geometry, is that we don't just filter our problems away into differentials---we then compute the differentials.}
+Namely, naturality gives rise to the following critical observations:
+
+\begin{lemma}
+The filtration used to form the Serre spectral sequence is \emph{multiplicative}, in the sense that for $F \to E \to B$ and $F' \to E' \to B'$ fiber sequences, we have $E_n \times E'_m \subseteq (E \times E')_{n+m}$, inducing a pairing $E_r(E) \otimes E_r(E') \to E_r(E \otimes E')$.
+\qed
+\end{lemma}
+
+\begin{corollary}\label{LeibinzInSSS}
+\marginnote{
+Everything about this fact is nearly automatic, except the Leibniz law, which comes out of thinking about the cell structure on $(D^n, \partial D^n) \times (D^m, \partial D^m)$.
+}
+The cohomological Serre spectral sequence has a \define{multiplication}: \[E_r^{p, q} \otimes E_r^{p', q'} \to E_r^{p+p', q+q'}.\]
+This product restricts on the edges to the cup products on $H^* F$ and $H^* B$, and it converges to cup on $h^* E$.
+If $x$ generates $E_2^{p, 0}$ and $y$ generates $E_2^{0, q}$, then $xy$ generates $E_2^{p, q}$.
+Additionally, it satisfies a Leibniz law for the differentials: \[d_r(x y) = (d_r x) y + (-1)^{|x|} x (d_r y). \qed\]
+\end{corollary}
+
+\begin{example}\label{CohomCPinftySSeq}
+As a jumping-off point, let's consider the interplay between \Cref{LeibinzInSSS} and \Cref{HomologicalCP2SSeq}, where we considered the exact sequence \[S^1 \to * \to K(\Z, 2).\]
+\marginnote{
+\begin{sseqdata}[ name = CohomCPinfty, cohomological Serre grading, yscale = 0.6, x range = {0}{6}, xscale = 0.5 ]
+\class(0,0) % 1
+\class(0,1) % e
+\class(2,0) % x
+\class(2,1) % ex
+\class(4,0) % x^2
+\class(4,1) % ex^2
+\class(6,0) % x^3
+\class(6,1) % ex^3
+\class(8,0) % x^4
+\d2(0,1)(2,0)
+\d2(2,1)(4,0)
+\d2(4,1)(6,0)
+\d2(6,1)(8,0)
+\end{sseqdata}
+\printpage[ name = CohomCPinfty, page = 2, x range = {0}{7} ]
+}
+Simply by repeating the argument made there for the cohomological Serre spectral sequence, we can produce a full description of the integral cohomology spectral sequence as a system of abelian groups.
+
+We will now use \Cref{LeibinzInSSS} to deduce the structure of $H^*(K(\Z, 2); \Z)$ as a \emph{ring}.
+For covenience, we begin by naming some of the generators in the lower-left corner:
+\begin{itemize}
+    \item We use $1$ to name the generator of $H^0(K(\Z, 2); H^0(S^1; \Z)) \cong H^0(K(\Z, 2); \Z)$.
+    \item We use $e$ to name the generator of $H^0(K(\Z, 2); H^1(S^1; \Z)) \cong H^1(S^1; \Z)$.
+    \item We use $x$ to name the generator of $H^2(K(\Z, 2); H^0(S^1; \Z)) \cong H^2(K(\Z, 2); \Z)$.
+\end{itemize}
+\marginnote{
+\begin{sseqdata}[ name = CohomCPinfty, update existing ]
+\classoptions["1"](0,0)
+\classoptions["e"](0,1)
+\classoptions["x"](2,0)
+\classoptions["ex"](2,1)
+\end{sseqdata}
+\printpage[ name = CohomCPinfty, page = 2, x range = {0}{7} ]
+}
+By consequence, we learn that the term in $E_2^{2, 1}$ is generated by the product class $ex$.
+We include these names in the portrait of the spectral sequence:
+
+\Cref{LeibinzInSSS} also provides a tool for computing the differential on such product classes as $ex$:
+\begin{align*}
+d_2(ex) & = d_2(e) x + (-1)^{|e|} e d_2(x) \\
+& = x \cdot x + (-1) \cdot e \cdot 0 = x^2.
+\end{align*}
+Since we have already separately argued that $d_2(ex)$ generates $E_2^{4, 0}$, this calculation with the Leibniz rule informs us that $x^2$ generates $E_2^{4, 0}$.
+\marginnote{
+\begin{sseqdata}[ name = CohomCPinfty, update existing ]
+\classoptions["x^2"](4,0)
+\classoptions["ex^2"](4,1)
+\classoptions["x^3"](6,0)
+\classoptions["ex^3"](6,1)
+\end{sseqdata}
+\printpage[ name = CohomCPinfty, page = 2, x range = {0}{7} ]
+}
+In general, $d_2(ex^m) = x^{m+1}$, so that we can give similar names to all of the classes in the bottom row:
+This totally describes the product structure on the $E_2$--page of the Serre spectral sequence.
+\Cref{LeibinzInSSS} guarantees that this restricts to the cup product structure on $H^*(K(\Z, 2); \Z)$, so that we ultimately learn \[H^*(K(\Z, 2); \Z) \cong \Z[x].\]
+\end{example}
+
+\begin{example}
+We now turn to a slightly more complex example: the exact sequence \[\Loops S^3 \to * \to S^3.\]
+\marginnote{
+\begin{sseqdata}[ name = LoopsS3, cohomological Serre grading, yscale = 0.6, y range = {0}{6}]
+\class["1"](0,0) % 1
+\class["e"](3,0) % e
+\class["x"](0,2) % x
+\class["ex"](3,2) % ex
+\class(0,4) % x^[2]
+\class(3,4) % ex^[2]
+\class(0,6) % x^[3]
+\class(3,6) % ex^[3]
+\class(0,8) % x^[4]
+\d3(0,2)(3,0)
+\d3(0,4)(3,2)
+\d3(0,6)(3,4)
+\d3(0,8)(3,6)
+\end{sseqdata}
+\printpage[ name = LoopsS3, page = 3 ]
+}
+Again, by arguing as in \Cref{HomologicalCP2SSeq}, we can produce a description of the cohomological Serre spectral sequence as a system of abelian groups.
+Beginning to argue the same as in \Cref{CohomCPinftySSeq}, we give names to some of the generators in the lower-left corner:
+\begin{itemize}
+    \item We use $1$ to name the generator of $H^0(S^3; H^0(\Loops S^3; \Z)) \cong H^0(S^3; \Z)$.
+    \item We use $e$ to name the generator of $H^0(S^3; H^1(\Loops S^3; \Z)) \cong H^3(S^3; \Z)$.
+    \item We use $x$ to name the generator of $H^2(S^3; H^0(\Loops S^3; \Z)) \cong H^2(\Loops S^3; \Z)$.
+    \item By consequence, $ex$ names the generator of $E_2^{3, 2} = H^2(S^3; H^3(\Loops S^3; \Z))$.
+\end{itemize}
+At this point, however, the analysis diverges from that of \Cref{CohomCPinftySSeq}.
+\marginnote{
+\begin{sseqdata}[ name = LoopsS3, update existing ]
+\classoptions["x^{[2]}"](0,4)
+\classoptions["ex^{[2]}"](3,4)
+\classoptions["x^{[3]}"](0,6)
+\classoptions["ex^{[3]}"](3,6)
+\end{sseqdata}
+\printpage[ name = LoopsS3, page = 3, x range = {0}{4} ]
+}
+The Leibniz law for the differential gives
+\begin{align*}
+d_3(x^2) & = d_3(x) \cdot x + (-1)^{|x|} x \cdot d_3(x) \\
+& = e \cdot x + x \cdot e = 2ex.
+\end{align*}
+However, we know that $d_3$ is an isomorphism which maps the generator of $E_3^{0, 4}$ to the generator of $E_3^{3, 2}$.
+The class $x^2$ therefore cannot generate $E_3^{0, 4}$---instead, there is a class $x^{[2]}$ satisfying $2x^{[2]} = x^2$ which generates it.
+Continuing this process, we find that $E_3^{0, 2n}$ is generated by a class $x^{[n]}$ satisfying $n! x^{[n]} = x^n$.
+This ring is called a \define{divided power algebra}, and one usually writes \[H^*(\Loops S^3; \Z) \cong \Gamma_{\Z}[x],\] where $x$ has degree $2$.
+\end{example}
+
+\begin{example}
+Let us now consider the superficially similar exact sequence \[\Loops S^2 \to * \to S^2.\]
+Again, the analysis proceeds identically to that in \Cref{CohomCPinftySSeq} up until we begin to trace the behavior of classes under the multiplication map.
+\marginnote{
+\begin{sseqdata}[ name = LoopsS2, cohomological Serre grading, yscale = 0.8, y range = {0}{5}]
+\class["1"](0,0)
+\class["e"](2,0)
+\class["f"](0,1)
+\class["ef"](2,1)
+\class["x"](0,2)
+\class["ex"](2,2)
+\class["fx"](0,3)
+\class["efx"](2,3)
+\class["x^{[2]}"](0,4)
+\class["ex^{[2]}"](2,4)
+\class["fx^{[2]}"](0,5)
+\class["efx^{[2]}"](2,5)
+\class(0,6)
+\d2(0,1)(2,0)
+\d2(0,2)(2,1)
+\d2(0,3)(2,2)
+\d2(0,4)(2,3)
+\d2(0,5)(2,4)
+\d2(0,6)(2,5)
+\end{sseqdata}
+\printpage[ name = LoopsS2, page = 2, x range = {0}{3} ]
+}
+The first difference to note is that any choice of generator $f$ of the torsion-free group $E_2^{0,1} \cong H^1(\Loops S^2; \Z)$ satisfies $f \cdot f = - f \cdot f$, hence is $2$--torsion, hence must be zero as an element of $E_2^{0, 2}$.
+Instead, the generator $x \in E_2^{0, 2}$ satisfying $d_2(x) = ef$ in the spectral sequence is nonetheless algebraically independent of $f$ in the ring $H^*(\Loops S^2; \Z)$.
+The square of this new generator $x$ is not required to be $2$--torsion, and an identical calculation to the previous case shows that $x^{[2]}$ generates $E_2^{0, 4}$.
+Ultimately, we learn \[H^*(\Loops S^2; \Z) \cong \Gamma[x] \otimes \Lambda[f],\] where $\Lambda[f]$ denotes the exterior algebra on the class $f$, the degree of $f$ is $1$, and the degree of $x$ is $2$.
+\end{example}
+
+\begin{remark}\label{CohLoopsSphere}
+In fact, this dichotomy between $\Loops S^{2n}$ and $\Loops S^{2n+1}$ continues:
+\begin{align*}
+H^*(\Loops S^{2n+1}; \Z) & \cong \Gamma_{\Z}[x], &
+H^*(\Loops S^{2n}; \Z) & \cong \Lambda_{\Z}[f] \otimes \Gamma_{\Z}[x].
+\end{align*}
+In the first case, $x$ has degree $2n$.
+In the second case, $x$ has degree $4n-2$ and $f$ has degree $2n-1$.
+\end{remark}
+
+\begin{example}
+The Serre spectral sequence of a spherical fibration is commonly called its \define{Gysin sequence}.
+\marginnote{
+\begin{sseqdata}[name = GysinRPinfty, cohomological Serre grading, yscale = 0.6, x range = {0}{8}, xscale = 0.5 ]
+\class["1"](0,0)
+\class["e"](0,1)
+\class["x"](2,0)
+\class["ex"](2,1)
+\class["x^2"](4,0)
+\class["ex^2"](4,1)
+\class["x^3"](6,0)
+\class["ex^3"](6,1)
+\class["x^4"](8,0)
+\class["ex^4"](8,1)
+\class["x^5"](10,0)
+\d["2"]2(0,1)(2,0)
+\d2(2,1)(4,0)
+\d2(4,1)(6,0)
+\d2(6,1)(8,0)
+\d2(8,1)(10,0)
+\end{sseqdata}
+\printpage[name = GysinRPinfty, page = 2]
+}
+The long exact sequence of infinite loop spaces \[K(\Z, 1) \to K(\Z/2, 1) \to K(\Z, 2) \xrightarrow{2} K(\Z, 2)\] gives rise to a pullback square of fibrations:
+\begin{center}
+\begin{tikzcd}
+S^1 \arrow[equal]{d} \arrow{r} & \RP^\infty \arrow{d} \arrow{r} & BS^1 \arrow["\cdot 2"]{d} \\
+S^1 \arrow{r} & * \arrow{r} & BS^1.
+\end{tikzcd}
+\end{center}
+In turn, the naturality of the Serre spectral sequence from \Cref{CohomCPinftySSeq} shows that the differential in the Serre spectral sequence for the top fibration has $d_2$--differential given by $d_2(e) = 2x$.
+\marginnote{
+\begin{sseqdata}[name = GysinRPinfty, update existing]
+\replaceclass[fill](2,0)
+\replaceclass[fill](4,0)
+\replaceclass[fill](6,0)
+\replaceclass[fill](8,0)
+\end{sseqdata}
+\printpage[name = GysinRPinfty, page = 3]
+}
+From this, we learn \[H^* \RP^\infty \cong \Z[x]/(2x).\]
+\marginnote{
+You'll notice we managed to compute the cohomology of the non-simply-connected space $\RP^\infty$ by finding it in a position other than the base.
+The Serre spectral sequence theorem we stated does \emph{not} apply to $C_2 \to * \to BC_2$.
+}
+\end{example}
+
+
+
+
+\section{The cohomology of Eilenberg--Mac Lane spaces}\label{SSSCalculations}
+
+\begin{remark}\label{EdgeHomDefn}
+The construction is \emph{natural} against maps of fiber sequences (by using cellular base maps), inducing maps of spectral sequences.
+There are edge homomorphisms induced by
+\begin{center}
+\begin{tikzcd}
+F \arrow[equal]{r} \arrow{d} & F \arrow{d} \arrow{r} & * \arrow{d} \\
+F \arrow{r} \arrow{d} & E \arrow{r} \arrow{d} & B \arrow[equal]{d} \\
+* \arrow{r} & B \arrow{r} & B
+\end{tikzcd}
+\end{center}
+which converge to the behavior of $h_* F \to h_* E \to h_* B$.
+\todo{Are there filtration effects?}
+\end{remark}
+
+\begin{theorem}[Freudenthal]\label{FreudenthalRedux}
+For $X$ an $n$--connected space, the unit map $X \to \Loops \Susp X$ is an $n$--equivalence.
+\end{theorem}
+\begin{proof}
+Consider the pathspace fibration \[\Loops \Susp X \to P \Susp X \to \Susp X\] and its associated Serre spectral sequence.
+\todo{inject picture}
+Because this spectral sequence is converging to the homology of a contractible space, every class present must participate in a differential.
+Because of the vanishing regions, the differential \[d^r\co H_r \Susp X \xrightarrow\cong H_{r-1} \Loops \Susp X,\] which runs from the bottom row to the left column, must be an isomorphism for $r \le 2n+2$.
+Note also that we can reidentify the source of $d^r$ by \[H_{r-1} X \xrightarrow{\sigma, \cong} H_r \Susp X \xrightarrow{d^r, \cong} H_{r-1} \Loops \Susp X.\]
+Now we need only identify the behavior of this map with the unit.
+
+The unit participates in the following diagram:
+\begin{center}
+\begin{tikzcd}
+X \arrow{d} \arrow{r} & CX \arrow{d} \arrow{r} & \Susp X \arrow[equal]{d} \\
+\Loops \Susp X \arrow{r} & P \Susp X \arrow{r} & \Susp X,
+\end{tikzcd}
+\end{center}
+where the top row is a coexact sequence and the bottom row is exact.
+These maps induce the following diagram of relative homology groups:
+\begin{center}
+\begin{tikzcd}
+\widetilde H_r X \arrow{d} & H_{r+1}(CX, X) \arrow["\cong", "\partial"']{l} \arrow{d} \arrow["\cong"]{r} & \widetilde H_{r+1}(\Susp X) \arrow[equal]{d} \\
+\widetilde H_r(\Loops \Sigma X) & H_{r+1}(P \Sigma X, \Loops \Sigma X) \arrow["\partial"]{l} \arrow{r} & H_{r+1}(\Sigma X) \arrow[bend left, "\text{transgressive $d^r$}"]{ll},
+\end{tikzcd}
+\end{center}
+where the bottom curved arrow is the transgressive differential of the Serre spectral sequence.
+Since the outer arrows (excepting the leftmost vertical arrow) are all isomorphisms and the diagram commutes, the leftmost vertical arrow is an isomorphism as well---the desired conclusion.
+\end{proof}
+
+\begin{remark}\label{ConnectedExactAndCoexactAgree}
+More generally, suppose that $F \to E \to B$ is an exact sequence in which each space is $n$--connected.  Then the natural map $f$ in the diagram
+\begin{center}
+\begin{tikzcd}
+F \arrow{r} & E \arrow{r} & B \\
+F \arrow{r} \arrow[equal]{u} & E \arrow{r} \arrow[equal]{u} & E \cup CF \arrow["f"]{u}
+\end{tikzcd}
+\end{center}
+is a $2n$--equivalence.
+\todo{Make sure you got the bounds right here.}
+\end{remark}
+
+\begin{example}\label{Mod2CohomOfMod2EMSpaces}
+Having sufficiently warmed up, we now turn to the analysis of a spectral sequence which \emph{does not collapse on any page}: the mod--$2$ cohomology Serre spectral sequence for the exact sequence \[K(\F_2, 1) \to * \to K(\F_2, 2).\]
+% \marginnote{
+% \begin{sseqdata}[name = KF2comma2prime, cohomological Serre grading, yscale = 0.6, x range = {0}{8}, y range = {0}{8}, xscale=0.5]
+% \class["1"](0,0)
+% \class["x"](0,1)
+% \class["x^2"](0,2)
+% \class["x^3"](0,3)
+% \class["x^4"](0,4)
+% \class["x^5"](0,5)
+% \class["x^6"](0,6)
+% \class["x^7"](0,7)
+% \class["x^8"](0,8)
+% \class["x^9"](0,9)
+% \end{sseqdata}
+% \printpage[name = KF2comma2prime, page = 2]
+% }
+We have previously computed\todo{Really?} $H^*(K(\F_2, 1); \F_2) \cong \F_2[x]$, where $|x| = 1$.
+This information fills out the left-most column of the spectral sequence with a polynomial tower of classes.
+
+Because the spectral sequence is converging to the cohomology of a point, we must find differentials which clear this tower.
+\marginnote{
+\begin{sseqdata}[name = KF2comma2, yscale = 0.3, x range = {0}{8}, y range = {0}{8}, xscale=0.5]
+\class(0,0)
+\class(0,1)
+\class(0,2)
+\class(0,3)
+\class(0,4)
+\class(0,5)
+\class(0,6)
+\class(0,7)
+\class(0,8)
+\class(0,9)
+\foreach \j in {1,3,5,7,9} {
+        \class(2,\j-1)
+        \d2(0,\j)(2,\j-1)
+}
+\foreach \j in {1,3,5,7,9} {
+    \foreach \i in {2,4,6,8} {
+            \class(\i,\j)
+            \class(\i+2,\j-1)
+            \d2(\i,\j)(\i+2,\j-1)
+    }
+}
+\end{sseqdata}
+\printpage[name = KF2comma2, page = 2]
+}
+The first class $x$ requires the presence of a class $y_2 \in E_2^{2, 0}$ with $d_2(x) = y$.
+In fact, one can show that all the classes $x^m y_2^n$ exist, and the Leibniz law gives \[d_2(x^m y_2^n) = m x^{m-1} y_2^n \equiv \begin{cases} x^{m-1} y_2^n & \text{when $m$ is odd}, \\ 0 & \text{when $m$ is even}. \end{cases}\]
+This yields ``ladders'' of differentials connecting odd rows to even rows.
+
+\marginnote{
+\begin{sseqdata}[name = KF2comma2, update existing, x range = {0}{8}, y range = {0}{8}]
+\foreach \j in {2,6} {
+        \class(3,\j-2)
+        \d3(0,\j,-1)(3,\j-2,-1)
+}
+\foreach \j in {2,6} {
+    \foreach \i in {3,6} {
+            \class(\i,\j)
+            \class(\i+3,\j-2)
+            \d3(\i,\j,-1)(\i+3,\j-2,-1)
+    }
+}
+\end{sseqdata}
+\printpage[name = KF2comma2, page = 3]
+}
+When these differentials clear, the subring $\F_2[x^2]$ still remains in the left-most column.
+The first opportunity to clear the class $x^2$ is to introduce a class $y_3$ with $d_3(x^2) = y_3$.
+Again, all classes of the form $x^{2m} y_3^n$ exist and participate in ladders of differentials.
+
+\marginnote{
+\begin{sseqdata}[name = KF2comma2, update existing, x range = {0}{8}, y range = {0}{8}]
+\class(0,12)
+\foreach \j in {4,12} {
+        \class(5,\j-4)
+        \d5(0,\j,-1)(5,\j-4,-1)
+}
+\foreach \j in {4,12} {
+    \foreach \i in {5,10} {
+            \class(\i,\j)
+            \class(\i+5,\j-4)
+            \d5(\i,\j,-1)(\i+5,\j-4,-1)
+    }
+}
+\end{sseqdata}
+\printpage[name = KF2comma2, page = 5]
+}
+\marginnote{
+\begin{sseqdata}[name = KF2comma2, update existing, x range = {0}{8}, y range = {0}{8}]
+\foreach \j in {8} {
+        \class(9,\j-8)
+        \d9(0,\j,-1)(9,\j-8,-1)
+}
+\end{sseqdata}
+\printpage[name = KF2comma2, page = 9]
+}
+This pattern continues: each class $x^{2^j}$ requires a class $y_{1+2^j}$ participating in a differential $d_{1+2^k}(x^{2^j}) = y_{1+2^j}$.
+Altogether, these assemble into an infinite-dimensional polynomial algebra on the bottom row of the spectral sequence: \[H^*(K(\F_2, 2); \F_2) \cong \F_2[y_2, y_3, y_5, y_9, \ldots].\]
+\end{example}
+
+\begin{example}
+Similarly, one can use the exact sequence \[K(\Z, 2) \to * \to K(\Z, 3)\] to calculate $H^*(K(\Z, 3); \F_2)$.
+The main difference from the previous example is that, since $H^*(K(\Z, 2); \F_2)$ is even-concentrated, there is no action on the $E_2$--page of the spectral sequence.
+Accounting for this, we find \[H^*(K(\Z, 3); \F_2) \cong \F_2[y_3, y_5, y_9, \ldots] = \F_2[y_{1+2^j} \mid j \ge 1].\]
+\end{example}
+
+\begin{example}
+The elegance of \Cref{Mod2CohomOfMod2EMSpaces} is something special to cohomology with field coefficients.
+Let us consider what happens with Serre spectral sequece associated to cohomology with integral coefficients for the exact sequence \[K(\Z, 2) \to * \to K(\Z, 3).\]
+Writing $H^*(K(\Z, 2); \Z) \cong \Z[x]$, the same reasoning as before dictates the presence of a class $y$ wtih $d_2 x = y$.
+The Leibniz law then gives \[d_2 x^n = n x^{n-1} y,\] where now all of these targets are nonzero.
+\marginnote{
+\begin{sseqdata}[name = KZIntegral, cohomological Serre grading, yscale = 0.6, x range = {0}{8}, y range = {0}{10}, xscale = 0.5]
+% H^* CP^infty = Z[x]
+\class["1"](0,0)
+\class["x"](0,2)
+\class["x^2"](0,4)
+\class["x^3"](0,6)
+\class["x^4"](0,8)
+\class["x^5"](0,10)
+\class["x^6"](0,12)
+
+% exists y with d3(x) = y, d3(x^n) = n x^(n-1) y.
+\class(3,0)  \d["1"]3(0,2)(3,0)
+\class(3,2)  \d["2"]3(0,4)(3,2)
+\class(3,4)  \d["3"]3(0,6)(3,4)
+\class(3,6)  \d["4"]3(0,8)(3,6)
+\class(3,8)  \d["5"]3(0,10)(3,8)
+\class(3,10) \d["6"]3(0,12)(3,10)
+
+% exists x^* y^* a 2-torsion system with d3(x^(2n+1) y^m) = x^(2n) y^m
+\foreach \k in {1,3,5} {
+    \foreach \i in {6,9} {
+        \class[fill](\i,2*\k)
+        \class[fill](\i,2*\k-2)
+        \d3(\i-3,2*\k)(\i,2*\k-2)
+    }
+}
+
+\foreach \j in {4,6,8,10} {
+    \replaceclass(3,\j)
+}
+
+% exists a 3-torsion class z3 with d5(x^2 y) = z3
+\class[fill=red](8,0) % z3
+\foreach \j in {1,...,5} {
+    \class[fill=red](8,2*\j) % x^m z3
+    \class(11,2*\j-2) % x^m y z3
+}
+\foreach \j in {1,2,4,5} {
+    \d3(8,2*\j)(11,2*\j-2) % TODO: is this differential justified in the text?
+}
+\d5(3,4)(8,0)
+\d5(3,10)(8,6)
+
+\class(12,0)
+\d9(3,8)(12,0)
+\end{sseqdata}
+\printpage[name = KZIntegral, page = 0]
+}
+\todo{This sseq has a TODO in it: a differential is unjustified, and I think the $\Z/4$ class isn't fully treated.}
+This differential is injective, so all the classes on the leftmost column die.
+In the third column, it leaves residue classes $\<x^{n-1} y\> \cong C_n$.
+This page is also the last chance for the class $xy$ to die, so the class $y^2$ must exist, which automatically satisfies $\<y^2\> = C_2$.
+Similarly, $y^n$ exists for all $n$, and each is $2$--torsion.
+These classes participate in ladders of differentials, so that all of the classes $x^n y^m$, $m \ge 2$, are killed.
+At $m = 2$, what is left is \[\<x^{n-1} y\> = \begin{cases} C_n & \text{if $n$ odd}, \\ C_{n/2} & \text{if $n$ even}.\end{cases}\]
+Continuing, there must exist a class $z_3$ with $d_5(x^2 y) = z_3$.
+There are no mixed products $y^2 z_3$, but all other products are present.
+By considering their degrees, one sees that some must participate in short differentials before $E_5$.
+There's no end in sight.
+\end{example}
+
+\todo[inline]{
+This all feels a little ass-backwards / convoluted.
+We can calculate the un/stable homology cooperations.
+We asserted something about the stable cohomology operations.
+We can prove Kudo's theorem.
+I guess here we're going to deduce something about unstable cohomology operations.
+}
+
+In \Cref{StableSteenrodAlgCalculation}, we gave a calculation of $H_*(K(\F_2, n); \F_2)$ as $n$ ranged, as well as a calculation of $H_*(H\F_2; \F_2)$ and an assertion about its dual, the Steenrod algebra.
+In \Cref{SSSCalculations}, we gave a separate calculation of $H^*(K(\F_2, n); \F_2)$.
+We now tie these two calculations together in the form of \define{Kudo's theorem}.
+
+\begin{definition}
+When we were investigating \Cref{FreudenthalRedux}, we came across \define{transgressive differentials}.
+Namely, in the Serre spectral sequence for an exact sequence \[F \to E \to B,\] the edge-to-edge differential \[d_n\co H^0(B; H^n F) \to H^{n+1}(B; H^0 F)\] is called the \define{transgression}.
+\todo{There might be an extra condition about other differentials exiting the column needing to be zero\ldots?}
+Unwinding the definition of the Serre differential, one finds that it is given by the maps \[(B, b_0) \xleftarrow p (E, F) \xrightarrow j (E \cup CF, CF) \xrightarrow i (\Susp F, *).\]
+Given an actual pair of classes $f \in H^n F$ and $b \in H^{n+1} B$, we say that $f$ \define{transgresses} to $b$ when \[j^* i^* f = p^* b.\]
+Equivalently, \[d_n f = b\] in the Serre spectral sequence.
+\end{definition}
+
+\begin{lemma}[Kudo transgression]\label{KudosThm}
+If $f$ transgresses to $b$, then $\Sq^m f$ transgresses to $\Sq^m b$.
+\end{lemma}
+\begin{proof}
+We rely on naturality of the squaring operations: \[j^* i^* \Sq^m f = \Sq^m j^* i^* f = \Sq^m p^* b = p^* \Sq^m b. \qedhere\]
+\end{proof}
+
+This is a powerful computational tool, in the same way that the Leibniz law is powerful.
+
+\begin{example}
+We will use it in a more mundane way first, to give better names to the generators $y_{1+2^j} \in H^*(K(\F_2, 2); \F_2)$.
+These generators were introduced in order to pair with $x^{2^j} \in H^*(K(\F_2, 1); \F_2)$.
+Since $|x| = 1$, we may rewrite $x^{2^j}$ as \[x^{2^j} = \Sq^{2^{j-1}} \cdots \Sq^2 \Sq^1 x.\]
+All of the differentials sourced from the classes $x^{2^j}$ are transgressive, hence we learn
+\begin{align*}
+y_{1+2^j} & = d_{1+2^j} x^{2^j} \\
+& = d_{1+2^j} \Sq^{2^{j-1}} \cdots \Sq^2 \Sq^1 x \\
+& = \Sq^{2^{j-1}} \cdots \Sq^2 \Sq^1 d_2 x \tag{\Cref{KudosThm}} \\
+& = \Sq^{2^{j-1}} \cdots \Sq^2 \Sq^1 y_2.
+\end{align*}
+The class $y_2$ is more commonly called $\iota_2$, as in \Cref{EMSpacesRepresentOrdinaryCoh}, and so we learn \[H^*(K(\F_2, 2); \F_2) \cong \F_2[\iota_2, \Sq^1 \iota_2 \Sq^2 \Sq^1 \iota_2, \Sq^4 \Sq^2 \Sq^1 \iota_2, \ldots].\]
+\end{example}
+
+In fact, this generalizes:
+
+\begin{theorem}\label{EMCohAsASteenrodAlg}
+\marginnote{A different way of phrasing this Theorem is that $H^*(K(\F_2, q); \F_2)$ is the free commutative algebra on the free ``unstable'' Steenrod module on the class $\iota_q$ in degree $q$.
+Similarly, $H^*(K(\Z, q); \F_2)$ is free on a class in degree $q$, subject to the lone constraint $\Sq^1 \iota_q = 0$.}
+The Steenrod action on the polynomial ring $H^*(K(\F_2, q); \F_2)$ is given by \[H^*(K(\F_2, q); \F_2) = \F_2[\Sq^I \iota_q \mid I_j \ge 2(I_{j+1}), 2I_1 - I_+ < q].\]
+For the polynomial ring $H^*(K(\Z, q); \F_2)$, it is given by \[H^*(K(\Z, q); \F_2) = \F_2[\Sq^I \iota_q \mid I_j \ge 2(I_{j+1}), 2I_1 - I_+ < q, I_{\text{final}} \ne 1]. \qed\]
+\end{theorem}
+% \begin{proof}
+% This is mostly a matter of organization.
+% The map $\Susp K(\F_2, q) \to K(\F_2, q+1)$ guarantees that the fundamental class transgresses to the fundamental class in the Serre spectral sequence for the fibration $K(\F_2, q) \to * \to K(\F_2, q+1)$.
+% Each polynomial generator $\Sq^I \iota_q$ is thus sent to $\Sq^I \iota_{q+1}$ by the differential.
+% In fact, this is true of the squares, since e.g.\ $(\Sq^I \iota_q)^2 = \Sq^{I_+ + q} \Sq^I \iota_q$.
+% The two conditions are visibly true for this new class, and conversely all such classes arise.
+% \end{proof}
+
+
+
+\section{Bocksteins}
+
+\todo[inline]{Missing references.}
+
+Before turning out attention to the application of these calculations, we consider one last fundamental matter: the relationship between co/homology with integral coefficients and with mod--$2$ coefficients.
+Consider the universal coefficient sequence: \[0 \to \Ext_{\Z}(H_{n-1}(X; \Z), \F_2) \to H^n(X; \F_2) \to \CatOf{Groups}(H_n(X; \Z), \F_2) \to 0.\]
+A torsion-free, indivisible class in $H_n(X; \Z)$ will contribute a lone class in $H^n(X; \F_2)$.
+On the other hand, a $2$--torsion class will contribute both a class in $H^n(X; \F_2)$ and $H^{n+1}(X; \F_2)$.
+In fact, so will a $2^j$--torsion class for any $j \ge 1$.
+In the reverse, this prompts a host of questions: given a class in $H^n(X; \F_2)$, when does it belong to a torsion-free homology class or a $2^j$--torsion class---and, if the latter, what is the value of $j$?
+
+With this problem in mind, note that the exact sequences \[H\Z/2 \to H\Z/2^{j+1} \to H\Z/2^j.\]
+string together as $j$ ranges to give a filtered object
+\begin{center}
+\begin{tikzcd}
+\cdots \arrow{r} & H\Z/2^{j+1} \arrow{r} & H\Z/2^j \arrow{r} & \cdots \arrow{r} & H\Z/2^2 \arrow{r} & H\Z/2 \\
+& H\Z/2 \arrow{u} & H\Z/2 \arrow{u} & \cdots & H\Z/2 \arrow{u} & H\Z/2 \arrow[equal]{u}
+\end{tikzcd}
+\end{center}
+whose inverse limit is $H\Z_2$.
+
+\begin{definition}
+\marginnote{%
+Up to a shift in filtration, it is equivalent to repeatedly use the exact sequence $H\Z_2 \xrightarrow{2} H\Z_2 \to H\F_2$.
+This alternative makes certain ``homogeneity'' properties of the spectral sequence clearer.
+}
+Mapping in a space $X$ gives rise to the \define{Bockstein spectral sequence}, with signature \[H^*(X; \F_2) \otimes \F_2[b] \Rightarrow H^*(X; \Z_2).\]
+If $X$ is connective and of finite type, this spectral sequence converges.  It is convention to write its $n$\textsuperscript{th} differential and $\beta_n$, and $\beta_n$ is $b$--linear: if $\beta_n(x) = b^n y$ holds, then $\beta_n(b^m x) = b^{n+m} y$ holds as well.
+\end{definition}
+
+\begin{lemma}
+The first Bockstein differential is given by the formula \[\beta_1(x) = b \Sq^1(x).\]
+\end{lemma}
+\begin{proof}
+The first differential is a stable, additive map \[\beta_1\co H^n(X; \F_2) \to b \cdot H^{n+1}(X; \F_2)\] which is natural in $X$---and hence qualifies as a cohomology operation.
+Since there is only one available nonzero cohomology operation which shifts degree by $1$, we deduce the claimed formula.
+\end{proof}
+
+\begin{definition}
+In fact, the other differentials $\beta_n$ in the Bockstein spectral sequence also behave like cohomology operations, except that they are only defined on classes for which $\beta_{<n}$ vanishes, and even then they are only determined up to the images of $\beta_{<n}$.
+Such conditionally-defined maps are termed \define{secondary cohomology operations}.
+\end{definition}
+
+Unfortunately, these operations are difficult to compute directly without substantially more foundational work.
+However, the following observation powers a calculation tool which gives some limited access to them:
+
+\begin{corollary}
+Transgressive differentials in a Serre spectral sequence respect the Bockstein operations.
+\end{corollary}
+\begin{proof}
+Having identified the Bockstein operations as kinds of cohomology operations, one repeats the proof of \Cref{KudosThm}.
+\end{proof}
+
+\begin{theorem}\label{BocksteinLemma}
+Let $F \xrightarrow j E \xrightarrow p B$ be an exact sequence, let $u \in H^n(F; \F_2)$ transgress to a class $v$, and suppose there exists a class $w$ with $\beta_i w = v$.  Then $\beta_{i+1} p^* u$ is defined and \[j^* \beta_{i+1} p^* w = \beta_1 u.\]
+\end{theorem}
+\begin{proof}
+Definitionally, the fundamental class $\iota_n \in H^n(K(\Z/2^i, n); \F_2)$ is connected to the unique nonzero class $\beta_i \iota_n \in H^{n+1}(K(\Z/2^i, n); \F_2)$ in the next degree.
+With this in mind, consider the Serre spectral sequence associated to the fibration \[K(\Z/2, n) \to K(\Z/2^{i+1}, n) \to K(\Z/2^i, n).\]
+The fundamental class associated to $K(\Z/2, n)$ is not allowed to persist in the spectral sequence, hence must participate in the transgressive differential \[d_{n+1}(\iota_n^{\Z/2}) = \beta_n \iota_n^{\Z/2^i}.\]
+In turn, the only classes available to become $\iota_n^{\Z/2^{i+1}}$ and $\beta_{i+1} \iota_n^{\Z/2^{i+1}}$ respectively are $\iota_n^{\Z/2^i}$ and $\beta_1 \iota_n^{\Z/2}$.
+Setting
+\begin{align*}
+u & = \iota_n^{\Z/2}, &
+v & = \beta_n \iota_n^{\Z/2^i}, &
+w & = \iota_n^{\Z/2^i},
+\end{align*}
+we have proven the claim in this example.
+
+The claim for a generic fibration then comes by constructing a map of fibrations
+\begin{center}
+\begin{tikzcd}
+F \arrow{r} \arrow[densely dotted]{d} & E \arrow{r} \arrow[densely dotted]{d} & B \arrow[densely dotted]{d} \\
+K(\Z/2, n) \arrow{r} & K(\Z/2^{i+1}, n) \arrow{r} & K(\Z/2^i, n).
+\end{tikzcd}
+\end{center}
+The existence of a map $B \to K(\Z/2^i, n)$ amounts to a choice of cohomology class $w \in H^n(B; \F_2)$ such that $\beta_i w$ is defined, which is part of the hypothesis.
+In order to extend this to a map $E \to K(\Z/2^{i+1}, n)$, we need only show that \[E \xrightarrow p B \xrightarrow{\widetilde w} K(\Z/2^i, n) \xrightarrow{\widetilde \beta_i} K(\Z/2, n+1)\] is null.
+This composite calculates $p^* \beta_i w$, and since $\beta_i w$ is the target of a transgressive differential, it is indeed null after pulling back along $p$.
+This also grants the extension $F \to K(\Z/2, n)$.
+Although this last map may not be equal to $u$, it is at least some class which also transgresses to $v$, which is enough to deduce the claim.
+\end{proof}
+
+% \begin{lemma}[Prop 6.8 in May]
+% If $\beta_{r-1}(y)$ is defined, then $\beta_r(y^2)$ is defined. If $r = 2$, then $\beta_2(y^2) = \beta_1(y) \cdot y + P_{2q} \beta_1(y)$, and for $r \ge 3$, $\beta_r(y^2) = \beta_{r-1}(y) \cdot y$ without a second summand.
+% \end{lemma}
+
+% Can use this to calculate $H^*(K(\F_2, 2); \Z)$.
+
+
+
+
+\begin{subappendices}
+
+\section{$K$--theory}
+
+\todo[inline]{Since we're talking about $G$--bundles, I think it would be smart to give a brief treatment of complex $K$--theory, even if it doesn't directly factor into our future calculations.}
+
+% \begin{remark}
+% There is a \emph{really} slick proof of complex Bott periodicity that uses these nerve constructions.  It's on your homework.\todo{Inject this.}
+% \end{remark}
+
+
+
+
+
+We can also calculate hella cohomology groups.
+
+\begin{theorem}
+$H^* U(n) \cong \Lambda[e_1, \ldots, e_n]$.  $H^* BU(n) \cong \Z[x_1, \ldots, x_n]$.
+\end{theorem}
+\begin{proof}
+We have fiber sequences $U(n-1) \to U(n) \to S^{2n-1}$ and $U(n) \to * \to BU(n)$ (and, for that matter, $S^{2n-1} \to BU(n-1) \to BU(n)$).  \todo{Insert $U(n)$ picture} has no room for differentials on indecomposables, hence no differentials at all.  Also no room for multiplicative extensions: no even classes in lower filtration to connect with.  \todo{Insert $BU(n)$ picture.} attaches a polynomial class to each of the old exterior classes.
+\end{proof}
+
+\begin{corollary}
+Associated to each complex vector bundle $V / X$, we have defined a sequence of classes $c_n(V) \in H^{2n}(X; \Z)$, the \define{Chern classes} of $V$.
+\end{corollary}
+\begin{proof}
+Associated to $V/X$ is a $U(n)$--bundle $\xi / X$, classified by a map $f\co X \to BU(n)$.  This induces a map $f^*\co H^* BU(n) \to H^* X$, along which we send teh classes $x_j$, $j \le n$.
+\end{proof}
+
+\begin{theorem}
+For each $U(n)$--bundle $\xi$ over a CW complex $X$ there are unique element $c_j(\xi) \in H^{2j}(X)$ depending only on the isomorphism class of $\xi$ such that
+\begin{enumerate}
+    \item For a map $f\co Y \to X$, $c_j(f^* \xi) = f^* c_j(\xi)$.
+    \item $c_0(\xi) = 1$ for all $\xi$.
+    \item For $\gamma$ the tautological bundle on $\CP^n$, $c_1(\gamma) = x_1$.
+    \item For $\xi$ a $U(n)$--bundle and $\zeta$ a $U(m)$--bundle on $X$, $c_k(\xi \oplus \zeta) = \sum_{i+j=k} (c_i(\xi) \cdot c_j(\zeta))$.
+\end{enumerate}
+\end{theorem}
+
+\begin{lemma}
+For $\xi$ a $\C^n$--bundle on $X$, there exists a space $f\co Y \to X$ over $X$ such that
+\begin{enumerate}
+    \item $f^*\co H^* X \to H^* Y$ is an injection.
+    \item $f^*(\xi) = \xi' \oplus \eta$, where $\eta$ is a line bundle on $Y$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Set $Y = \mathbb P(\xi)$ to be the fiberwise projectivization of $\xi$; this is a $\CP^{n-1}$--bundle on $X$.  The pullback $f^* \xi$ has a natural subbundle $\eta$ of those vectors in $f^* \xi$ which lie in the line chosen in $\mathbb P(\xi)$.  All of our data thus far assembles into the following diagram:
+\begin{center}
+\begin{tikzcd}
+& \C^\times \arrow{rd} \arrow[equal]{dd} \\
+\C^n \arrow{dd} & & \C^n \setminus 0 \arrow{ll} \arrow{r} \arrow{dd} & \CP^{n-1} \arrow{r} \arrow{dd} & \CP^\infty \arrow[equal]{dd} \\
+& \C^\times \arrow{rd} \\
+\xi \arrow{dd} & & \xi \setminus \text{zero} \arrow{ll} \arrow{dd} \arrow{r} & \mathbb P(\xi) \arrow{dd} \arrow["f"]{r} & \CP^\infty \arrow{dd} \\
+\\
+X \arrow[equal]{rr} & & X \arrow[equal]{r} & X \arrow{r} & *.
+\end{tikzcd}
+\end{center}
+The Serre spectral sequence for $\CP^{n-1} \to \mathbb P(\xi) \xrightarrow f X$ degenerates, since $H^* \CP^\infty \to H^* \CP^{n-1}$ is onto.  The edge homomorphism $H^* X \to H^* \mathbb P(\xi)$ is thus an inclusion.
+\end{proof}
+
+\begin{remark}
+In $H^* \mathbb P(\xi)$, there is a potential multiplicative extension for $x^{n-1} \cdot x$, i.e., a relation $x^n - b_1 x^{n-1} + b_2 x^{n-2} - \cdots + (-1)^n b_n = 0$.  We will show that these $b_*$s model the $c_*s$ from the theorem and the $x_*$s from last time.
+\end{remark}
+
+\begin{proof}[Proof of Theorem]
+The first three points are automatic for the $b_*$s.  To get unicity, apply the construction twice: first to split $\xi$ into $\xi' \oplus \eta$, then to compute the Chern classes of $\xi'$ and $\eta$, and find $c_i(\xi) = c_j(\xi') + c_1(\eta) \cdot c_{j-1}(\xi')$.  To get the claim about sums of bundles, note that $\mathbb P(\zeta)$, $\mathbb P(\xi)$ are subspaces of $\mathbb P(\zeta \oplus \xi)$ such that $\mathbb P(\zeta)$ is a deformation retract of $\mathbb P(\zeta \oplus \xi) \setminus \mathbb P(\xi)$ and vice versa.  Form the sums $b_\zeta = \sum_{j=0}^m (-1)^j b_j(\zeta) y^{m-j}$ and $b_\xi = \sum_{j=0}^n (-1)^j b_j(\xi) y^{n-j}$ \emph{as elements of} $H^* \mathbb P(\zeta \oplus \xi)$.  Then $b_\zeta|_{\mathbb P(\zeta)} = 0$ and $b_\xi|_{\mathbb P(\xi)} = 0$, so a Mayer-Vietoris argument says $b_\zeta \cdot b_\xi = 0$ in $H^* \mathbb P(\zeta \oplus \xi)$.  But $b_{\zeta \oplus \xi}$ is the \emph{unique} monic polynomial with this property (of degree $n + m$).
+\end{proof}
+
+To get the claim about the $b_*$s and the $x_j \in H^{2j} BU(n)$, consider the maps $(\CP^\infty)^{\times n} \to BU(n)$ classifying the universal $\C^n$--bundle with a decomposition into $n$ lines.  This participates in a map of long exact sequences
+\begin{center}
+\begin{tikzcd}
+H^{*+2n-1} BU(n-1) \arrow{r} \arrow{d} & H^* BU(n) \arrow{d} \arrow["{\cdot x_n}"]{r} & H^{*+2n} BU(n) \arrow["(1)"]{r} \arrow{d} & H^{* + 2n} BU(n-1) \arrow{r} \arrow["(2)"]{d} & H^{*+1} BU(n) \arrow{d} \\
+0 \arrow{r} & H^* (\CP^\infty)^{\times n} \arrow{r} & H^{*+2n} (\CP^\infty)^{\times n} \arrow["(3)"]{r} & H^{*+2n} (\CP^\infty)^{\times (n-1)} \arrow{r} & 0.
+\end{tikzcd}
+\end{center}
+The top is the Gysin sequence.  Assuming the theorem at $n - 1$, the map (2) sends $x_j$ to $b_j(\eta^{\oplus(n-1)}) = \sigma_j(\pi_1^* x_1, \ldots, \pi_{n-1} x_1)$, an elementary symmetric function.  In general, the $x_j$ land in the symmetric functions, and $x_n$ lands in the kernel of (3), hence is a constant multiple of $\sigma_n$.  Actually, the vertical maps are all \emph{ring} maps, which puts a huge restriction on their behavior: $x_n$ must be sent to $\sigma_n$ on the nose.
+
+\end{subappendices}

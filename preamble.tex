@@ -3,6 +3,7 @@
 \documentclass[twoside,nofonts,notoc]{tufte-book}
 
 \setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{1}
 
 \usepackage{amsmath,amsthm}
 \usepackage[urw-garamond]{mathdesign}
@@ -12,6 +13,9 @@
 \usepackage{todonotes}
 % \usepackage{spectralsequences}
 \usepackage{tikz-cd}
+\usepackage{spectralsequences}
+
+\sseqset{class labels = { above right = 0.2em }}
 
 \usepackage{cleveref}
 
@@ -85,6 +89,7 @@
 \newtheorem{definition}[dummy]{Definition}
 \newtheorem{construction}[dummy]{Construction}
 \newtheorem{warning}[dummy]{Important Warning}
+\newtheorem*{note}{Important Note}
 \theoremstyle{remark}
 \newtheorem{remark}[dummy]{Remark}
 \newtheorem{example}[dummy]{Example}
