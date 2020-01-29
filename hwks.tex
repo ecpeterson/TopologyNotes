@@ -3,10 +3,6 @@
 \section{Homework \#1}
 
 \begin{problem}
-Show that if $f\co X \to Y$ is a homotopy equivalence, then $f_*\co \pi_*(X, x_0) \to \pi_*(Y, f(x_0))$ is an isomorphism for all choices of $x_0 \in X$ and $* \ge 0$.
-\end{problem}
-
-\begin{problem}
 In class, I used the mysterious phrase ``limit condition'' twice.  Given a functor $F\co \CatOf J \to \CatOf C$, thought of as a $\CatOf J$--shaped diagram in $\CatOf C$, we define a \textit{cone} of $F$ to be a constant functor $x\co \CatOf J \to \CatOf C$ together with a natural transformation $x \to F$.  A \textit{limit} of $F$ is a terminal object in the category of cones.
 \begin{enumerate}
     \item Expand the definition of natural transformation and constant functor to reveal that a cone is equivalent to the data of an object $x \in \CatOf C$ together with maps $f_j\co x \to F(j)$ for each object $j \in J$ such that for any map $g\co j \to j'$ in the diagram there is a commuting triangle
@@ -151,13 +147,13 @@ such that every column forms a short exact sequence.
 Consider a tower of fibrations \[\cdots \to X_{n+1} \xrightarrow{f_{n+1}} X_n \to \cdots.\]  Show that there is a short exact sequence, called the \textit{Milnor sequence}, given by \[0 \to \lim_n{}^1 \left( \pi_{m+1} X_n \right) \to \pi_m \left( \lim_n X_n \right) \to \lim_n \left( \pi_m X_n \right) \to 0.\]  (Hint: find a model for the limit of the tower of fibrations analogous to the one for the colimit of a tower of inclusions presented in Switzer 7.53.  This model is itself inspired by rewriting the tower as an endomorphism of an infinite product, and filtering this model by ``near the start'' and ``near the end'' of the endomorphism.)
 \end{problem}
 
-\begin{problem}\footnote{This problem can also be done independently of Problem 2, by directly using the endomorphism-cylinder construction presented in Switzer and applying cohomology to that, rather than taking the time to figure out what its dual looks like and remembering that cohomology appears as the homotopy of a certain spectral object.}
+\begin{problem}\marginnote{This problem can also be done independently of Problem 2, by directly using the endomorphism-cylinder construction presented in Switzer and applying cohomology to that, rather than taking the time to figure out what its dual looks like and remembering that cohomology appears as the homotopy of a certain spectral object.}
 Produce the Milnor short exact sequence for a generalized cohomology theory $E$ applied to an increasing union of spaces $X_n$: \[0 \to \lim_n{}^1 (E^{m-1} X_n) \to E^m \left(\colim_n X_n\right) \to \lim_n (E^m X_n) \to 0.\]
 \end{problem}
 
 \begin{problem}
 \begin{enumerate}
-    \item Use this to calculate the integral cohomology of ``the circle with $p$ inverted''.  This space is given by infinitely iterating the mapping cylinder construction on the $p$--fold covering \[S^1 \xrightarrow{p} S^1.\]  (That is: the first stages of this look like $S^1 \cup_p (S^1 \times I)$, then $(S^1 \cup_p (S^1 \times I)) \cup_p (S^1 \times I)$, \ldots.)\footnote{If you haven't seen this construction before, you should check that for a ring element $r \in R$ and an $R$--module $M$, \[\colim \left(M \xrightarrow{r} M \xrightarrow{r} M \xrightarrow{r} \cdots\right) = M[r^{-1}].\]}
+    \item Use this to calculate the integral cohomology of ``the circle with $p$ inverted''.  This space is given by infinitely iterating the mapping cylinder construction on the $p$--fold covering \[S^1 \xrightarrow{p} S^1.\]  (That is: the first stages of this look like $S^1 \cup_p (S^1 \times I)$, then $(S^1 \cup_p (S^1 \times I)) \cup_p (S^1 \times I)$, \ldots.)\marginnote{If you haven't seen this construction before, you should check that for a ring element $r \in R$ and an $R$--module $M$, \[\colim \left(M \xrightarrow{r} M \xrightarrow{r} M \xrightarrow{r} \cdots\right) = M[r^{-1}].\]}
     \item Compare your answer with the \emph{homology} of this same space and analyze the behavior of the universal coefficient sequence.
 \end{enumerate}
 \end{problem}
@@ -204,7 +200,7 @@ The \textit{($2$--adic) Bockstein spectral sequence} is the filtration spectral 
 & \cdots & \Z/2 & \Z/2 & \Z/2.
 \end{tikzcd}
 \end{center}
-Applying $H^*(X; -)$ to this diagram of coefficients gives a spectral sequence of signature \[E_1^{*, *} = \bigoplus_* H^*(X; \F_2) \cong \F_2[w] \otimes H^*(X; \F_2) \Rightarrow H^*(X; \Z^\wedge_2),\] where the $E_1$--page consists of many duplicated copies of $H^*(X; \F_2)$, which we can think of as tagged by monomials in $w$.\footnote{There is (of course) also a homological version of this construction, which you should also be aware of.}
+Applying $H^*(X; -)$ to this diagram of coefficients gives a spectral sequence of signature \[E_1^{*, *} = \bigoplus_* H^*(X; \F_2) \cong \F_2[w] \otimes H^*(X; \F_2) \Rightarrow H^*(X; \Z^\wedge_2),\] where the $E_1$--page consists of many duplicated copies of $H^*(X; \F_2)$, which we can think of as tagged by monomials in $w$.\marginnote{There is (of course) also a homological version of this construction, which you should also be aware of.}
 \begin{enumerate}
     \item Show that the differentials in this spectral sequence are ``$w$--linear'', i.e., $d^{\BSS}_r(w^k x) = w^k d^{\BSS}_r(x)$.
     \item Show that a torsion-free class $x \in H^*(X; \Z^\wedge_2)$ is in $\ker d^{\BSS}_r$ on all pages $E_r$ and never in $\im d^{\BSS}_r$.  Demonstrate that this condition is equivalent to the corresponding class in the spectral sequence being $w$--torsion--free.
@@ -214,11 +210,11 @@ Applying $H^*(X; -)$ to this diagram of coefficients gives a spectral sequence o
 \end{problem}
 
 \begin{problem}
-Use this spectral sequence to make a calculation of $H^*(K(\Z/2, 2); \Z^\wedge_2)$ from the calculation of $H^*(K(\Z/2, 2); \F_2)$ given in class.  You will want to know the following mysterious formula:\footnote{This is Proposition 6.8 of May's \textit{A general algebraic approach to Steenrod operations}.} for any class $x \in H^{\mathrm{even}}(X; \F_2)$ where $d_r^{\BSS}(x)$ is defined, we have \[d^{\BSS}_r(x^2) = \begin{cases} \Sq^1(x) \cdot x + \Sq^{|x|}\Sq^1(x) & \text{for $r = 2$}, \\ d^{\BSS}_{r-1}(x) \cdot x & \text{for $r > 2$}. \end{cases}\]
+Use this spectral sequence to make a calculation of $H^*(K(\Z/2, 2); \Z^\wedge_2)$ from the calculation of $H^*(K(\Z/2, 2); \F_2)$ given in class.  You will want to know the following mysterious formula:\marginnote{This is Proposition 6.8 of May's \textit{A general algebraic approach to Steenrod operations}.} for any class $x \in H^{\mathrm{even}}(X; \F_2)$ where $d_r^{\BSS}(x)$ is defined, we have \[d^{\BSS}_r(x^2) = \begin{cases} \Sq^1(x) \cdot x + \Sq^{|x|}\Sq^1(x) & \text{for $r = 2$}, \\ d^{\BSS}_{r-1}(x) \cdot x & \text{for $r > 2$}. \end{cases}\]
 \end{problem}
 
 \begin{problem}
-Let $F \xrightarrow{j} E \xrightarrow{p} B$ be a fiber sequence, let $u \in H^n(F; \F_2)$ be class that transgresses to $\tau(u) \in H^{n+1}(B; \F_2)$, and suppose that for some integer $i \ge 1$ there is a Bockstein differential $d^{\BSS}_i v = \tau(u)$.  Show that $d^{\BSS}_{i+1} p^* v$ is then defined and that $j^* d^{\BSS}_{i+1} p^*(v) = d^{\BSS}_1(u)$, where again $d^{\BSS}_1$ is the first Bockstein differential.\footnote{I haven't actually tried to work this out. You might find it helpful to know that there's a re-indexing of the Bockstein spectral sequence, where you instead use the inverse system $\{\Z/(2^j)\}_{j=1}^\infty$ and identify all the \emph{fibers} of these maps as $\Z/2$---or maybe not.}
+Let $F \xrightarrow{j} E \xrightarrow{p} B$ be a fiber sequence, let $u \in H^n(F; \F_2)$ be class that transgresses to $\tau(u) \in H^{n+1}(B; \F_2)$, and suppose that for some integer $i \ge 1$ there is a Bockstein differential $d^{\BSS}_i v = \tau(u)$.  Show that $d^{\BSS}_{i+1} p^* v$ is then defined and that $j^* d^{\BSS}_{i+1} p^*(v) = d^{\BSS}_1(u)$, where again $d^{\BSS}_1$ is the first Bockstein differential.\marginnote{I haven't actually tried to work this out. You might find it helpful to know that there's a re-indexing of the Bockstein spectral sequence, where you instead use the inverse system $\{\Z/(2^j)\}_{j=1}^\infty$ and identify all the \emph{fibers} of these maps as $\Z/2$---or maybe not.}
 \end{problem}
 
 \begin{problem}
@@ -247,8 +243,8 @@ Here the nodes $X[0, n]$ and $(\Q \otimes X)[0, n]$ are \emph{defined} as the to
     \item The rational cohomology of rational Eilenberg--Mac Lane spaces is given by \[H^*(K(\Q, n); \Q) = \begin{cases} \Q[x_n] & \text{if $n$ is even}, \\ \Q[x_n] / x_n^2 & \text{if $n$ is odd}. \end{cases}\]
     \item The cohomology $H^*(X(n, \infty); \Q)$ \emph{as well as its ring structure} are completely determined by the cohomology ring $H^*(X[n, \infty); \Q)$.
     \item The map $X \to \Q \otimes X$ is an isomorphism on rational cohomology.
-    \item The Postnikov fibrations $K(\Q \otimes \pi_n X, n) \to (\Q \otimes X)[0, n] \to (\Q \otimes X)[0, n)$ give a model for $C^*(X; \Q)$ whose underlying graded-commutative algebra is \emph{free} and which uses the minimal number of algebra generators.\footnote{Such a presentation of the rational cochain complex is called a \textit{Sullivan minimal model}.  It may please you to check that two such models are related by a chain homotopy equivalence.}
-    \item Any rational commutative differential-graded algebra $A^*$ with $A^0 = \Q$ and $A^1 = 0$ inductively receives a quasi-isomorphism from a Sullivan model.\footnote{In fact, this happens in a natural way: a map $A^* \to B^*$ of cDGAs induces a map of their Sullivan models.}\footnote{It's fun / instructive to see the natural algorithm for this \emph{fail} in the case of $C^*(S^1 \vee S^1; \Q)$.}
+    \item The Postnikov fibrations $K(\Q \otimes \pi_n X, n) \to (\Q \otimes X)[0, n] \to (\Q \otimes X)[0, n)$ give a model for $C^*(X; \Q)$ whose underlying graded-commutative algebra is \emph{free} and which uses the minimal number of algebra generators.\marginnote{Such a presentation of the rational cochain complex is called a \textit{Sullivan minimal model}.  It may please you to check that two such models are related by a chain homotopy equivalence.}
+    \item Any rational commutative differential-graded algebra $A^*$ with $A^0 = \Q$ and $A^1 = 0$ inductively receives a quasi-isomorphism from a Sullivan model.\marginnote{In fact, this happens in a natural way: a map $A^* \to B^*$ of cDGAs induces a map of their Sullivan models.}\marginnote{It's fun / instructive to see the natural algorithm for this \emph{fail} in the case of $C^*(S^1 \vee S^1; \Q)$.}
     \item There is a sequence of Postnikov sections $X[0, n) \to K(\pi_n X, n+1)$, hence a space $X$, whose Sullivan model is the one associated to $A^*$.
     \item Given a Sullivan model for $C^*(X; \Q)$, its indecomposables compute the rational homotopy groups of $X$.
     \item The rational homotopy groups of $S^n$, $n > 1$, are given by \[\Q \otimes \pi_* S^n = \begin{cases} \Susp^n \Q & \text{if $n$ is odd}, \\ \Susp^n \Q \oplus \Susp^{2n-1} \Q & \text{if $n$ is even}. \end{cases}\]

@@ -2,7 +2,14 @@
 
 \chapter{Computations in the Steenrod Algebra}
 
-\todo[inline]{Inject an introduction.}
+In \Cref{ObstructionSection}, we closed with a discussion of \define{$k$--invariants} and an urgent question about how to classify cohomology operations.
+We have now assembled enough tools to address this program meaningfully.
+In this Chapter, we will compute various collections of cohomology operations, referred to in various forms as the \define{Steenrod algebra}.
+Along the way, we will introduce a hereto-unmentioned fundamental tool for the study of spaces: the Serre spectral sequence, which grants access to the cohomology of the terms in an exact sequence of spaces.
+In addition to its critical role in the development of the Steenrod algebra, we will use it to compute the cohomology of some other interesting spaces (e.g., loopspaces of spheres) and to reprove some other fundamental results (e.g., Freudenthal's theorem).
+
+For the moment, we will consider these interesting and engaging calculations to be their own reward.
+Only in the subsequent Chapter will we explore some of their consequences.
 
 
 
@@ -361,6 +368,11 @@ By indirect consequence, we have achieved a calculation of $H_* \CP^2$, by exami
 
 There is nothing particular about the dimension of $\CP^2$ in this example: one can just as well compute the homology of $\CP^n$, or even of $\CP^\infty$, using the same methods.
 \end{example}
+
+
+
+
+\section{The Serre spectral sequence in cohomology}
 
 Let us now exploit the naturality of the Serre spectral sequence to put it to real work.
 \marginnote{Part of the fun of spectral sequences in algebraic topology, as opposed to their appearances in other fields, is that we don't stop at filtering our problems away into differentials---we then compute the differentials.}

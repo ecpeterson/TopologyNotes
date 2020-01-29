@@ -2,7 +2,12 @@
 
 \chapter{Homotopy Types and Exact Sequences}
 
-\todo[inline]{Inject introduction}
+One of our overall goals in this text is to treat spaces as if they were algebraic objects, to dissect and assemble them by methods analogous to those we use with, say, modules.
+There are at least two routes to effecting this.
+One is to make a re-definition of a ``space'' which is inherently algebraic (or combinatorial).
+This eases the import of algebraic operations into this new context, but it requires one to link the chosen alternative definition with the traditional notion of a space.\todo{Cite? Simplicial sets, co--$E_\infty$ chain complexes?}
+We will take a second route: beginning with some of the traditional tools of algebraic topology, we will use their formal properties as impetus to re-envision them as the desired algebraic operations.
+These will become the fundamental methods of dissection and assembly used in all later chapters.
 
 
 
@@ -13,7 +18,7 @@ Today we set up the basics of category theory and introduce a few basic examples
 One of our express intentions in this course is to try to get away with doing very little geometry or ``point-set'' topology, which means a lot of this Lecture will concern itself with boldly asserting such facts in category-theoretic language, so that they can be guiltlessly referred to later.
 
 We begin with some basic operations that one may perform on spaces.
-The categorical perspective is to understand objects in a category not by intrinsic presentations, like how the points in a space are arranged, but how they relate to other objects in the category, like how a given space can be continuously mapped into another.
+The categorical perspective is to understand objects in a category not by intrinsic presentations, like how the points in a space are arranged, but by their extrinsic effects of how they relate to other objects in the category, like the ways a given space can be continuously mapped into another.
 With this as a guiding principle, we give categorically-minded interpretations of some common operations performed on spaces:
 \begin{description}
     \item[Products]\marginnote{\citep[0.2]{Switzer}}
@@ -21,7 +26,7 @@ With this as a guiding principle, we give categorically-minded interpretations o
     Their \define{product} $X \times Y$ is a space such that the set $\CatOf{Spaces}(T, X \times Y)$ of continuous maps $T \to X \times Y$ bijects with with the set $\CatOf{Spaces}(T, X) \times \CatOf{Spaces}(T, Y)$ of pairs $(f_X, f_Y)$ of continuous maps $f_X\co T \to X$ and $f_Y\co Y \to T$.
     A useful mnemonic is that products pull out on the right: \[\CatOf{Spaces}(T, X \times Y) \cong \CatOf{Spaces}(T, X) \times \CatOf{Spaces}(T, Y).\]
     The bijection in question is induced by a pair of maps $\pi_X\co X \times Y \to X$ and $\pi_Y\co X \times Y \to Y$ which save the indicated coordinate and drop the other: given a map $f\co T \to X \times Y$, post-composing with either of these maps gives the two values $f_X = \pi_X \circ f$ and $f_Y = \pi_Y \circ f$ in the pair.%
-    \footnote{There's an amusing circularity to this data: if you assume the bijection to begin with, then you can recover the maps $\pi_X$ and $\pi_Y$ by starting with the identity $\id_{X \times Y} \in \CatOf{Spaces}(X \times Y, X \times Y)$ and following it across the bijection to the pair $(\pi_X, \pi_Y) \in \CatOf{Spaces}(X \times Y, X) \times \CatOf{Spaces}(X \times Y, Y)$.
+    \marginnote{There's an amusing circularity to this data: if you assume the bijection to begin with, then you can recover the maps $\pi_X$ and $\pi_Y$ by starting with the identity $\id_{X \times Y} \in \CatOf{Spaces}(X \times Y, X \times Y)$ and following it across the bijection to the pair $(\pi_X, \pi_Y) \in \CatOf{Spaces}(X \times Y, X) \times \CatOf{Spaces}(X \times Y, Y)$.
     This sort of gymnastic forms the foothills of the \define{Yoneda Lemma}.}
     \item[Coproducts]
     The \define{disjoint union} $X \sqcup Y$ is a space with the property \[\CatOf{Spaces}(X \sqcup Y, T) \cong \CatOf{Spaces}(X, T) \times \CatOf{Spaces}(Y, T).\]
@@ -32,7 +37,7 @@ With this as a guiding principle, we give categorically-minded interpretations o
     \item[Quotients]\marginnote{\citep[0.3]{Switzer}}
     For $\sim$ an equivalence relation on $X$, there is a space $X / \sim$ such that the set $\CatOf{Spaces}(X / \sim, Y)$ bijects with the subset \[\{f \in \CatOf{Spaces}(X, Y) \mid x \sim x' \Rightarrow f(x) = f(x')\}\] of those continuous maps which are constant on the partition components of $\sim$.
     As a special case, let $A \subseteq X$ be nonempty, and define $X/A$ by extending the total relation on $A$ by the identity relation on $X$ (i.e., the associated partition consists of singletons and $A$).
-    \footnote{As an edge case, we set $X / \emptyset = X \cup \{*\}$.}
+    \marginnote{As an edge case, we set $X / \emptyset = X \cup \{*\}$.}
     \todo{Explain the edge case: it's because it's a pushout.}
 \end{description}
 
@@ -50,7 +55,7 @@ We will perpetually arrange to be in the situation where our function-spaces are
 
 \begin{remark}
 In each of these cases, the property named uniquely determines the space involved: if $Q$ is some unknown space so that $\CatOf{Spaces}(Q, T)$ naturally bijects with the subset \[\{f \in \CatOf{Spaces}(X, T) \mid x \sim x' \Rightarrow f(x) = f(x') \},\] then there is a homeomorphism $Q \xrightarrow\cong X/\sim$.
-\footnote{This, too, is fundamentally the Yoneda Lemma.}
+\marginnote{This, too, is fundamentally the Yoneda Lemma.}
 \end{remark}
 
 \begin{remark}\label{HomSheafRemark}
@@ -85,7 +90,7 @@ Relative homotopy provides a convenient segue into two other categories of inter
 
 \begin{definition}
 The category of \define{relative pairs} has objects given by inclusions $A \subseteq X$, and a morphism $(A \subseteq X) \to (B \subseteq Y)$ between two such pairs is given by a continuous map $f \in \CatOf{Spaces}(X, Y)$ which has the property $f(A) \subseteq B$.
-\footnote{There is no reason one must stop at a single inclusion.
+\marginnote{There is no reason one must stop at a single inclusion.
 Chains of inclusions---even infinite chains---are interesting, and they are generally referred to as \define{filtered spaces}.}
 These pairs and their maps appear naturally when discussing relative homology or relative homotopy.
 \end{definition}
@@ -117,7 +122,7 @@ In terms of the pair, it is given by \[X \vee Y = \frac{\{x_0, y_0\} \subseteq (
 \end{definition}
 
 The relationship between the products in relative pairs and in pointed spaces is much looser: the product of pointed spaces is given by \[(\{x_0\} \subseteq X) \times (\{y_0\} \subseteq Y) = (\{(x_0, y_0)\} \subseteq (X \times Y)),\] where the complexity in the privileged subspace has seemingly evaporated.
-\footnote{The reason why we didn't have to quotient this time is related to the chirality of the limits constructions involved: coproducts and quotients are both colimits, but a product is a limit.}
+\marginnote{The reason why we didn't have to quotient this time is related to the chirality of the limits constructions involved: coproducts and quotients are both colimits, but a product is a limit.}
 However, we find ourselves in a further awkward position when we investigate the currying law for the function object for pointed spaces:
 \begin{align*}
 (\{y_0\} \subseteq Y)^{((Z \times \{x_0\}) \cup (\{z_0\} \times X)) \subseteq Z \times X} & = (\{y_0\} \subseteq Y)^{(\{z_0\} \subseteq Z) \times (\{x_0\} \subseteq X)} \\
@@ -129,7 +134,7 @@ We can, again, force it to become one:
 \begin{definition}\marginnote{\citep[2.4]{Switzer}}
 The \define{smash product} of two pointed spaces $\{x_0\} \subseteq X$ and $\{z_0\} \subseteq Z$ is given by \[(\{x_0\} \subseteq X) \sm (\{z_0\} \subseteq Z) := \frac{X \times Z}{(X \times \{z_0\}) \cup (\{x_0\} \times Z)} = \frac{X \times Z}{X \vee Z}.\]
 This gives a \define{monoidal structure} on $\CatOf{Spaces}_{*/}$ which is \emph{not} the Cartesian one.
-\footnote{That is: the one given by the ordinary product.}
+\marginnote{That is: the one given by the ordinary product.}
 \end{definition}
 
 \begin{corollary}
@@ -190,14 +195,14 @@ G \arrow["0"]{d} \arrow["\chi \times \id"]{r} & G \times G \arrow["\mu"]{d} & G 
 
 \begin{lemma}\label{RepresentableGroupsLemma}
 If $G$ is a group object in a category $\CatOf{C}$, then $\CatOf{C}(-, G)$ is a functor from $\CatOf{C}^{\op}$ to $\CatOf{Groups}$.
-\footnote{In fact, this is biconditional: if a representable functor factors through $\CatOf{Groups}$, then the representing object inherits the structure of a group object.}
+\marginnote{In fact, this is biconditional: if a representable functor factors through $\CatOf{Groups}$, then the representing object inherits the structure of a group object.}
 \todo{I think this lecture is a better place to introduce Yoneda than the previous one.}
 \end{lemma}
 \begin{proof}
 Recall that the defining property of the product $X \times Y$ is \[\CatOf{C}(T, X \times Y) \cong \CatOf{C}(T, X) \times \CatOf{C}(T, Y).\]
 For a fixed test object $T$, the functor $\CatOf{C}(T, -)$ applied to the multiplication $\mu$ on $G$ gives \[\CatOf{C}(T, G) \times \CatOf{C}(T, G) \cong \CatOf{C}(T, G \times G) \xrightarrow{\mu_*} \CatOf{C}(T, G),\] and in this way $\mu_*$ becomes a multiplication on $\CatOf{C}(T, G)$.
 The inversion $\chi$ on $G$ similarly induces an inversion $\chi_*$ on $\CatOf{C}(T, G)$, and together these make the group object diagrams commute.
-\footnote{For a pair of maps $f, g\co X \to K$, it is sometimes helpful to factor $(f, g)\co X \to K \times K$ through the diagonal on $X$, as in $X \xrightarrow\Delta X \times X \xrightarrow{f \times g} K \times K$, as this lets on leverage the bifunctoriality of $\times$.}
+\marginnote{For a pair of maps $f, g\co X \to K$, it is sometimes helpful to factor $(f, g)\co X \to K \times K$ through the diagonal on $X$, as in $X \xrightarrow\Delta X \times X \xrightarrow{f \times g} K \times K$, as this lets on leverage the bifunctoriality of $\times$.}
 \end{proof}
 
 \begin{definition}\marginnote{\citep[Definition 2.9]{Switzer}}
@@ -369,11 +374,11 @@ Today we are after something similar: we would like to study when continuous map
 \begin{definition}\marginnote{\citep[{Definitions 2.30 and 2.49}]{Switzer}}
 If the sequence of pointed sets \[[-, A] \to [-, B] \to [-, C]\] is exact, then we say that the underlying sequence of spaces is \define{exact}.
 If the sequence of pointed sets \[[A, -] \from [B, -] \from [C, -]\] is exact, then we say that the underlying sequence of spaces is \define{coexact}.%
-\footnote{These more commonly go by the names \define{fiber} and \define{cofiber} sequences of spaces.  We will work later to justify these alternative names.}
+\marginnote{These more commonly go by the names \define{fiber} and \define{cofiber} sequences of spaces.  We will work later to justify these alternative names.}
 \end{definition}
 
 At first brush, one might imagine that such sequences are somewhat rare, or that they at least require some nice properties of $A$, $B$, or $f$.%
-\footnote{This scarcity is true for maps of groups: $f\co N \to G$ can only participate in an exact sequence when the image of $f$ is a normal subgroup.
+\marginnote{This scarcity is true for maps of groups: $f\co N \to G$ can only participate in an exact sequence when the image of $f$ is a normal subgroup.
 It is a good exercise to check that these constructions for spaces do not violate this.}
 In fact, these sequences are extremely plentiful in homotopy theory.
 
@@ -882,7 +887,7 @@ The following defines a compatible coaction of $S^1$ on $S^n$: \todo[inline]{Pic
 \end{lemma}
 \begin{proof}
 \todo[inline]{Picture!}
-\footnote{The proof is a little more obnoxious when $n = 1$.}
+\marginnote{The proof is a little more obnoxious when $n = 1$.}
 \end{proof}
 
 \begin{remark}

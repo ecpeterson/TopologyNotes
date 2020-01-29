@@ -2,6 +2,12 @@
 
 \chapter{Representability}\label{RepChap}
 
+In this Chapter, we turn to one of the most unique features of homotopy theory: Brown's representability theorem shows that many of the tools of algebraic topology can themselves be thought of as homotopy types in their own right.
+We have already encountered this idea with our most fundamental tools so far: homotopy groups are corepresented by spheres, and cohomology groups are represented by Eilenberg--Mac Lane spaces, and this gives a wild generalization of this pattern.
+As an application of this idea, we introduce the notions of the \define{localization} and \define{completion} of a space, imported from their corresponding algebraic effects on homotopy groups.
+We also introduce the notion of a \define{spectrum}, whose role is to capture the elaborate structure present in a co/homology theory beyond mere representability.
+Spectra are interesting enough objects in their own right, and will play a large enough role later on, that we work through a good amount of their fundamental theory here.
+
 \todo{This used to live in the obstruction theory section, where it no longer makes sense because we don't know what infinite loopspaces are.
 It probably belongs somewhere in this chapter.}
 % \begin{example}
@@ -252,7 +258,7 @@ X \arrow{r} \arrow{d} & \widehat X \arrow{d} \\
 % A \define{class} of abelian groups is a collection $\CC$ such that
 % \begin{enumerate}
 %     \item For $0 \to A' \to A \to A'' \to 0$, $A \in \CC$ if and only if $A', A'' \in \CC$.  (``Closed under $+$, $-$.'')
-%     \item For $A \in \CC$ and $B$ a group, $A \otimes B \in \CC$.  (``Closed under $\cdot$, an ideal.'')\footnote{Sometimes we just ask for $A \otimes A'$ and $\Tor(A, A')$ to lie in $\CC$.}
+%     \item For $A \in \CC$ and $B$ a group, $A \otimes B \in \CC$.  (``Closed under $\cdot$, an ideal.'')\marginnote{Sometimes we just ask for $A \otimes A'$ and $\Tor(A, A')$ to lie in $\CC$.}
 %     \item For $A \in \CC$, $H_{* > 0}(BA; \Z) \in \CC$.
 % \end{enumerate}
 % \end{definition}

@@ -2,7 +2,15 @@
 
 \chapter{Computations in the Homotopy Groups of Spheres}
 
-\todo[inline]{Inject an introduction.}
+At last, we come to the program outlined in the introduction to this book, which employs all of the technology developed so far.
+
+Our goal now is to perform some computatins in the homotopy groups of spheres, themselves interesting for their role in determining what attaching maps are available during the cellular construction of homotopy types.
+Our access to these groups is indirect and manifold.
+In the first method, known as \define{Serre's method}, we will essentially construct the Postnikov decomposition of a sphere by using the Serre spectral sequence and our intimate knowledge of the Steenrod algebra to deduce how its $k$--invariants \emph{must} fit together.
+In the second method, we will assemble various stable phenomena to produce a simplification of the computation that is valid for spheres of large dimension, known as the \define{Adams spectral sequence}.
+In the third method, we will use certain exact sequences among the spheres themselves, called \define{EHP sequences}, to propagate the knowledge garnered in the first two attempts to otherwise unreachable areas.
+
+By the conclusion of this chapter, we will have computed $\pi_{n+k} S^n$ for all $n \ge 1$ and for $0 \le k \le 7$, though our methods could certainly be pushed farther by the interested reader.
 
 
 
@@ -121,6 +129,7 @@ k & = 8: & \textcolor{red}{(\Sq^5 + \Sq^4 \Sq^1) \iota_{n+2}}, \\
 The first abberation from $H^{\le n+7}(S^n; \F_2)$ is now \[\Sq^4 \iota_n \in H^{n+4}(S^n[0, n+2]; \F_2).\]
 We would like to apply \Cref{KillingCohWithExact} to the map $\Sq^4 \iota_n\co S^n[0, n+2] \to K(\Z/2, n+4)$, but there is no class $\Sq^1 \Sq^4 \iota_n \in H^*(S^n[0, n+2]; \F_2)$, so that $\Sq^1 \iota_{n+3}$ will contribute another class in the same degree.
 This signifies that we should use $K(\Z/2^j, n+4)$ instead for some $j > 1$, according to which $j$ satisfies \[\beta_j \Sq^4 \iota_n = \Sq^3 \iota_{n+2}.\]
+\todo{The Lemma only works up to filtration.}
 To make this calculation, we appeal repeatedly to \Cref{BocksteinLemma}, which says that \[\beta_j \Sq^4 \iota_n = \Sq^1(\Sq^2 \iota_{n+2})\] would hold if \[\beta_{j-1} \Sq^4 \iota_n = \Sq^1(\Sq^2 \Sq^1 \iota_{n+1}) = d(\Sq^2 \iota_{n+2})\] were true, where $d$ denotes a transgressive differential.
 In turn, this left equality would hold if \[\beta_{j-2} \Sq^4 \iota_n = \Sq^1 (\Sq^4 \iota_n) = d(\Sq^2 \Sq^1 \iota_{n+1})\] were to hold, where $d$ is now the transgressive differential associated to the \emph{previous} exact sequence.
 This can be made to hold by taking $j = 3$, so that \[\beta_3 \Sq^4 \iota_n = \Sq^3 \iota_{n+2}.\]
