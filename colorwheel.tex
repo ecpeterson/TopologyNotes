@@ -1,0 +1,37 @@
+% -*- root: main.tex -*-
+
+% https://tex.stackexchange.com/questions/285996/tikz-circle-with-color-transition
+
+\usepackage{xparse}
+
+\ExplSyntaxOn
+
+\keys_define:nn { colour_transition_circle } {
+    inner   .fp_set:N   = \l__inner_radius,
+    inner   .initial:n  = {2},
+    outer   .fp_set:N   = \l__outer_radius,
+    outer   .initial:n  = {3},
+    angle   .fp_set:N   = \l__start_angle,
+    angle   .initial:n  = {0}
+}
+
+\NewDocumentCommand \ColourTransitionCircle { O{} m } {
+\group_begin:
+    \keys_set:nn { colour_transition_circle } {#1}
+    \clist_clear:N \l_tmpa_clist
+    \clist_map_inline:nn {#2} {
+        \clist_put_right:Nn \l_tmpa_clist {##1}
+        %\clist_put_right:Nn \l_tmpa_clist {##1}
+    }
+    \exp_args:Nx \col_trans_circ:n \l_tmpa_clist
+\group_end:
+}
+
+\cs_new_protected:Npn \col_trans_circ:n #1 {
+    \int_step_inline:nnnn {1} {1} {\clist_count:n {#1} - 1} {
+        \path[top~color=\clist_item:nn {#1} {##1}, bottom~color=\clist_item:nn {#1} {##1+1}, shading~angle={270-(180-360/\clist_count:n {#1})/2+(##1-1)*360/\clist_count:n {#1}+\fp_use:N \l__start_angle}] ({\fp_use:N \l__inner_radius*cos((##1-1)*360/\clist_count:n {#1}+\fp_use:N \l__start_angle)},{\fp_use:N \l__inner_radius*sin((##1-1)*360/\clist_count:n {#1}+\fp_use:N \l__start_angle)}) arc[radius = \fp_use:N \l__inner_radius, start~angle={(##1-1)*360/\clist_count:n {#1}+\fp_use:N \l__start_angle}, delta~angle=360/\clist_count:n {#1}] -- ({\fp_use:N \l__outer_radius*cos(##1*360/\clist_count:n {#1}+\fp_use:N \l__start_angle)},{\fp_use:N \l__outer_radius*sin(##1*360/\clist_count:n {#1}+\fp_use:N \l__start_angle)}) arc[radius = \fp_use:N \l__outer_radius, start~angle={##1*360/\clist_count:n {#1}+\fp_use:N \l__start_angle}, delta~angle=-360/\clist_count:n {#1}] -- cycle;
+    }
+    \path[top~color=\clist_item:nn {#1} {\clist_count:n {#1}}, bottom~color=\clist_item:nn {#1} {1}, shading~angle={180-180/\clist_count:n {#1}+\fp_use:N \l__start_angle}]({\fp_use:N \l__inner_radius*cos((\clist_count:n {#1}-1)*360/\clist_count:n {#1}+\fp_use:N \l__start_angle)},{\fp_use:N \l__inner_radius*sin((\clist_count:n {#1}-1)*360/\clist_count:n {#1}+\fp_use:N \l__start_angle)}) arc[radius = \fp_use:N \l__inner_radius, start~angle={(\clist_count:n {#1}-1)*360/\clist_count:n {#1}+\fp_use:N \l__start_angle}, delta~angle=360/\clist_count:n {#1}] -- ({\fp_use:N \l__outer_radius*cos(\clist_count:n {#1}*360/\clist_count:n {#1}+\fp_use:N \l__start_angle)},{\fp_use:N \l__outer_radius*sin(\clist_count:n {#1}*360/\clist_count:n {#1}+\fp_use:N \l__start_angle)}) arc[radius = \fp_use:N \l__outer_radius, start~angle={\clist_count:n {#1}*360/\clist_count:n {#1}+\fp_use:N \l__start_angle}, delta~angle=-360/\clist_count:n {#1}] -- cycle;
+}
+
+\ExplSyntaxOff

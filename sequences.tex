@@ -202,103 +202,295 @@ Because we will work in this category so often, we will abbreviate this mapping 
 
 \section{Perspectives on the fundamental group}
 
+With these categorical definitions in place, we are in position to begin investigating the traditional tools of algebraic topology in their terms.
+In this section, we treat the fundamental group, though we begin with an even simpler invariant.
+
 \begin{definition}\marginnote{\citep[2.1]{Switzer}}
-The \define{pathspace} $PX$ of $X$ is given by $PX = X^I$, $I = [0, 1]$ the closed interval.
-We write $\pi_0(X)$ for the set of path-components of $X$, i.e., the quotient of $X$ by the relation $\sim$, where $x \sim x'$ when there exists $\gamma \in X^I$ such that $\gamma(0) = x$, $\gamma(1) = x'$.
+Write $I = [0, 1]$ for the closed unit interval.
+The \define{pathspace} $PX$ of a space $X$ is given by $PX = X^I$.
+We write $\pi_0(X)$ for the set of path-components of $X$, i.e., the quotient of $X$ where $x$ is related to $x'$ whenever there exists $\gamma \in X^I$ with
+\begin{align*}
+\gamma(0) & = x, &
+\gamma(1) & = x'.
+\end{align*}
 \end{definition}
 
 \begin{remark}
-The mapping set given in \Cref{HoCatDefn} can be equivalently described by $[X, Y] = \pi_0 Y^X$.
-By specializing to $X = *$, we also have $\pi_0 Y = [S^0, Y]$ for $S^0 = (\{\pm 1\}, 1) = *_+$.
+The mapping set given in \Cref{HoCatDefn} is equivalent to \[[X, Y] = \pi_0 Y^X.\]
+By specializing $X$ to the $0$--sphere $S^0 = \{\pm 1\} \subset \R$, we have \[Y^{S^0} = (Y, y_0)^{(\{\pm 1\}, -1)} = Y^{\{1\}} = Y,\] and hence \[\pi_0 Y = \pi_0 Y^{S^0} = [S^0, Y].\]
 \end{remark}
 
-We can use the adjunctions from last time to give several equivalent definitions of the fundamental group:
+Recall now that the \define{fundamental group} is given by \[\pi_1(Y) := \{\text{homotopy classes of pointed loops in $X$}\} = [S^1, Y].\]
+We can use adjunctions to extend this to several equivalent definitions:
 \begin{align*}
-\pi_1(Y) & := \{\text{homotopy classes of pointed loops in $X$}\} \\
-& = [S^1, Y] = [S^0 \sm S^1, Y] = [S^0, Y^{(S^1)}] = \pi_0 Y^{S^1}.
+\pi_1(Y) & = [S^1, Y] = [S^0 \sm S^1, Y] = [S^0, Y^{(S^1)}] = \pi_0 Y^{S^1}.
 \end{align*}
 One might wonder what properties of $X$ and $Y$ make $[X, Y]$ into a group, since we know that $[S^1, -]$ and $[S^0, (-)^{S^1}]$ are group-valued.
-As we intend to explore this essentially categorical question using yet more category theory, it will be helpful to have a categorical definition of a group.
+In keeping with our investigation so far, we will be particularly interested in a \emph{categorical} answer to this question, and to this end it will be helpful to have a categorical definition of a group.
 
 \begin{definition}\marginnote{\citep[pg.\ 14]{Switzer}}
-A \define{group} is a pointed set $G$ with pointed maps $\mu\co G \times G \to G$ and $\chi\co G \to G$ which make the following diagrams commute:
+A \define{group} is a pointed set $G$ with maps $\mu\co G \times G \to G$ and $\chi\co G \to G$ which make the following diagrams commute:
 \begin{center}
-\begin{tikzcd}
-G \times G \times G \arrow["\mu \times \id"]{r} \arrow["\id \times \mu"]{d} & G \times G \arrow["\mu"]{d} \\
-G \times G \arrow["\mu"]{r} & G,
+\begin{tabular}{rc}
+\textit{Associativity:} & 
+\begin{tikzcd}[ampersand replacement=\&]
+G \times G \times G \arrow["\mu \times \id"]{r} \arrow["\id \times \mu"]{d} \& G \times G \arrow["\mu"]{d} \\
+G \times G \arrow["\mu"]{r} \& G,
 \end{tikzcd}
-\begin{tikzcd}
-G \arrow[equal]{rd} \arrow["\eta \times \id"]{r} & G \times G \arrow["\mu"]{d} & G \arrow["\id \times \eta"']{l} \arrow[equal]{ld} \\
-& G,
+\\
+\textit{Unitality:} &
+\begin{tikzcd}[ampersand replacement=\&]
+G \arrow[equal]{rd} \arrow["\eta \times \id"]{r} \& G \times G \arrow["\mu"]{d} \& G \arrow["\id \times \eta"']{l} \arrow[equal]{ld} \\
+\& G,
 \end{tikzcd}
-\begin{tikzcd}
-G \arrow["0"]{d} \arrow["\chi \times \id"]{r} & G \times G \arrow["\mu"]{d} & G \arrow["\id \times \chi"']{l} \arrow["0"]{d} \\
-* \arrow["\eta"]{r} & G & * \arrow["\eta"']{l} .
+\\
+\textit{Invertibility:} &
+\begin{tikzcd}[ampersand replacement=\&]
+G \arrow["0"]{d} \arrow["\chi \times \id"]{r} \& G \times G \arrow["\mu"]{d} \& G \arrow["\id \times \chi"']{l} \arrow["0"]{d} \\
+* \arrow["\eta"]{r} \& G \& * \arrow["\eta"']{l} .
 \end{tikzcd}
+\end{tabular}
 \end{center}
+More generally, a \define{group object} in a pointed category $\CatOf{C}$ is a pointed object $G$ such that $G^{\times 2}$ and $G^{\times 0}$ exist, equipped with maps $\mu$ and $\chi$ satisfying the same diagrams.
+\end{definition}
+
+\begin{definition}\marginnote{\citep[Definition 2.9]{Switzer}}
+An \define{$H$--group} $K$ is group object in $h\CatOf{Spaces}_{*/}$, i.e., a pointed space with maps $\mu$ and $\chi$ satisfying the group diagrams up to homotopy.
 \end{definition}
 
 \begin{lemma}\label{RepresentableGroupsLemma}
 If $G$ is a group object in a category $\CatOf{C}$, then $\CatOf{C}(-, G)$ is a functor from $\CatOf{C}^{\op}$ to $\CatOf{Groups}$.
-\marginnote{In fact, this is biconditional: if a representable functor factors through $\CatOf{Groups}$, then the representing object inherits the structure of a group object.}
-\todo{I think this lecture is a better place to introduce Yoneda than the previous one.}
 \end{lemma}
 \begin{proof}
 Recall that the defining property of the product $X \times Y$ is \[\CatOf{C}(T, X \times Y) \cong \CatOf{C}(T, X) \times \CatOf{C}(T, Y).\]
 For a fixed test object $T$, the functor $\CatOf{C}(T, -)$ applied to the multiplication $\mu$ on $G$ gives \[\CatOf{C}(T, G) \times \CatOf{C}(T, G) \cong \CatOf{C}(T, G \times G) \xrightarrow{\mu_*} \CatOf{C}(T, G),\] and in this way $\mu_*$ becomes a multiplication on $\CatOf{C}(T, G)$.
 The inversion $\chi$ on $G$ similarly induces an inversion $\chi_*$ on $\CatOf{C}(T, G)$, and together these make the group object diagrams commute.
-\marginnote{For a pair of maps $f, g\co X \to K$, it is sometimes helpful to factor $(f, g)\co X \to K \times K$ through the diagonal on $X$, as in $X \xrightarrow\Delta X \times X \xrightarrow{f \times g} K \times K$, as this lets on leverage the bifunctoriality of $\times$.}
+\marginnote[-6\baselineskip]{%
+For a pair of maps \[f, g\co T \to G,\] it can be helpful to factor \[(f, g)\co T \to G \times G\] through the diagonal as in \[T \xrightarrow\Delta T \times T \xrightarrow{f \times g} G \times G,\] as this lets one leverage the bifunctoriality of $\times$.
+This doesn't come up directly here, but it does arise in applications.
+}
 \end{proof}
 
-\begin{definition}\marginnote{\citep[Definition 2.9]{Switzer}}
-An \define{$H$--group} $K$ is a pointed space with maps $\mu$ and $\chi$ satisfying the group diagrams up to homotopy (i.e., as diagrams in $h\CatOf{Spaces}_{*/}$).
-\end{definition}
+\begin{remark}
+In fact, this is biconditional: if a representable functor factors through $\CatOf{Groups}$, then the representing object inherits the structure of a group object.
+This is a consequence of the \define{Yoneda lemma}: any natural transformation between representable functors is uniquely induced by pushforward along a map between the representing objects.
+\end{remark}
 
 \begin{corollary}\marginnote{\citep[Proposition 2.14]{Switzer}}
-The functor $[-, K]$ is valued in groups. \qed
+For $K$ an $H$--group, $[-, K]$ is valued in groups. \qed
 \end{corollary}
 
 \begin{example}\marginnote{\citep[Examples 2.15.ii]{Switzer}}
-The usual verification that the fundamental group of a space is indeed a group can be viewed as giving an $H$--space structure on $Y^{S^1} =: \Loops Y$.
-The multiplication map $\mu$ is given by rescaling and concatenating two loops, and the inversion map $\chi$ is given by running a loop backward.
-Hence, not only is the fundamental group $\pi_1 Y = \pi_0 \Omega Y = [S^0, \Omega Y]$ a group, but actually $[X, \Omega Y]$ is a group for any choice of $X$.
+The usual verification that the fundamental group of a space is a group can be viewed as giving an $H$--space structure on $Y^{S^1} =: \Loops Y$.
+The multiplication map $\mu$ is given by rescaling and concatenating two loops, and the inversion map $\chi$ is given by reversing a loop.
+Hence, not only is the fundamental group $\pi_1 Y = \pi_0 \Omega Y = [S^0, \Omega Y]$ a group, but actually $[X, \Omega Y]$ is naturally a group for any $X$.
 \end{example}
 
 What about the other formulation?
-We also have $\pi_1 Y = [S^1, Y]$, which is a group-valued functor even when $Y$ is freely varying, and so one might suspect the magic does not reside in the $Y$--dependent object ``$\Loops Y$'' but rather in $S^1$ alone.
+We also have that $\pi_1 Y = [S^1, Y]$ is naturally group-valued as $Y$ varies.
+From this, one might expect the root cause does not reside in the $Y$--dependent object ``$\Loops Y$'' but rather in $S^1$ alone.
 In order to address this by the same tactic, we must confront the structure required on $X$ in order to make $[X, Y]$ into a group.
 Using the identity $[X \vee X, Y] \cong [X, Y] \times [X, Y]$, we are led to the following definition:
 
 \begin{definition}\marginnote{\citep[Definition 2.16]{Switzer}}
-An \define{$H$--cogroup} $K$ has pointed maps $\mu'\co K \to K \vee K$ and $\chi'\co K \to K$ which make the following diagrams commute in the homotopy category:
+A \define{cogroup object} in a pointed category $\CatOf{C}$ is a pointed object $K$ such that $K^{\vee 2}$ and $K^{\vee 0}$ exist, equipped with maps $\mu'$ and $\chi'$ so that the following diagrams commute:
 \begin{center}
-\begin{tikzcd}
-K \vee K \vee K \arrow["\mu' \vee \id", leftarrow]{r} \arrow["\id \vee \mu'", leftarrow]{d} & K \vee K \arrow["\mu'", leftarrow]{d} \\
-K \vee K \arrow["\mu'", leftarrow]{r} & K,
+\begin{tabular}{rc}
+\textit{Coassociativity:} &
+\begin{tikzcd}[ampersand replacement=\&]
+K \vee K \vee K \arrow["\mu' \vee \id", leftarrow]{r} \arrow["\id \vee \mu'", leftarrow]{d} \& K \vee K \arrow["\mu'", leftarrow]{d} \\
+K \vee K \arrow["\mu'", leftarrow]{r} \& K,
 \end{tikzcd}
-\begin{tikzcd}
-K \arrow[equal]{rd} \arrow["0 \vee \id", leftarrow]{r} & K \vee K \arrow["\mu'", leftarrow]{d} & K \arrow["\id \vee 0"', leftarrow]{l} \arrow[equal]{ld} \\
-& K,
+\\
+\textit{Counitality:} &
+\begin{tikzcd}[ampersand replacement=\&]
+K \arrow[equal]{rd} \arrow["0 \vee \id", leftarrow]{r} \& K \vee K \arrow["\mu'", leftarrow]{d} \& K \arrow["\id \vee 0"', leftarrow]{l} \arrow[equal]{ld} \\
+\& K,
 \end{tikzcd}
-\begin{tikzcd}
-K \arrow[leftarrow, "\eta"]{d} \arrow["\chi \vee \id", leftarrow]{r} & K \vee K \arrow["\mu", leftarrow]{d} & K \arrow["\id \vee \chi"', leftarrow]{l} \arrow[leftarrow, "\eta"]{d} \\
-* \arrow[leftarrow, "0"]{r} & K & * \arrow[leftarrow, "0"]{l} .
+\\
+\textit{Coinvertibility:} &
+\begin{tikzcd}[ampersand replacement=\&]
+K \arrow[leftarrow, "\eta"]{d} \arrow["\chi' \vee \id", leftarrow]{r} \& K \vee K \arrow["\mu'", leftarrow]{d} \& K \arrow["\id \vee \chi'"', leftarrow]{l} \arrow[leftarrow, "\eta"]{d} \\
+* \arrow[leftarrow, "0"]{r} \& K \& * \arrow[leftarrow, "0"]{l} .
 \end{tikzcd}
+\end{tabular}
 \end{center}
+An \define{$H$--cogroup} $K$ is then a cogroup object in $h\CatOf{Spaces}_{*/}$.
 \end{definition}
 
 \begin{corollary}\marginnote{\citep[Proposition 2.21]{Switzer}}
-The functor $[H, -]$ is valued in groups. \qed
+For $H$ an $H$--cogroup, $[H, -]$ is valued in groups. \qed
+\marginnote{%
+Again, the Yoneda lemma for \emph{corepresentable} functors gives a converse to this claim.
+}
 \end{corollary}
 
 \begin{example}
 $S^1$ is an $H$--cogroup.
-\todo{Draw pictures of $\mu'$, $\chi'$.}
+We depict its structure maps by shading the loops in $S^1 \vee \cdots \vee S^1$ different colors, then pulling back that shading along the indicated map.
+For example, the comultiplication map $\mu'$ is given by quotienting together the basepoint and its antipode, and the corresponding color map looks like
+\todo{These would be improved by explicitly tagging the basepoint, which must remain black.}
+\begin{center}
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle{green,black,red,black}
+    \end{tikzpicture}
+    $\xrightarrow{\mu'}$
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \begin{scope}[scale=0.5, xshift=-2.5cm]
+        \ColourTransitionCircle{black,red}
+        \end{scope}
+        \begin{scope}[scale=0.5, xshift=2.5cm]
+        \ColourTransitionCircle{green,black}
+        \end{scope}
+    \end{tikzpicture}
+    .
+\end{center}
+The left arm of the coassociativity axiom has color map
+\begin{center}
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle{black,green,black,black,red,black,black,magenta}
+    \end{tikzpicture}
+    $\xrightarrow{\mu'}$
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \begin{scope}[scale=0.5, xshift=-2.5cm]
+        \ColourTransitionCircle{black,red}
+        \end{scope}
+        \begin{scope}[scale=0.5, xshift=2.5cm]
+        \ColourTransitionCircle{black,green,black,magenta}
+        \end{scope}
+    \end{tikzpicture}
+    $\xrightarrow{\id \vee \mu'}$
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \begin{scope}[scale=0.5, xshift=-2.5cm]
+        \ColourTransitionCircle{black,red}
+        \end{scope}
+        \begin{scope}[scale=0.33, xshift=2.4cm, yshift=2.5cm]
+        \ColourTransitionCircle[angle=45]{green,black}
+        \end{scope}
+        \begin{scope}[scale=0.33, xshift=2.4cm, yshift=-2.5cm]
+        \ColourTransitionCircle[angle=-45]{magenta,black}
+        \end{scope}
+    \end{tikzpicture}
+    ,
+\end{center}
+while the right arm has color map
+\begin{center}
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle{magenta,black,black,green,black,red,black,black}
+    \end{tikzpicture}
+    $\xrightarrow{\mu'}$
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \begin{scope}[scale=0.5, xshift=-2.5cm]
+        \ColourTransitionCircle{black,green,black,red}
+        \end{scope}
+        \begin{scope}[scale=0.5, xshift=2.5cm]
+        \ColourTransitionCircle{magenta,black}
+        \end{scope}
+    \end{tikzpicture}
+    $\xrightarrow{\mu' \vee \id}$
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \begin{scope}[scale=0.33, xshift=-2.4cm, yshift=2.5cm]
+        \ColourTransitionCircle[angle=-45]{black,green}
+        \end{scope}
+        \begin{scope}[scale=0.33, xshift=-2.4cm, yshift=-2.5cm]
+        \ColourTransitionCircle[angle=45]{black,red}
+        \end{scope}
+        \begin{scope}[scale=0.5, xshift=2.5cm]
+        \ColourTransitionCircle{magenta,black}
+        \end{scope}
+    \end{tikzpicture}
+    ,
+\end{center}
+and coassociativity is checked by noting that the pulled-back color maps can be homotoped into one another.
+Similarly, counitality is checked by noting that the color map
+\begin{center}
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle{black,black,red,black}
+    \end{tikzpicture}
+    $\xrightarrow{\id \vee 0}$
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \begin{scope}[scale=0.5, xshift=-2.5cm]
+        \ColourTransitionCircle{black,red}
+        \end{scope}
+        \begin{scope}[scale=0.5, xshift=2.5cm]
+        \ColourTransitionCircle{black,black}
+        \end{scope}
+    \end{tikzpicture}
+\end{center}
+is homotopic to that of
+\begin{center}
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle{black,red}
+    \end{tikzpicture}
+    .
+\end{center}
+The coinversion map $\chi'$ acts as
+\begin{center}
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red,orange,yellow,green,cyan,magenta}
+    \end{tikzpicture}
+    $\xrightarrow{\chi'}$
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \begin{scope}
+        \ColourTransitionCircle[angle=90]{black,magenta,cyan,green,yellow,orange,red}
+        \end{scope}
+    \end{tikzpicture}
+    ,
+\end{center}
+and coinvertibility is checked by noting that the pulled-back color map
+\begin{center}
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red,orange,yellow,green,cyan,magenta,black,magenta,cyan,green,yellow,orange,red}
+    \end{tikzpicture}
+    $\xrightarrow{\chi' \vee \id}$
+    \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
+        \begin{scope}[scale=0.5, xshift=-2.5cm]
+        \ColourTransitionCircle{black,red,orange,yellow,green,cyan,magenta}
+        \end{scope}
+        \begin{scope}[scale=0.5, xshift=2.5cm]
+        \ColourTransitionCircle[angle=180]{black,magenta,cyan,green,yellow,orange,red}
+        \end{scope}
+    \end{tikzpicture}
+\end{center}
+is homotopic to the constant map through
+\begin{center}
+    \begin{tikzpicture}[scale=0.16, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red,orange,yellow,green,cyan,magenta,black,magenta,cyan,green,yellow,orange,red}
+    \end{tikzpicture}
+    $\sim$
+    \begin{tikzpicture}[scale=0.16, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red,orange,yellow,green,cyan,magenta,cyan,green,yellow,orange,red}
+    \end{tikzpicture}
+    $\sim$
+    \begin{tikzpicture}[scale=0.16, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red,orange,yellow,green,cyan,green,yellow,orange,red}
+    \end{tikzpicture}
+    $\sim$
+    \begin{tikzpicture}[scale=0.16, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red,orange,yellow,green,yellow,orange,red}
+    \end{tikzpicture}
+    $\sim$
+    \begin{tikzpicture}[scale=0.16, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red,orange,yellow,orange,red}
+    \end{tikzpicture}
+    $\sim$
+    \begin{tikzpicture}[scale=0.16, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red,orange,red}
+    \end{tikzpicture}
+    $\sim$
+    \begin{tikzpicture}[scale=0.16, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black,red}
+    \end{tikzpicture}
+    $\sim$
+    \begin{tikzpicture}[scale=0.16, baseline={([yshift=-1ex]current bounding box.center)}]
+        \ColourTransitionCircle[angle=90]{black}
+    \end{tikzpicture}
+    .
+\end{center}
 \end{example}
 
 \begin{example}\marginnote{\citep[2.22]{Switzer}}
-In fact, $S^1 \sm X =: \Susp X$ is an $H$--cogroup for \emph{any} $X$.
-\todo{Draw pictures of $\mu'$, $\chi'$.}
+In fact, $S^1 \sm X =: \Susp X$ is an $H$--cogroup for \emph{any} $X$, using the same pinching and reversing technique along the suspension coordinate.
 \end{example}
 
 \begin{lemma}\marginnote{\citep[Proposition 2.23]{Switzer}}
