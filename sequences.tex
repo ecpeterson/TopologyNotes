@@ -2,116 +2,157 @@
 
 \chapter{Homotopy Types and Exact Sequences}
 
-One of our overall goals in this text is to treat spaces as if they were algebraic objects, to dissect and assemble them by methods analogous to those we use with, say, modules.
-There are at least two routes to effecting this.
-One is to make a re-definition of a ``space'' which is inherently algebraic (or combinatorial).
-This eases the import of algebraic operations into this new context, but it requires one to link the chosen alternative definition with the traditional notion of a space.\todo{Cite? Simplicial sets, co--$E_\infty$ chain complexes?}
-We will take a second route: beginning with some of the traditional tools of algebraic topology, we will use their formal properties as impetus to re-envision them as the desired algebraic operations.
-These will become the fundamental methods of dissection and assembly used in all later chapters.
+Two of our overall goals in this text are:
+\begin{enumerate}
+    \item
+    To treat spaces as if they were algebraic objects, dissecting and assembling them by methods analogous to those we use with, e.g., modules.
+    \item
+    To express common spaces using small amounts of information.
+    The data of a circle or of projective space, considered as raw topological spaces, is extremely substantial, and it would be preferable to be able to name and manipulate these spaces at less cost---ideally, with finite expression.
+\end{enumerate}
+
+\noindent
+There are several routes to effect these.
+
+\begin{itemize}
+    \item
+    One can make a re-definition of a ``space'' which is inherently algebraic (or combinatorial).
+    This eases the import of algebraic operations into this new context, but it requires one to link the chosen alternative definition with the traditional notion of a space.%
+    \todo{Cite? Simplicial sets, co--$E_\infty$ chain complexes?}
+    \item
+    Alternatively, one can begin with some of the traditional tools of algebraic topology, since we are already certain that these capture interesting topological behavior.
+    By adopting a particular perspective on their formal properties, these will become the desired algebraic operations.
+    This leaves open how well these methods achieve the goal of ``finite expression'', which we investigate through excessive computation.
+\end{itemize}
+
+\noindent
+We will take this last approach.
+The tools we develop and the language in which we cast them will become the fundamental methods of dissection and assembly used in all later chapters.
 
 
 
 
 \section{The categories of spaces, pointed spaces, and pairs}
 
-Today we set up the basics of category theory and introduce a few basic examples, which amounts to setting the stage on which the rest of the course will play out.
-One of our express intentions in this course is to try to get away with doing very little geometry or ``point-set'' topology, which means a lot of this Lecture will concern itself with boldly asserting such facts in category-theoretic language, so that they can be guiltlessly referred to later.
+We first set up the basics of category theory and introduce a few basic examples, which amounts to setting the stage on which the rest of the course will play out.
+Since one of our express intentions is do very little geometry or ``point-set'' topology, much of this Lecture will concern itself with boldly asserting such facts in category-theoretic language, so that they can be guiltlessly referred to later.
 
 We begin with some basic operations that one may perform on spaces.
-The categorical perspective is to understand objects in a category not by intrinsic presentations, like how the points in a space are arranged, but by their extrinsic effects of how they relate to other objects in the category, like the ways a given space can be continuously mapped into another.
+The categorical perspective is to understand objects in a category not by intrinsic presentations, like how the points in a space are arranged, but by their extrinsic effects, like they relate to other objects in the category.
 With this as a guiding principle, we give categorically-minded interpretations of some common operations performed on spaces:
 \begin{description}
     \item[Products]\marginnote{\citep[0.2]{Switzer}}
     Let $X$, $Y$ be spaces.
-    Their \define{product} $X \times Y$ is a space such that the set $\CatOf{Spaces}(T, X \times Y)$ of continuous maps $T \to X \times Y$ bijects with with the set $\CatOf{Spaces}(T, X) \times \CatOf{Spaces}(T, Y)$ of pairs $(f_X, f_Y)$ of continuous maps $f_X\co T \to X$ and $f_Y\co Y \to T$.
+    Their \define{product} $X \times Y$ is a space such that the set $\CatOf{Spaces}(T, X \times Y)$ of continuous maps $T \to X \times Y$ bijects with the set $\CatOf{Spaces}(T, X) \times \CatOf{Spaces}(T, Y)$ of pairs $(f_X, f_Y)$ of continuous maps $f_X\co T \to X$ and $f_Y\co Y \to T$.
     A useful mnemonic is that products pull out on the right: \[\CatOf{Spaces}(T, X \times Y) \cong \CatOf{Spaces}(T, X) \times \CatOf{Spaces}(T, Y).\]
-    The bijection in question is induced by a pair of maps $\pi_X\co X \times Y \to X$ and $\pi_Y\co X \times Y \to Y$ which save the indicated coordinate and drop the other: given a map $f\co T \to X \times Y$, post-composing with either of these maps gives the two values $f_X = \pi_X \circ f$ and $f_Y = \pi_Y \circ f$ in the pair.%
-    \marginnote{There's an amusing circularity to this data: if you assume the bijection to begin with, then you can recover the maps $\pi_X$ and $\pi_Y$ by starting with the identity $\id_{X \times Y} \in \CatOf{Spaces}(X \times Y, X \times Y)$ and following it across the bijection to the pair $(\pi_X, \pi_Y) \in \CatOf{Spaces}(X \times Y, X) \times \CatOf{Spaces}(X \times Y, Y)$.
-    This sort of gymnastic forms the foothills of the \define{Yoneda Lemma}.}
+    % The bijection in question is induced by a pair of maps $\pi_X\co X \times Y \to X$ and $\pi_Y\co X \times Y \to Y$ which save the indicated coordinate and drop the other: given a map $f\co T \to X \times Y$, post-composing with either of these maps gives the two values $f_X = \pi_X \circ f$ and $f_Y = \pi_Y \circ f$ in the pair.%
+    % \marginnote{There's an amusing circularity to this data: if you assume the bijection to begin with, then you can recover the maps $\pi_X$ and $\pi_Y$ by starting with the identity $\id_{X \times Y} \in \CatOf{Spaces}(X \times Y, X \times Y)$ and following it across the bijection to the pair $(\pi_X, \pi_Y) \in \CatOf{Spaces}(X \times Y, X) \times \CatOf{Spaces}(X \times Y, Y)$.
+    % This sort of gymnastic forms the foothills of the \define{Yoneda Lemma}.}
     \item[Coproducts]
     The \define{disjoint union} $X \sqcup Y$ is a space with the property \[\CatOf{Spaces}(X \sqcup Y, T) \cong \CatOf{Spaces}(X, T) \times \CatOf{Spaces}(Y, T).\]
-    For this reason, the disjoint union is sometimes called the \define{coproduct}, since it pulls out to a product on the left.
+    For this reason, the disjoint union is sometimes called the \define{coproduct}, since it pulls out on the left to a product.
     \item[Gluing]\marginnote{\citep[0.1]{Switzer}}
-    Let $X$ be a space with a \define{decomposition} $X = \bigcup_j A_j$ into closed subsets.
+    Let $X$ be a space with a \define{decomposition} $X = \bigcup_j A_j$ into closed subsets.%
+    \marginnote[-\baselineskip]{This also holds when each $A_j$ is open in $X$.}
     Then the set $\CatOf{Spaces}(X, Y)$ bijects with the set \[\{(f_j \in \CatOf{Spaces}(A_j, Y)) : f_j|_{A_j \cap A_k} = f_k|_{A_j \cap A_k}\}\] of morphisms on the various components which agree on the overlaps.
     \item[Quotients]\marginnote{\citep[0.3]{Switzer}}
     For $\sim$ an equivalence relation on $X$, there is a space $X / \sim$ such that the set $\CatOf{Spaces}(X / \sim, Y)$ bijects with the subset \[\{f \in \CatOf{Spaces}(X, Y) \mid x \sim x' \Rightarrow f(x) = f(x')\}\] of those continuous maps which are constant on the partition components of $\sim$.
     As a special case, let $A \subseteq X$ be nonempty, and define $X/A$ by extending the total relation on $A$ by the identity relation on $X$ (i.e., the associated partition consists of singletons and $A$).
-    \marginnote{As an edge case, we set $X / \emptyset = X \cup \{*\}$.}
-    \todo{Explain the edge case: it's because it's a pushout.}
+    Equivalently, maps in $\CatOf{Spaces}(X/A, T)$ correspond exactly to those maps in $\CatOf{Spaces}(X, T)$ which are constant on $A$.
+    In diagrammatic terms, this becomes:
+    \begin{center}
+    \begin{tikzcd}
+    A \arrow{r} \arrow{d} & X \arrow{d} \arrow[bend left]{rdd} \\
+    * \arrow{r} \arrow[bend right]{rrd} & X / A \arrow[densely dotted, "\exists!"]{rd} \\
+    & & T
+    \end{tikzcd}
+    \end{center}
+    Adopting this diagram as the \emph{definition}, this yields $X / \emptyset = X \sqcup *$, which authors sometimes posit as a ``convention''.
 \end{description}
 
+\noindent
 We mention one further construction which we will be very keen to make use of, and we offset it from those above because of its relative fragility.
 
 \begin{description}
-    \item[Function spaces/exponential objects]\marginnote{\citep[0.9--11]{Switzer}}
-    For $X$, $Y$ spaces, there is a \define{function spaces} $Y^X$ whose underlying set is $\CatOf{Spaces}(X, Y)$.
+    \item[Function spaces/exponential objects]
+    \marginnote{\citep[0.9--11]{Switzer}}
+    For $X$, $Y$ spaces, there is a \define{function space} $Y^X$ whose underlying set is $\CatOf{Spaces}(X, Y)$.
+    This space upgrades the bijections of mapping sets above into homeomorphisms of mapping spaces.
     If $X$ is locally compact, then the evaluation map $\mathit{ev}\co Y^X \times X \to Y$ is continuous.
     If $X$ and $Z$ are locally compact as well as Hausdorff, then the currying function $Y^{Z \times X} \to (Y^Z)^X$ is a homeomorphism.
+    \marginnote[-5\baselineskip]{%
+    For a fixed space $Y$, the coproduct and gluing properties characterize the functor $\CatOf{Spaces}(-, Y)$ \define{represented} by $Y$ as a \define{sheaf}, i.e., a functor $\CatOf{Spaces}^{\op} \to \CatOf{Sets}$ which preserves limits.
+    Unfortunately, the fragility of function spaces stymies the converse: not all sheaves on $\CatOf{Spaces}$ (or even on locally compact, Hausdorff spaces) are representable.
+    Since our affection for representable functors will grow substantially in the coming sections, we will find relief in \Cref{BrownRepSec}, which gives a representability criterion adapted to homotopy theory.
+    }
 \end{description}
 
 \noindent
 We will perpetually arrange to be in the situation where our function-spaces are well-behaved.
 
 \begin{remark}
-In each of these cases, the property named uniquely determines the space involved: if $Q$ is some unknown space so that $\CatOf{Spaces}(Q, T)$ naturally bijects with the subset \[\{f \in \CatOf{Spaces}(X, T) \mid x \sim x' \Rightarrow f(x) = f(x') \},\] then there is a homeomorphism $Q \xrightarrow\cong X/\sim$.
-\marginnote{This, too, is fundamentally the Yoneda Lemma.}
-\end{remark}
-
-\begin{remark}\label{HomSheafRemark}
-Together, the coproduct and gluing properties characterize the functor $\CatOf{Spaces}(T, -)$ as a \define{sheaf}.
-\todo{Find time later to characterize a sheaf as a continuous functor off of the opposite category.}
+In each of these cases, the named property uniquely determines the space involved.
+For instance, if $Q$ is some unknown space so that $\CatOf{Spaces}(Q, T)$ naturally bijects with the subset \[\{f \in \CatOf{Spaces}(X, T) \mid x \sim x' \Rightarrow f(x) = f(x') \},\] then there is a homeomorphism $Q \xrightarrow\cong X/\sim$.
 \end{remark}
 
 \noindent
-These constructions also interact well in most cases of geometric interest:
+These constructions also interact well in most cases of geometric interest.
+For example:
 
-\begin{lemma}\label{ProdQuotInterchange}\marginnote{\citep[0.4]{Switzer}}
-If $Y$ is locally compact, then there is a homeomorphism \[\frac{X \times Y}{\sim \times \id} \xrightarrow{\cong} \left( \frac{X}{\sim}\right) \times Y. \qed\]
+\begin{lemma}\label{ProdQuotInterchange}\marginnote{\citep[0.4]{Switzer}}\pushQED{\qed}
+If $Y$ is locally compact (e.g., if $Y = [0, 1]$), then there is a homeomorphism \[\frac{X \times Y}{\sim \times \id} \xrightarrow{\cong} \left( \frac{X}{\sim}\right) \times Y. \qedhere \popQED\]
 \end{lemma}
 
-\begin{remark}
-Throughout the course, we will quietly apply \Cref{ProdQuotInterchange} in the case of $Y = I := [0, 1]$ as we ``fatten'' various quotient constructions, as it allows us to elect whether to apply the quotient operation before or after we perform the fattening.
-\end{remark}
-
-\noindent
-\Cref{ProdQuotInterchange} also encodes \define{relative homotopy} in terms of a quotient:
+% \noindent
+% \Cref{ProdQuotInterchange} also encodes \define{relative homotopy} in terms of a quotient:
 
 % \begin{corollary}
 % Fix a homotopy $H\co X \times I \to Y$.
 % If there is a fixed relation $\sim$ so that for every time $t$, $H$ factors as $X \times \{t\} \to X/\sim \times \{t\} \to Y$ then $H$ factors as a whole: $X \times I \to X/\sim \times I \xrightarrow{\widetilde H} Y$. \qed
 % \end{corollary}
 
-\begin{corollary}\marginnote{\citep[0.8]{Switzer}}
-If $A \subseteq X$ is closed and $H(a, t) = H(a', t)$ for all $a, a' \in A$ and $t \in I$, then it factors as $X \times I \to X/A \times I \to Y$. \qed
+\begin{corollary}\marginnote{\citep[0.8]{Switzer}}\pushQED{\qed}
+If $A \subseteq X$ is closed and $H(a, t) = H(a', t)$ for all $a, a' \in A$ and $t \in I$ (i.e., $H$ is a homotopy \define{relative to $A$}), then it factors as
+\[X \times I \to X/A \times I \to Y. \qedhere \popQED\]
 \end{corollary}
 
 Relative homotopy provides a convenient segue into two other categories of interest: the category of relative pairs and the category of pointed spaces.
 
 \begin{definition}
-The category of \define{relative pairs} has objects given by inclusions $A \subseteq X$, and a morphism $(A \subseteq X) \to (B \subseteq Y)$ between two such pairs is given by a continuous map $f \in \CatOf{Spaces}(X, Y)$ which has the property $f(A) \subseteq B$.
-\marginnote{There is no reason one must stop at a single inclusion.
-Chains of inclusions---even infinite chains---are interesting, and they are generally referred to as \define{filtered spaces}.}
+The category of \define{relative pairs} has objects given by inclusions $A \subseteq X$, and a morphism $(A \subseteq X) \to (B \subseteq Y)$ between two such pairs is given by a continuous map $f\co X \to Y$ which has the property $f(A) \subseteq B$.
+\marginnote[-3\baselineskip]{%
+There is no reason one must stop at a single inclusion.
+Chains of inclusions---even infinite chains---are interesting, and they are generally referred to as \define{filtered spaces}.
+}
 These pairs and their maps appear naturally when discussing relative homology or relative homotopy.
 \end{definition}
 
 \begin{definition}\marginnote{\citep[0.12]{Switzer}}
-The category of \define{pointed spaces}, which we denote by $\CatOf{Spaces}_{*/}$, has objects given by $\{x_0\} \subseteq X$ for some choice of singleton $\{x_0\}$, and a morphism $(\{x_0\} \subseteq X) \to (\{y_0\} \subseteq Y)$ between two such pointed spaces is given by a map $f \in \CatOf{Spaces}(X, Y)$ with the property $f(x_0) = y_0$.
+The category $\CatOf{Spaces}_{*/}$ of \define{pointed spaces} has objects given by $\{x_0\} \subseteq X$ for some choice of singleton $\{x_0\}$, and a morphism $(\{x_0\} \subseteq X) \to (\{y_0\} \subseteq Y)$ between two such pointed spaces is a map $f\co X \to Y$ with the property $f(x_0) = y_0$.
 Pointed spaces and their maps arise when defining reduced homology or homotopy groups (e.g., the fundamental group).
-This presentation also makes plain that pointed spaces form a full subcategory of relative pairs: they are the special case where the privileged subset is a singleton.
+This presentation makes plain that pointed spaces form a full subcategory of relative pairs: they are the special case where the privileged subset is a singleton.
 \end{definition}
 
-These categories admit all of the same categorical constructions as $\CatOf{Spaces}$: they have products, coproducts, and quotients, they glue, and one can build function objects.
-In many case, if one forgets about the privileged subset and considers just the underlying object of $\CatOf{Spaces}$, the construction even agrees with the one in $\CatOf{Spaces}$.
-For instance, the coproduct of pairs is given by \[(A \subseteq X) \sqcup (B \subseteq Y) = (A \sqcup B) \subseteq (X \sqcup Y).\]
-The product also has this property: \[(A \subseteq X) \times (B \subseteq Y) = (((A \times Y) \cup (X \times B)) \subseteq X \times Y),\] but the privileged subspace has become more complicated.
-One can also define a function object \[((B \subseteq Y)^{(A \subseteq A)} \subseteq (B \subseteq Y)^{(A \subseteq X)}),\] itself a relative pair which we abbreviate to $(B \subseteq Y)^{(A \subseteq X)}$ for sanity's sake.
-It satisfies an analogue of currying:%
-\marginnote{\citep[Proposition 0.13]{Switzer}}
-\begin{align*}
-(B \subseteq Y)^{((Z \times A) \cup (C \times X)) \subseteq Z \times X} & = (B \subseteq Y)^{(C \subseteq Z) \times (A \subseteq X)} \\
-& = \left( (B \subseteq Y)^{(C \subseteq Z)} \right)^{(A \subseteq X)}.
-\end{align*}
+These categories admit all of the same categorical constructions as $\CatOf{Spaces}$: they have products, coproducts, and quotients, their morphisms glue, and one can build function objects when the spaces involved carry appropriate adjectives.
+In many cases, if one forgets about the privileged subset and considers just the underlying object of $\CatOf{Spaces}$, the construction even agrees with the one in $\CatOf{Spaces}$.
+\marginnote[-2\baselineskip]{%
+This observation is owed to some adjunctions: a pair and a pointed space both forget to a space, a space becomes pointed by adding a disjoint basepoint, and a pair becomes a pointed space by quotienting the privileged subspace to a point.
+Each of these functors admits an adjoint, which helps pin down the formulas below.
+}
+\begin{description}
+    \item[Coproducts]
+    The coproduct of pairs is given by \[(A \subseteq X) \sqcup (B \subseteq Y) = (A \sqcup B) \subseteq (X \sqcup Y).\]
+    \item[Products]
+    The product is given by \[(A \subseteq X) \times (B \subseteq Y) = (((A \times Y) \cup (X \times B)) \subseteq X \times Y),\] but the privileged subspace has become more complicated.
+    \item[Function spaces / exponential objects]
+    One can also define a function object \[((B \subseteq Y)^{(A \subseteq A)} \subseteq (B \subseteq Y)^{(A \subseteq X)}),\] itself a relative pair which we abbreviate to $(B \subseteq Y)^{(A \subseteq X)}$ for sanity's sake.
+    Function objects again satisfy an analogue of currying:%
+    \marginnote{\citep[Proposition 0.13]{Switzer}}
+    \begin{align*}
+    (B \subseteq Y)^{((Z \times A) \cup (C \times X)) \subseteq Z \times X} & = (B \subseteq Y)^{(C \subseteq Z) \times (A \subseteq X)} \\
+    & = \left( (B \subseteq Y)^{(C \subseteq Z)} \right)^{(A \subseteq X)}.
+    \end{align*}
+\end{description}
 
 In trying to find analogues of these claims in pointed spaces, there is the following snag: the coproduct of two pointed spaces \emph{in the category of relative pairs} is given by \[(\{x_0\} \subseteq X) \sqcup (\{y_0\} \subseteq Y) = (\{x_0, y_0\} \subseteq (X \sqcup Y)),\] but this coproduct has escaped the subcategory $\CatOf{Spaces}_{*/}$.
 One can forcefully correct this by quotienting the privileged subspace so that it becomes a point---and, in fact, this recovers the correct coproduct in pointed spaces:
@@ -122,14 +163,14 @@ In terms of the pair, it is given by \[X \vee Y = \frac{\{x_0, y_0\} \subseteq (
 \end{definition}
 
 The relationship between the products in relative pairs and in pointed spaces is much looser: the product of pointed spaces is given by \[(\{x_0\} \subseteq X) \times (\{y_0\} \subseteq Y) = (\{(x_0, y_0)\} \subseteq (X \times Y)),\] where the complexity in the privileged subspace has seemingly evaporated.
-\marginnote{The reason why we didn't have to quotient this time is related to the chirality of the limits constructions involved: coproducts and quotients are both colimits, but a product is a limit.}
+\marginnote{We didn't have to quotient this time because of the chirality of the limits involved: coproducts and quotients are both colimits, but a product is a limit.}
 However, we find ourselves in a further awkward position when we investigate the currying law for the function object for pointed spaces:
 \begin{align*}
 (\{y_0\} \subseteq Y)^{((Z \times \{x_0\}) \cup (\{z_0\} \times X)) \subseteq Z \times X} & = (\{y_0\} \subseteq Y)^{(\{z_0\} \subseteq Z) \times (\{x_0\} \subseteq X)} \\
 & = \left( (\{y_0\} \subseteq Y)^{(\{z_0\} \subseteq Z)} \right)^{(\{x_0\} \subseteq X)}.
 \end{align*}
 In particular, the exponent on the far left is \emph{not} the product in pointed spaces---indeed, it isn't a pointed space at all.
-We can, again, force it to become one:
+We can, again, force it to become pointed:
 
 \begin{definition}\marginnote{\citep[2.4]{Switzer}}
 The \define{smash product} of two pointed spaces $\{x_0\} \subseteq X$ and $\{z_0\} \subseteq Z$ is given by \[(\{x_0\} \subseteq X) \sm (\{z_0\} \subseteq Z) := \frac{X \times Z}{(X \times \{z_0\}) \cup (\{x_0\} \times Z)} = \frac{X \times Z}{X \vee Z}.\]
@@ -138,17 +179,21 @@ This gives a \define{monoidal structure} on $\CatOf{Spaces}_{*/}$ which is \emph
 \end{definition}
 
 \begin{corollary}
-For pointed spaces $X$, $Y$, and $Z$, the currying law for function objects takes the form
+For pointed spaces $X$, $Y$, and $Z$ which are appropriately nice, the currying law for function objects takes the form
 \begin{align*}
 Y^{Z \sm X} & \cong (Y^Z)^X, &
-\CatOf{Spaces}_{*/}(Z \sm X, Y) & \cong \CatOf{Spaces}_{*/}(X, Y^Z).
+\CatOf{Spaces}_{*/}(Z \sm X, Y) & \cong \CatOf{Spaces}_{*/}(X, Y^Z). \qed
 \end{align*}
 \end{corollary}
 
+\begin{lemma}\pushQED{\qed}
+This product is related to the product on unpointed spaces by \[X_+ \sm Y_+ \cong (X \times Y)_+,\] where $(-)_+\co \CatOf{Spaces} \to \CatOf{Spaces}_{*/}$ denotes the functor which adds a disjoint basepoint. \qedhere \popQED
+\end{lemma}
+
 \begin{definition}\label{HoCatDefn}%
 \marginnote{\citep[0.7]{Switzer}}
-Finally, we introduce the \define{homotopy category of (pointed) spaces}, $h\CatOf{Spaces}_{*/}$, whose objects are the same as that of $\CatOf{Spaces}_{*/}$ but whose morphism sets are given by quotients \[h\CatOf{Spaces}_{*/}(X, Y) = \frac{\CatOf{Spaces}_{*/}(X, Y)}{\text{$f \sim g$ when there is a homotopy $H \co X \sm I_+ \to Y$ between them}}.\]
-\todo{Introduce the notation $X_+$, and perhaps the adjunctions between the different categories.}
+Finally, we introduce the \define{homotopy category of (pointed) spaces}, $h\CatOf{Spaces}_{*/}$, whose objects are the same as that of $\CatOf{Spaces}_{*/}$ but whose morphism sets are given by the quotient \[h\CatOf{Spaces}_{*/}(X, Y) = \frac{\CatOf{Spaces}_{*/}(X, Y)}{f \sim g},\] where $f \sim g$ indicates that there is a homotopy $H\co X \sm I_+ \to Y$ between $f$ and $g$.
+All of the basic invariants of algebraic topology descend to this quotient category: homotopy points and reduced homology groups behave the same on homotopic maps.
 Because we will work in this category so often, we will abbreviate this mapping set by \[h\CatOf{Spaces}_{*/}(X, Y) = [X, Y].\]
 \end{definition}
 
