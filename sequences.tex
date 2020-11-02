@@ -1118,96 +1118,102 @@ All regular covers arise as quotients by a $G$--action.
 For $G$ finite, $X$ Hausdorff, and no fixed points, the $G$--action is properly discontinuous.
 \end{remark}
 
+\todo{Mention the $\pi_1$ action somewhere in all of this.}
 
 
 
 
 \begin{subappendices}
 
-\section{The action of $\pi_1$}
+\section{Vector bundles}
 
-\todo{I remember not being convinced of the value of this lecture.}
-Before continuing our study of $P_f$, there is one other ``old'' fact about homotopy groups we should investigate: their dependence on $x_0 \in X$.  You might even remember that paths $\gamma$ in $X$ induce isomorphisms $\pi_1(X; \gamma(0)) \to \pi_1(X; \gamma(1))$.  This fits into a framework we have considered already.  We begin with the algebraic thing we are trying to model.
 
-\begin{definition}
-For $G$, $A$ groups, an action $\alpha\co G \times A \to A$ is \define{compatible} when $g(a_1 a_2) = (g a_1)(g a_2)$, i.e., the following commutes
-\begin{center}
-\begin{tikzcd}
-G \times A \times A \arrow["\Delta \times \id \times \id"]{r} \arrow["\id \times \mu"]{d} & G \times G \times A \times A \arrow["\simeq"]{r} & G \times A \times G \times A \arrow["\alpha \times \alpha"]{r} & A \times A \arrow["\mu"]{d} \\
-G \times A \arrow["\alpha"]{rrr} & & & A.
-\end{tikzcd}
-\end{center}
-\end{definition}
 
-\begin{example}
-$G$ acts compatibly on itself by conjugation.
-\end{example}
 
-\begin{example}
-For $A$ abelian (i.e., a $\Z$--module), this is equivalent to a $\Z[G]$--module structure.
-\end{example}
+% \section{The action of $\pi_1$}
 
-The theorem we want to prove is that $\pi_1 X$ acts compatibly on $\pi_n X$, $n \ge 1$.
+% \todo{I remember not being convinced of the value of this lecture.}
+% Before continuing our study of $P_f$, there is one other ``old'' fact about homotopy groups we should investigate: their dependence on $x_0 \in X$.  You might even remember that paths $\gamma$ in $X$ induce isomorphisms $\pi_1(X; \gamma(0)) \to \pi_1(X; \gamma(1))$.  This fits into a framework we have considered already.  We begin with the algebraic thing we are trying to model.
 
-\begin{definition}
-An $H$--cogroup $K$ acts \define{compatibly} on an $H$--cogroup $L$ when the diagram dual to the one above commutes.
-\end{definition}
+% \begin{definition}
+% For $G$, $A$ groups, an action $\alpha\co G \times A \to A$ is \define{compatible} when $g(a_1 a_2) = (g a_1)(g a_2)$, i.e., the following commutes
+% \begin{center}
+% \begin{tikzcd}
+% G \times A \times A \arrow["\Delta \times \id \times \id"]{r} \arrow["\id \times \mu"]{d} & G \times G \times A \times A \arrow["\simeq"]{r} & G \times A \times G \times A \arrow["\alpha \times \alpha"]{r} & A \times A \arrow["\mu"]{d} \\
+% G \times A \arrow["\alpha"]{rrr} & & & A.
+% \end{tikzcd}
+% \end{center}
+% \end{definition}
 
-\begin{corollary}
-For such $H$--cogroups, the action of $[K, T]$ on $[L, T]$ is compatible. \qed
-\end{corollary}
+% \begin{example}
+% $G$ acts compatibly on itself by conjugation.
+% \end{example}
 
-\begin{lemma}
-The following defines a compatible coaction of $S^1$ on $S^n$: \todo[inline]{Picture!}
-\end{lemma}
-\begin{proof}
-\todo[inline]{Picture!}
-\marginnote{The proof is a little more obnoxious when $n = 1$.}
-\end{proof}
+% \begin{example}
+% For $A$ abelian (i.e., a $\Z$--module), this is equivalent to a $\Z[G]$--module structure.
+% \end{example}
 
-\begin{remark}
-There is also a relative version of this story: $S^1$ has a compatible coaction on $(CS^n, S^n)$, hence $\pi_1 A$ acts compatibly on $\pi_n(X, A)$ for $n \ge 2$.
-\end{remark}
+% The theorem we want to prove is that $\pi_1 X$ acts compatibly on $\pi_n X$, $n \ge 1$.
 
-\begin{lemma}
-The action satisfies various naturalities:
-\begin{enumerate}
-    \item $(X, A) \to (Y, B)$ induces
-    \begin{center}
-    \begin{tikzcd}
-    \pi_1 X \times \pi_n X \arrow{r} \arrow{d} & \pi_n X \arrow{d} \\
-    \pi_1 Y \times \pi_1 Y \arrow{r} & \pi_n Y, 
-    \end{tikzcd}
-    \begin{tikzcd}
-    \pi_1 A \times \pi_n(X, A) \arrow{r} \arrow{d} & \pi_n(X, A) \arrow{d} \\
-    \pi_1 B \times \pi_n(Y, B) \arrow{r} & \pi_n(Y, B).
-    \end{tikzcd}
-    \end{center}
-    \item The following diagrams commute:
-    \begin{center}
-    \begin{tikzcd}
-    \pi_1 A \times \pi_n A \arrow{r} \arrow{d} & \pi_n A \arrow{d} \\
-    \pi_1 X \times \pi_n X \arrow{r} & \pi_n X,
-    \end{tikzcd}
-    \begin{tikzcd}
-    \pi_1 A \times \pi_n(X, A) \arrow{r} \arrow{d} & \pi_n(X, A) \arrow{d} \\
-    \pi_1 A \times \pi_{n-1} A \arrow{r} & \pi_{n-1} A.
-    \end{tikzcd}
-    \end{center}
-    \item The action of $\pi_1 X$ on itself is by conjugation: $\gamma \cdot \alpha = \gamma \alpha \gamma^{-1}$. \qed
-\end{enumerate}
-\end{lemma}
+% \begin{definition}
+% An $H$--cogroup $K$ acts \define{compatibly} on an $H$--cogroup $L$ when the diagram dual to the one above commutes.
+% \end{definition}
 
-\begin{remark}
-A weak equivalence $f\co Y \to X$ thus induces an isomorphism of $\Z[\pi_1 X]$--modules, in addition to just abelian groups, a strictly stronger condition.  There is much more structure; this is the start of the study of $\Pi$--algebras.
-\end{remark}
+% \begin{corollary}
+% For such $H$--cogroups, the action of $[K, T]$ on $[L, T]$ is compatible. \qed
+% \end{corollary}
 
-\begin{remark}
-There is a messy version of this that lets us encode the change of basepoint maps from the intro\todo{See Switzer pg.\ 47--49}.  The main conclusion is that $\pi_n(X, x_0) \cong \pi_n(X, x'_0)$ \emph{unnaturally} if $\pi_0 X = *$ and \emph{naturally} if $\pi_1 X = 1$.
-\end{remark}
+% \begin{lemma}
+% The following defines a compatible coaction of $S^1$ on $S^n$: \todo[inline]{Picture!}
+% \end{lemma}
+% \begin{proof}
+% \todo[inline]{Picture!}
+% \marginnote{The proof is a little more obnoxious when $n = 1$.}
+% \end{proof}
 
-\begin{remark}
-Take discrete $G$ to act properly discontinuously on $X$.  If $\pi_1 X = 0$, then $\pi_1 X/G \cong \pi_0 G$, hence we get a $G$--action on $\pi_{\ge 2}(X/G)$.  In fact, $\pi_n X \to \pi_n(X/G)$ respects this action.
-\end{remark}
+% \begin{remark}
+% There is also a relative version of this story: $S^1$ has a compatible coaction on $(CS^n, S^n)$, hence $\pi_1 A$ acts compatibly on $\pi_n(X, A)$ for $n \ge 2$.
+% \end{remark}
+
+% \begin{lemma}
+% The action satisfies various naturalities:
+% \begin{enumerate}
+%     \item $(X, A) \to (Y, B)$ induces
+%     \begin{center}
+%     \begin{tikzcd}
+%     \pi_1 X \times \pi_n X \arrow{r} \arrow{d} & \pi_n X \arrow{d} \\
+%     \pi_1 Y \times \pi_1 Y \arrow{r} & \pi_n Y, 
+%     \end{tikzcd}
+%     \begin{tikzcd}
+%     \pi_1 A \times \pi_n(X, A) \arrow{r} \arrow{d} & \pi_n(X, A) \arrow{d} \\
+%     \pi_1 B \times \pi_n(Y, B) \arrow{r} & \pi_n(Y, B).
+%     \end{tikzcd}
+%     \end{center}
+%     \item The following diagrams commute:
+%     \begin{center}
+%     \begin{tikzcd}
+%     \pi_1 A \times \pi_n A \arrow{r} \arrow{d} & \pi_n A \arrow{d} \\
+%     \pi_1 X \times \pi_n X \arrow{r} & \pi_n X,
+%     \end{tikzcd}
+%     \begin{tikzcd}
+%     \pi_1 A \times \pi_n(X, A) \arrow{r} \arrow{d} & \pi_n(X, A) \arrow{d} \\
+%     \pi_1 A \times \pi_{n-1} A \arrow{r} & \pi_{n-1} A.
+%     \end{tikzcd}
+%     \end{center}
+%     \item The action of $\pi_1 X$ on itself is by conjugation: $\gamma \cdot \alpha = \gamma \alpha \gamma^{-1}$. \qed
+% \end{enumerate}
+% \end{lemma}
+
+% \begin{remark}
+% A weak equivalence $f\co Y \to X$ thus induces an isomorphism of $\Z[\pi_1 X]$--modules, in addition to just abelian groups, a strictly stronger condition.  There is much more structure; this is the start of the study of $\Pi$--algebras.
+% \end{remark}
+
+% \begin{remark}
+% There is a messy version of this that lets us encode the change of basepoint maps from the intro\todo{See Switzer pg.\ 47--49}.  The main conclusion is that $\pi_n(X, x_0) \cong \pi_n(X, x'_0)$ \emph{unnaturally} if $\pi_0 X = *$ and \emph{naturally} if $\pi_1 X = 1$.
+% \end{remark}
+
+% \begin{remark}
+% Take discrete $G$ to act properly discontinuously on $X$.  If $\pi_1 X = 0$, then $\pi_1 X/G \cong \pi_0 G$, hence we get a $G$--action on $\pi_{\ge 2}(X/G)$.  In fact, $\pi_n X \to \pi_n(X/G)$ respects this action.
+% \end{remark}
 
 \end{subappendices}
