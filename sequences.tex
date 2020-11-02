@@ -32,7 +32,7 @@ The tools we develop and the language in which we cast them will become the fund
 
 
 
-\section{The categories of spaces, pointed spaces, and pairs}
+\section{The categories of spaces, pointed spaces, and pairs}\label{CategoriesSection}
 
 We first set up the basics of category theory and introduce a few basic examples, which amounts to setting the stage on which the rest of the course will play out.
 Since one of our express intentions is do very little geometry or ``point-set'' topology, much of this Lecture will concern itself with boldly asserting such facts in category-theoretic language, so that they can be guiltlessly referred to later.
@@ -505,22 +505,30 @@ This is a matter of writing out the formulas for \[\Susp X \xrightarrow{\mu'} \S
 
 \section{Higher homotopy groups}
 
-Just as we used the exponential adjunction to give a few equivalent definitions of the fundamental group, higher homotopy groups have a similar bunch of definitions.
+Just as we used the exponential adjunction to give a family of equivalent definitions of the fundamental group, there is a similar family for higher homotopy groups, which we explore today.
+The key input is the following:
+
+\begin{definition}\marginnote{\citep[3.1]{Switzer}}
+The \define{$n$\textsuperscript{th} homotopy group} of a pointed space $X$ is defined by $\pi_n X = [S^n, X]$.
+\end{definition}
 
 \begin{lemma}\marginnote{\citep[Lemma 2.27]{Switzer}}
 For all $n \ge 0$, there is a homeomorphism $S^1 \sm S^n \cong S^{n+1}$.
 \end{lemma}
 \begin{proof}
-\todo[inline]{Carve $S^1$ into two halves, the smash against each of which gives a kind of hemisphere: ``linearly interpolate between $S^n$ + the basepoint of $S^n$ and project to the lower hemisphere''.}
+First, the \define{reduced cone} is defined by $CX = I \sm X$, where $I$ is again the closed unit interval.
+There is a homeomorphism \[CS^n = I \sm S^n \cong D^{n+1},\] given by linear interpolation from the sphere to its basepoint.
+Now, decompose $S^1$ into the disjoint union of its closed upper- and lower-hemispheres, quotiented together along the equator.
+Applying the interchange lemmata from \Cref{CategoriesSection}, this decomposes $S^1 \sm S^n$ into two copies of $I \sm S^n \cong D^{n+1}$, quotiented together along their boundaries.
+This is homeomorphic to the decomposition of $S^{n+1}$ into its upper- and lower-hemispheres.
 \end{proof}
 
-\begin{definition}\marginnote{\citep[3.1]{Switzer}}
-The \define{$n$\textsuperscript{th} homotopy group} of a pointed space $X$ is defined by $\pi_n X = [S^n, X]$.
-Equivalently, one may use any of \[\pi_n X = [\Susp^n(S^0), X] = [\Susp^{n-1} S^0, \Loops X] = \cdots = [S^0, \Loops^n X].\]
-\end{definition}
+\begin{corollary}\label{EquivalentDefnsOfPiN}\pushQED{\qed}
+The following sets all give equivalent definitions of $\pi_n X$: \[\pi_n X = [\Susp^n(S^0), X] = [\Susp^{n-1} S^0, \Loops X] = \cdots = [S^0, \Loops^n X]. \qedhere \popQED\]
+\end{corollary}
 
-We've quietly asserted that $\pi_n X$ is a group, but \emph{which} group structure we mean is not immediately clear: there appear to be many different multiplications on the homotopy mapping sets, each coming from any one of the applications of $\Susp$ or of $\Loops$.
-Today we tame this complexity by showing that each of these choices gives the same multiplication.
+We've quietly asserted that $\pi_n X$ is a group, but \emph{which} group structure we mean is not immediately clear: in light of \Cref{EquivalentDefnsOfPiN}, there appear to be many different multiplications on the homotopy mapping sets, each coming from any one of the applications of $\Susp$ or of $\Loops$.
+We tame this complexity by showing that each of these choices gives the same multiplication.
 
 \begin{lemma}[Eckmann--Hilton]\label{EckmannHilton}%
 \marginnote{\citep[Proposition 2.24]{Switzer}}
@@ -539,7 +547,7 @@ Let $K$ be an $H$--cogroup and $L$ an $H$--group.
 The two multiplications so-induced on the mapping set $[K, L]$ are equal and commutative.
 \end{corollary}
 \begin{proof}
-We want the following diagram to commute:
+Consider the following diagram:
 \begin{center}
 \begin{tikzcd}
 K \times K \arrow{r} & (K \vee K) \times (K \vee K) \arrow["{(f \vee f') \times (g \vee g')}"]{r} & (L \vee L) \times (L \vee L) \arrow{r} & L \times L \arrow{d} \\
@@ -548,7 +556,8 @@ K \vee K \arrow{r} & (K \times K) \vee (K \times K) \arrow["{(f \times g) \vee (
 \end{tikzcd}
 \end{center}
 The top composite corresponds to $(f +_K f') +_L (g +_K g')$, and the bottom composite corresponds to $(f +_L g) +_K (f' +_L g')$.
-Hence, if these were to agree, we could apply \Cref{EckmannHilton}.
+If these were to agree, we could deduce the claim from \Cref{EckmannHilton}.
+We approach this in stages, breaking the diagram into smaller ones which more clearly commute.
 
 The diagonal map $\Delta\co K \to K \times K$ replicates its input onto both coordinates, as in $x \mapsto (x, x)$.
 Writing $\mu'(k) = (k_1, k_2)$, we can apply $\Delta$ either before or after the comultiplication map $\mu'$ on $K$, and get the same answer up to a twist:
@@ -562,9 +571,10 @@ From these two considerations, it follows that the left-hand portion of the foll
 \begin{tikzcd}
 K \times K \arrow{r} & (K \vee K) \times (K \vee K) \arrow{r} & (L \vee L) \times (L \vee L) \arrow{r} & L \times L \arrow{d} \\
 K \arrow{u} \arrow{d} \arrow{r} & \begin{array}{c}(K \times *) \times (K \times *) \\ \cup \\ (* \times K) \times (* \times K) \end{array} \arrow{u} \arrow["\id \times T \times \id"]{d} & \phantom{\begin{array}{c}(L \times *) \times (L \times *) \\ \cup \\ (* \times L) \times (* \times L) \end{array}} & L \\
-K \vee K \arrow{r} & (K \times K) \vee (K \times K) \arrow{r} & (L \times L) \vee (L \times L) \arrow{r} & L \vee L \arrow{u}.
+K \vee K \arrow{r} & (K \times K) \vee (K \times K) \arrow{r} & (L \times L) \vee (L \times L) \arrow{r} & L \vee L \arrow{u},
 \end{tikzcd}
 \end{center}
+where $T$ denotes the twist map.
 Now, we apply $(f, f', g, g')$ on top and $(f, g, f', g')$ on bottom.
 Again, the diagram commutes up to transposition of the two middle coordinates.
 \begin{center}
@@ -576,7 +586,7 @@ K \vee K \arrow{r} & (K \times K) \vee (K \times K) \arrow{r} & (L \times L) \ve
 \end{center}
 Finally, we make use of the specific subspace we'd highlighted in the middle.
 In (either half of) this subspace, two of the coordinates are constrained to lie at the basepoint.
-Because of this, we can apply the unit axioms for multiplication and for fold to conclude that they produce the same value.
+Because of this, we can apply the unit axioms for the multiplication map and for the fold map to conclude that they produce the same value.
 This amounts to the commutativity of the final two rectangles:
 \begin{center}
 \begin{tikzcd}
@@ -585,11 +595,11 @@ K \arrow{u} \arrow{d} \arrow{r} & \begin{array}{c}(K \times *) \times (K \times 
 K \vee K \arrow{r} & (K \times K) \vee (K \times K) \arrow{r} & (L \times L) \vee (L \times L) \arrow{r} & L \vee L \arrow{u}.
 \end{tikzcd}
 \end{center}
-Since each of the squares commutes, the two outer composites are equal.
+Since each of the squares commutes, the outer composites are equal.
 \end{proof}
 
 \begin{corollary}\marginnote{\citep[Proposition 2.26]{Switzer}}
-For $n \ge 2$, $\pi_n X = [\Susp^{n-1} S^0, \Loops X]$ has only one multiplication and it is commutative. \qed
+For $n \ge 2$, $\pi_n X$ has only one multiplication, and it is commutative. \qed
 \end{corollary}
 
 
@@ -605,65 +615,89 @@ More weakly, a sequence of pointed sets $X \xrightarrow f Y \xrightarrow g Z$ is
 \end{definition}
 
 \noindent
-Last time, we put structure onto a space so that $[K, -]$ or $[-, L]$ became valued in groups.
+Last time, we put structures onto space $K$ and $L$ so that $[K, -]$ and $[-, L]$ became valued in groups.
 Today we are after something similar: we would like to study when continuous maps $A \to B \to C$ induce exact sequences of the functors they co/represent.
 
 \begin{definition}\marginnote{\citep[{Definitions 2.30 and 2.49}]{Switzer}}
 If the sequence of pointed sets \[[-, A] \to [-, B] \to [-, C]\] is exact, then we say that the underlying sequence of spaces is \define{exact}.
 If the sequence of pointed sets \[[A, -] \from [B, -] \from [C, -]\] is exact, then we say that the underlying sequence of spaces is \define{coexact}.%
-\marginnote{These more commonly go by the names \define{fiber} and \define{cofiber} sequences of spaces.  We will work later to justify these alternative names.}
+\marginnote[-5\baselineskip]{%
+These more commonly go by the names \define{fiber} and \define{cofiber} sequences of spaces.
+We will work later to justify these alternative names.
+}
 \end{definition}
 
 At first brush, one might imagine that such sequences are somewhat rare, or that they at least require some nice properties of $A$, $B$, or $f$.%
-\marginnote{This scarcity is true for maps of groups: $f\co N \to G$ can only participate in an exact sequence when the image of $f$ is a normal subgroup.
-It is a good exercise to check that these constructions for spaces do not violate this.}
-In fact, these sequences are extremely plentiful in homotopy theory.
+\marginnote[-\baselineskip]{%
+This scarcity is true for maps of groups: $f\co H \to G$ can only participate in an exact sequence when $\im f$ is normal.
+It is a good exercise to check that these constructions for spaces do not violate this.
+}
+In fact, these sequences are bountiful in homotopy theory---a first sign that our approach to the subject is a sound one.
 
 \begin{lemma}\label{CoexactSeqsExist}%
 \marginnote{\citep[Proposition 2.35]{Switzer}}
 Any map $f\co X \to Y$ extends to a coexact sequence \[X \xrightarrow f Y \xrightarrow g Z.\]
 \end{lemma}
 \begin{proof}
-We first define the \define{cone} of $X$ by $CX = X \sm I$, and we use this to set \[Z = Y \cup_f CX = \frac{Y \sqcup CX}{f(x) \sim (x, 1)}.\]
-\todo{Define ``mapping cone''.}
-We claim that the inclusion $g\co Y \to Z$ induces the desired exact sequence on mapping sets.
+Recall the \define{cone} of $X$, $CX = X \sm I$.
+We use this construction to define $C_f$, the \define{mapping cone} of $f$:
+\[C_f := Y \cup_f CX = \frac{Y \sqcup CX}{f(x) \sim (x, 1)}.\]
+We claim that $C_f$ plays the role of $Z$, and the inclusion $g\co Y \to C_f$ induces the desired exact sequence on mapping sets.
+\marginnote[-5\baselineskip]{%
+The mapping cone is presented by the following pushout diagram in $\CatOf{Spaces}_{*/}$:
+\begin{center}
+\begin{tikzcd}[ampersand replacement=\&]
+X \arrow{r} \arrow["f"']{d} \& CX \arrow{d} \\
+Y \arrow{r} \& C_f.
+\end{tikzcd}
+\end{center}
+While this is \emph{not} a pushout diagram in the homotopy category $h\CatOf{Spaces}_{*/}$, there is an equivalence $CX \simeq *$, so that the diagram has the form
+\begin{center}
+\begin{tikzcd}[ampersand replacement=\&]
+X \arrow{r} \arrow["f"']{d} \& * \arrow{d} \\
+Y \arrow{r} \& C_f,
+\end{tikzcd}
+\end{center}
+whence the name ``cofiber''.
+The relationship between co/limits in $\CatOf{Spaces}_{*/}$ and interesting phenomena in the homotopy category is quite delicate.
+A rule of thumb for the uninitiated is that colimits of loopless diagrams of inclusions are well-behaved.
+A proper treatment of this interplay is given by the theory of \define{homotopy co/limits}.
+}
+
 To check this, consider a test space $T$, the induced sequence \[[Y \cup_f CX, T] \to [Y, T] \to [X, T],\] and a function $\phi\co Y \to T$.
-If $\phi \circ f\co X \to T$ is null, then a choice of null-homotopy defines a map $CX \to T$ agreeing with $f$ on the edge of $I$.
-The gluing operation then determines a map $Z \to T$ which restricts to $\phi$.
-Conversely, a map $\widetilde \phi\co Z \to T$ which restricts to $\phi$ can itself be restricted to $CX$.
-This gives the required null-homotopy of $\phi \circ f$.
+Note that the exponential adjunction gives a bijection between maps $CX \to T$ and maps $X \to T$ together with a choice of null-homotopy.
+Hence, if $\phi \circ f\co X \to T$ is null, then this gives a map $CX \to T$ which agrees with $f$ on the edge of $I$, and the gluing operation determines a map $Z \to T$ which restricts to $\phi$ on $Y$.
+Conversely, a map $\widetilde \phi\co Z \to T$ which restricts to $\phi$ on $Y$ can itself be restricted to $CX$, and this gives the required null-homotopy of $\phi \circ f$.
 \end{proof}
 
 The remarkable lack of hypotheses in \Cref{CoexactSeqsExist} mean that coexact sequences can be extended indefinitely to the right: \[X \xrightarrow f Y \xrightarrow g Y \cup_f CX \to (Y \cup_f CX) \cup_g CY \to \cdots.\]
-The presentations of these spaces given by \Cref{CoexactSeqsExist} quickly become unwieldy, but the following alternative presentation remains quite tractible:
+The naive presentations of these spaces quickly become unwieldy, but the following alternative presentations are quite tractible:
 
-\begin{lemma}\label{CollapseDoubleCone}\marginnote{\citep[Lemma 2.37]{Switzer}}
-There is a homotopy equivalence \[(Y \cup_f CX) \cup_g CY \to ((Y \cup_f CX) \cup_g CY) / CY. \qed\]
+\begin{lemma}\label{CollapseDoubleCone}\marginnote{\citep[Lemma 2.37]{Switzer}}\pushQED{\qed}
+There is a homotopy equivalence \[(Y \cup_f CX) \cup_g CY \to ((Y \cup_f CX) \cup_g CY) / CY. \qedhere \popQED\]
 \end{lemma}
 
-\begin{lemma}\label{ConeAndQuotIsRedundant}\marginnote{\citep[Proposition 2.38]{Switzer}}
-For $A \subseteq X$ a subspace, there is a homeomorphism \[(X \cup_i CA) / CA \cong X / A. \qed\]
+\begin{lemma}\label{ConeAndQuotIsRedundant}\marginnote{\citep[Proposition 2.38]{Switzer}}\pushQED{\qed}
+For $A \subseteq X$ a subspace, there is a homeomorphism \[(X \cup_i CA) / CA \cong X / A. \qedhere \popQED\]
 \end{lemma}
 
 \begin{corollary}\marginnote{\citep[Lemma 2.40]{Switzer}}
-The infinite coexact sequence takes the form \[X \xrightarrow f Y \to Y \cup_f CX \to \Susp X \xrightarrow{-f} \Susp Y \to \Susp(Y \cup_f CX) \to \cdots.\]
+The infinite coexact sequence takes the form \[X \xrightarrow f Y \to Y \cup_f CX \to \Susp X \xrightarrow{-f} \Susp Y \to \Susp(Y \cup_f CX) \to \cdots,\] where $\Susp X = S^1 \sm X$ is the \define{suspension} of $X$.
 \end{corollary}
 \begin{proof}
 We need only identify the next two terms after $Z$ and the map between them.
-Once that is in hand, we need only note that suspension\todo{is the word ``suspension'' defined?} commutes with the cone and quotient operations used to define $Z$.
-
+Once that is in hand, we need only note that suspension commutes with the cone and quotient operations used to define $Z$.
 To see the claim for the first term after $Z$, we apply the two Lemmas in turn:
 \begin{align*}
 (Y \cup_f CX) \cup_g CY & \simeq ((Y \cup_f CX) \cup_g CY) / CY \tag{\Cref{CollapseDoubleCone}} \\
 & \cong (Y \cup_f CX) / Y \tag{\Cref{ConeAndQuotIsRedundant}} \\
-& \cong CX/X \cong \Susp X
+& \cong CX/X \cong \Susp X. \tag{$I / \{0, 1\} \cong S^1$}
 \end{align*}
-\todo{Is $CX / X \cong \Susp X$ obvious?}
 Identically, the second term after $Z$ is described by \[((Y \cup_f CX) \cup_g CY) \cup_{g'} C(Y \cup_f CX) \simeq \Susp Y.\]
 The coexact sequence thus takes the desired form.
 \end{proof}
 
-Coupling this to our results from last time, this gives altogether an exact sequence
+Coupling this to our results from last time, this gives an exact sequence
 \begin{center}
 \begin{tikzcd}
 {[X, T]} & {[Y, T]} \arrow{l} & {[\overset{Z}{\overbrace{Y \cup_f CX}}, T]} \arrow{l} & & \text{ptd.\ sets} \\
@@ -671,41 +705,45 @@ Coupling this to our results from last time, this gives altogether an exact sequ
 {[\Susp^2 X, T]} \arrow[out=90, in=270]{rru} & {[\Susp^2 Y, T]} \arrow{l} & {[\Susp^2 Z, T]} \arrow{l} & \cdots \arrow{l} & \text{ab.\ groups}
 \end{tikzcd}
 \end{center}
-\marginnote{
-Exact sequences are best behaved on abelian groups, but not all of the above are abelian groups---or even groups!
+\marginnote[-12\baselineskip]{%
+Exact sequences are best behaved on abelian groups, but not all of these are abelian groups---or even groups!
 What can be said about the edges, where at least one term is a(n abelian) group?
 \begin{construction}
 Pinching the middle of the cone $CX$ gives a map \[Y \cup_f CX \to (Y \cup_f CX) \vee \Susp X,\] which gives an action \[[Z, T] \times [\Susp X, T] \to [Z, T].\]
 \end{construction}
-\begin{lemma}[2.42--48]
-The map $[Z, T] \to [Y, T]$ is invariant under this action, and on orbits it is an injection.
+\begin{lemma}{\citep[2.42--48]{Switzer}}
+The map $[Z, T] \to [Y, T]$ is invariant under this action, and on orbits it is an injection. \qed
 \end{lemma}
-\begin{proof}[Proof sketch]
-We indicate the construction underlying injectivity.
-Supposing that $f_1, f_2\co Z \to T$ restrict to the same map on $Y$, so that they in particular agree on $X$ but might differ on $CX$.
-Glue them together to get a map $d(f_1, f_2)\co \Susp X = CX \cup_X CX \to T$.
-One can show that $f_1 = d(f_1, f_2) \cdot f_2$.
-\end{proof}
 }
 
 There are also dual results for exact sequences: any map of spaces participates in an (infinite) exact sequence.
 
 \begin{lemma}\marginnote{\citep[Proposition 2.54]{Switzer}}
-Any map $f\co X \to Y$ extends to an exact sequence \[P \to X \xrightarrow f Y,\] where $P$ is given by \[P = \{(x, \gamma) \in X \times PY \mid f(x) = \gamma(1)\}. \qed\]
+Any map $f\co X \to Y$ extends to an exact sequence \[P_f \to X \xrightarrow f Y,\] where $P_f$ is given by \[P_f = \{(x, \gamma) \in X \times PY \mid f(x) = \gamma(1)\}.\]
+\marginnote[-6\baselineskip]{%
+Again, $P_f$ appears as a pullback in $\CatOf{Spaces}_{*/}$.
+\begin{center}
+\begin{tikzcd}[ampersand replacement=\&]
+P_f \arrow{r} \arrow{d} \& X \arrow["f"]{d} \\
+PY \arrow{r} \& Y
+\end{tikzcd}
+\end{center}
+Again, this square is not a pullback in $h\CatOf{Spaces}_{*/}$, but $PY$ is contractible, earning this object the name \define{homotopy fiber}.
+}
 \end{lemma}
 \begin{proof}[Proof sketch]
-Again, the construction of $P$ rests on building into it the data of a null-homotopy.
+Again, the construction of $P_f$ rests on building into it the data of a null-homotopy.
 Suppose that $\theta\co T \to Y$ is a null-homotopic map.
 A null-homotopy of $\theta$ is the same as a map $T \sm I = CT \to Y$ restricting to $\theta$, which is in turn the same as a map $T \to PY = Y^I$ restricting to $\theta$.
 To model a map $\phi\co T \to X$ for which $\theta = f \circ \phi$ becomes null-homotopic, we attach $PY$ along $X$ as in the statement.
 \end{proof}
 
-\begin{lemma}\label{LexseqInvolvingP}%
+\begin{lemma}\label{LexseqInvolvingP}\pushQED{\qed}%
 \marginnote{\citep[Proposition 2.58]{Switzer}}
-Iterating this gives \[\cdots \to \Loops^2 X \to \Loops P_f \to \Loops X \to \Loops Y \to P_f \to X \xrightarrow f Y. \qed\]
+Iterating this gives \[\cdots \to \Loops^2 X \to \Loops P_f \to \Loops X \to \Loops Y \to P_f \to X \xrightarrow f Y. \qedhere \popQED\]
 \end{lemma}
 
-In particular, by applying $\pi_0(-) = [S^0, -]$ and employing the definition $\pi_n X = \pi_0 \Loops^n X$, we get an exact sequence of homotopy groups: \[\cdots \to \pi_2 X \to \pi_2 Y \to \pi_1 P \to \pi_1 X \to \pi_1 Y \to \pi_0 P \to \pi_0 X \to \pi_0 Y.\]
+In particular, by applying $\pi_0(-) = [S^0, -]$ and employing the definition $\pi_n X = \pi_0 \Loops^n X$, we get an exact sequence of homotopy groups: \[\cdots \to \pi_2 X \to \pi_2 Y \to \pi_1 P_f \to \pi_1 X \to \pi_1 Y \to \pi_0 P_f \to \pi_0 X \to \pi_0 Y.\]
 One of our goals in this class will be to understand what understanding $\pi_*$ earns us, how it changes as $X$ changes, and how $X$ can be effectively dissected to build up knowledge of $\pi_*$ along the way.
 This long exact sequence will be one of our main tools for doing so.
 
