@@ -883,18 +883,21 @@ One checks that this gives the desired lift of $x$: the image of $\tilde x$ in $
 
 \section{Fibrations}
 
-\todo{We promised to explain the name ``co/fiber''. Now is the time to do it.}
-
-Relative to the small and polite model for the continuation of the coexact sequence, the function space $P$ feels large and unwieldly.
-In this section we explore a more familiar context in which spaces \emph{like} $P$ arise, as well as conditions that they are weak models for exact continuations.
+Relative to the small and polite model for the coexact continuation $C_f$, the presentation of the exact continuation $P_f$ as a function space feels large and unwieldly.%
+\marginnote[-2\baselineskip]{
+For instance, if $f\co X \to Y$ is a map of spaces of dimension $d_X$ and $d_Y$, then the dimension of $C_f$ is no more than $d_Y$ and $1 + d_X$.
+On the other hand, $P_f$ is firmly infinite-dimensional.
+One might ask whether this is inescapable, and we will resolve this much later in \Cref{ComputationsChapter}.
+}
+In this section we explore a more familiar context in which spaces \emph{like} $P_f$ arise, as well as conditions that they are weak models for exact continuations.
 
 To get off the ground, recall the whole point of the design of $P$ was its participation in the long exact sequence%
 \marginnote{\Cref{LexseqInvolvingP}}
 \[\cdots \to \pi_2 X \to \pi_1 P \to \pi_1 X \to \pi_1 Y \to \pi_0 P \to \pi_0 X \to \pi_0 Y.\]
-Inasmuch as the exact sequence is truly what we're after, we might consider alternative constructions in which such sequences arise.
+Inasmuch as the exact sequence is truly what we're after, we might consider alternative situations in which such sequences arise.
 
 \begin{example}\marginnote{\citep[Theorem 4.1]{Switzer}}
-For each $n \ge 0$, there is an isomorphism \[\pi_n(X \times Y) = [S^n, X \times Y] \cong = [S^n, X] \times [S^n, Y] \cong \pi_n(X) \times \pi_n(Y).\]
+For each $n \ge 0$, there is an isomorphism \[\pi_n(X \times Y) = [S^n, X \times Y] \cong [S^n, X] \times [S^n, Y] = \pi_n(X) \times \pi_n(Y).\]
 Rearranged as an exact sequence, the maps
 \begin{center}
 \begin{tikzcd}
@@ -910,9 +913,9 @@ induce a split-exact sequence
 \end{example}
 
 \noindent
-We would like to axiomatize the part of the geometry of the Cartesian product that we need to induce exact sequences on $\pi_*$.
-Its main features that we used were the projection and retraction maps, which combine to let us recover a map $S^n \to X \times Y$ from the projections $S^n \to X$ and $S^n \to Y$.
-We will ultimately ask for ``one half'' of this data (i.e., one projection and one inclusion), together with a requirement that they satisfy a variant of this recovery property.
+We would like to axiomatize the pieces of the geometry of the product that we need to induce exact sequences on $\pi_*$.
+The main features that we used were the projection and retraction maps, which we used to lift maps $S^n \to X$ and $S^n \to Y$ to maps $S^n \to X \times Y$, and conversely to produce from a map $S^n \to X \times Y$ the projections $S^n \to X$ and $S^n \to Y$.
+We will ultimately ask for ``one half'' of this data (i.e., one projection and one inclusion), together with a requirement that they satisfy a very weak variant of this recovery property.
 
 \begin{definition}\marginnote{\citep[Definition 4.2]{Switzer}}
 A map $p\co E \to B$
@@ -926,17 +929,17 @@ X \times I \arrow["H"]{r} \arrow[densely dotted, "{\widetilde H}"]{ru} & B
 \end{center}
 there exists a dashed diagonal lift $\widetilde H$.
 That is, homotopies in $B$ lift to homotopies in $E$.
-A \define{fibration} has the HLP for all spaces.
-A \define{weak fibration} has the HLP for at least the disks $D^n$.
+A \define{strong fibration} has the HLP for all spaces.
+A \define{fibration} has the HLP for at least the disks $D^n$.
 The \define{fiber} of a fibration is $F = p^{-1}(b_0) \subseteq E$.
 \end{definition}
 
 \begin{example}
-The projection $\pi_X\co X \times Y \to X$ forms a fibration with fiber $Y$.
+The projection $\pi_X\co X \times Y \to X$ is a fibration with fiber $Y$.
 \end{example}
 
 \begin{example}\marginnote{\citep[Proposition 4.3]{Switzer}}
-The evaluation map $\mathit{ev}\co PX \to X$ form a fibration with fiber $\Loops X$.
+Evaluation $\mathit{ev}\co PX \to X$ gives a fibration with fiber $\Loops X$.
 \end{example}
 
 For the remainder of the lecture, we will work to justify that this definition yields the intended long exact sequence of homotopy groups.
@@ -944,7 +947,7 @@ The first step is a version of the homotopy lifting property for pairs and its r
 
 \begin{lemma}\label{HLPsForPairsVsPtds}%
 \marginnote{\citep[Proposition 4.5]{Switzer}}
-Consider a fibration $p\co E \to B$, as well as a preferred subset $B' \subseteq B$ of the base and the subset $E' := p^{-1}(B') \subseteq E$ of the total space lying over it.
+Consider a fibration $p\co E \to B$, as well as a preferred subset $B' \subseteq B$ of the base and the subset $E' := p^{-1}(B') \subseteq E$ of the total space which lies over it.
 If $p$ has the HLP for $X \times I$, then $p'\co (E, E')^{(I, \partial I)} \to (B, B')^{(I, \partial I)}$ has the HLP for $X$.
 \end{lemma}
 \begin{proof}
@@ -953,9 +956,10 @@ Let us begin with an HLP diagram for $p'$, as in
 \begin{tikzcd}
 X \arrow["f"]{r} \arrow{d} & (E, E')^{(I, \partial I)} \arrow["p'"]{d} \\
 X \times I \arrow["H"]{r} & (B, B')^{(I, \partial I)}
-\end{tikzcd}.
+\end{tikzcd}
 \end{center}
-We may remove the function spaces by applying the exponentiation adjunction:
+for which we're meant to produce a lift \[\widetilde H\co X \times I \to (E, E)^{(I, \partial I)}.\]
+We may remove the function spaces by applying de-exponentiating:
 \begin{center}
 \begin{tikzcd}
 X \times (I \vee I) \arrow["f''"]{r} \arrow["i"]{d} & E \arrow["p"]{d} \\
@@ -980,20 +984,20 @@ Applying the HLP for $p$ gives $\widetilde{H'}$.  Reversing the application of $
 \end{proof}
 
 \begin{corollary}\marginnote{\citep[Theorem 4.6]{Switzer}}
-If $p$ as above is a weak fibration, then the natural map \[\pi_n(E, E') \to \pi_n(B, B')\] is an isomorphism for all $n \ge 1$.
+For $p\co E \to B$ a fibration and for subspaces $B' \subseteq B$ and $E' := p^{-1}(B') \subseteq E$, the natural map $\pi_{\ge 1}(E, E') \to \pi_{\ge 1}(B, B')$ is an isomorphism.
 \end{corollary}
 \begin{proof}
-Begin with a class $\omega \co (I, \partial I) \to (B, B')$ in $\pi_1(B, B')$, and consider the diagram
+Begin with a class $\omega \co (I, \partial I) \to (B, B')$ in $\pi_1(B, B')$, and consider the lifting square induced by $p\co E \to B$, without considering $B'$ and $E'$:
 \begin{center}
 \begin{tikzcd}
 * \arrow["e_0"]{r} \arrow{d} & E \arrow["p"]{d} \\
-* \times I \arrow["\omega"]{r} \arrow[densely dotted, "\widetilde{\omega}"]{ru} & B.
+* \times I \arrow["\omega"]{r} \arrow["\exists \widetilde{\omega}"]{ru} & B.
 \end{tikzcd}
 \end{center}
-Since $\omega(1) \in B'$ and $E' := p^{-1}(B')$, the class $\widetilde \omega$ can be considered as a map $\widetilde\omega\co (I, \partial I) \to (E, E')$.
-Hence, $\pi_1(E, E') \to \pi_1(B, B')$ a surjection.
+Since $\omega(1) \in B'$ and $E' := p^{-1}(B')$, the lift $\widetilde \omega$ can be considered as a map $\widetilde\omega\co (I, \partial I) \to (E, E')$.
+Hence, $\pi_1(E, E') \to \pi_1(B, B')$ is a surjection.
 
-For injectivity, suppose that $\omega_1, \omega_2\co (I, \partial I) \to E$ are two relative homotopy classes and that $H\co I \times I \to B$ is a homotopy connecting them in $B$.
+For injectivity on $\pi_1$, suppose that $\omega_1, \omega_2\co (I, \partial I) \to E$ are two relative homotopy classes and that $H\co I \times I \to B$ is a homotopy which relates them in $B$.
 We form the homotopy lifting diagram
 \begin{center}
 \begin{tikzcd}
@@ -1001,12 +1005,21 @@ U \arrow{r} \arrow{d} & E \arrow{d} \\
 I \times I \arrow["H"]{r} \arrow["\widetilde{H}", densely dotted]{ru} & B,
 \end{tikzcd}
 \end{center}
-where $U = \partial I \setminus (I \times \{1\})$ is a $\sqcup$--shaped figure, the top arrow acts by $\omega_1$ and $\omega_2$ on the two legs, and it carries the bottom of the figure to the basepoint.
-The same procedure as in \Cref{HLPsForPairsVsPtds} produces a filler $\widetilde H$, which witnesses equality in $\pi_1(E, E')$.
-Injectivity follows.
+where $U = \partial (I \times I) \setminus (I \times \{1\})$ is a $\sqcup$--shaped figure, the top arrow acts by $\omega_1$ and $\omega_2$ on the two legs, and it carries the bottom of the figure to the basepoint.
+The same procedure as in the second half of \Cref{HLPsForPairsVsPtds} produces a filler $\widetilde H$, which witnesses equality in $\pi_1(E, E')$.%
+\marginnote[-\baselineskip]{%
+More precisely, we avail ourselves of a pointed self-homeomorphism of $I \times I$ which restricts to a homeomorphism of $U$ with $I \times \{0\}$.
+}
 
-For $\pi_{> 1}$, one uses relative pathspaces to induct up.
-\todo{This is cryptic.}
+To dispatch the other homotopy groups, we use the equivalences
+\begin{center}
+\begin{tikzcd}
+\pi_m(E, E') \arrow{d} \arrow[equal]{r} & \pi_{m-1} (E' \subseteq E)^{(\partial I \subseteq I)} \arrow{d} \arrow[equal]{r} & \pi_{m-1} ((E' \subseteq E)^{(\partial I \subseteq I)}, (E')^I) \arrow{d} \\
+\pi_m(B, B') \arrow[equal]{r} & \pi_{m-1} (B' \subseteq B)^{(\partial I \subseteq I)} \arrow[equal]{r} & \pi_{m-1} ((B' \subseteq B)^{(\partial I \subseteq I)}, (B')^I).
+\end{tikzcd}
+\end{center}
+The first equivalence is definitional, and the second follows from contractibility of pathspaces.
+\Cref{HLPsForPairsVsPtds} entails that the map \[((E' \subseteq E)^{(\partial I, I)}, (E')^I) \to ((B' \subseteq B)^{(\partial I, I)}, (B')^I)\] inducing the rightmost vertical map is a fibration.  Taking as an inductive hypothesis that it is an isomorphism on $\pi_{m-1}$ entails the inductive conclusion that the leftmost vertical map is an isomorphism.
 \end{proof}
 
 \begin{corollary}\marginnote{\citep[4.7]{Switzer}}
