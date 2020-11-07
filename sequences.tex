@@ -752,48 +752,70 @@ This long exact sequence will be one of our main tools for doing so.
 
 \section{Relative homotopy groups}
 
-The construction $P$ from the previous lecture is a little mysterious.
+The construction $P_f$ from the previous lecture is a little mysterious.
 To close out this Chapter, we will explore it in two lights: today and a bit later on.
 
 Let us return to the setting of pairs $(X, A, x_0)$ of topological spaces, and let's use $i\co A \to X$ to denote the inclusion of the preferred subspace.
+The following is a direct rephrasing of the definition of $P_i$ from the previous section:
 
 \begin{lemma}\marginnote{\citep[Definition 3.8]{Switzer}}
-The exact continuation $P$ of $i$ is given by the function object \[P(i) = (X, A, x_0)^{(I, \partial I, 0)}. \qed\]
+The exact continuation $P_i$ of $i$ is given by the function object \[P_i = (X, A, x_0)^{(I, \partial I, 0)}. \qed\]
 \end{lemma}
 
+\noindent
 Inspired by this, we consider the adjunction juggle:
 
 \begin{definition}\marginnote{\citep[pg.\ 38]{Switzer}}
-We define the \define{$n$\textsuperscript{th} relative homotopy group} of the pair $(X, A)$ by \[\pi_n(X, A) := [(D^n, S^{n-1}), (X, A)] \cong [S^{n-1}, P] = \pi_{n-1} P.\]
-That is, $\pi_n(X, A)$ consists of $n$--disk maps into $X$ with boundary $\partial D^n$ lying in $A$.
+For a pair $(A \subseteq X)$, we define the \define{$n$\textsuperscript{th} relative homotopy group} to be \[\pi_n(A \subseteq X) := [(S^{n-1} \subseteq D^n), (A \subseteq X)] \cong [S^{n-1}, P_i] = \pi_{n-1} P_i.\]
+\marginnote[-3\baselineskip]{%
+Note that this means that the first relative group is a \emph{set}, the second a \emph{group}, and third and above \emph{abelian groups}---one off from the usual sequence of properties.
+}
+That is, $\pi_n(A \subseteq X)$ consists of $n$--disk maps into $X$ with boundary $\partial D^n$ lying in $A$, considered up to relative homotopy.
 \end{definition}
 
 \begin{corollary}\label{LexseqOfRelativeHtpy}%
 \marginnote{\citep[Proposition 3.9]{Switzer}}
-There is a long exact sequence \[\cdots \to \pi_{n+1}(X, A) \to \pi_n A \to \pi_n X \to \pi_n (X, A) \to \pi_{n-1} A \to \cdots. \qed\]
+There is a long exact sequence \[\cdots \to \pi_{n+1}(A \subseteq X) \to \pi_n A \to \pi_n X \to \pi_n (A \subseteq X) \to \pi_{n-1} A \to \cdots. \qed\]
 \end{corollary}
 
 % \begin{remark}
 % $\pi_n(X, x_0) = \pi_n(X, \{x_0\})$.  So, we can regard the map $\pi_n X \to \pi_n (X, A)$ as induced by $(X, \{x_0\}) \to (X, A)$.
 % \end{remark}
 
-These groups track the discrepancy between $\pi_* A$ and $\pi_* X$.
+\noindent
+More qualitatively, these groups track the discrepancy between $\pi_* A$ and $\pi_* X$.
 This observation moves us to remark on when there is \emph{no} discrepancy:
 
 \begin{definition}\label{ConnectedDefn}%
 \marginnote{\citep[3.12--13 and 3.17]{Switzer}}
-A pair $A \subseteq X$ is \define{$n$--connected} if $\pi_{\le n}(X, A) = 0$.
-Equivalently, the map $\pi_* A \to \pi_* X$ is an isomorphism for $* < n$ and an epimorphism for $* = n$.
+A pair $A \subseteq X$ is \define{$n$--connected} if $\pi_{\le n}(A \subseteq X) = 0$.
+Equivalently, the map $\pi_{<n} A \to \pi_{<n} X$ is an isomorphism and $\pi_n A \to \pi_n X$ is an epimorphism.
 The pair $A \subseteq X$ is a \define{weak equivalence} if it is $\infty$--connected.
 \end{definition}
 
+\begin{remark}\marginnote{\citep[3.21]{Switzer}}
+As a simple structural application of \Cref{LexseqOfRelativeHtpy}, consider an inclusion $i\co A \subseteq X$ which admits a retraction $r\co X \to A$.
+\marginnote{That is: $r i \simeq \id_A$.}
+The induced map $\pi_* A \to \pi_* X$ is then an inclusion, and the boundary map $\pi_*(X, A) \to \pi_{*-1}(A)$ is zero.
+It follows that there are split short exact sequences
+\begin{center}
+\begin{tikzcd}
+0 \arrow{r} & \pi_n A \arrow{r} & \pi_n X \arrow{r} \arrow[bend right]{l} & \pi_n(A \subseteq X) \arrow{r} & 0.
+\end{tikzcd}
+\end{center}
+For $n \ge 3$, all the groups are abelian, from which we deduce that $\pi_n X$ splits as a sum of $\pi_n A$ and $\pi_n(A \subseteq X)$.
+At $n = 2$, we learn naively that $\pi_2 X$ is a semidirect product of $\pi_2 A$ and $\pi_2(X, A)$---but this forces $\pi_2(A \subseteq X)$ to be abelian has well.
+Hence, in this situation we have
+\[\pi_{\ge 2} X = \pi_{\ge 2} A \oplus \pi_{\ge 2}(A \subseteq X).\]
+\end{remark}
+
 \begin{remark}\marginnote{\citep[3.15]{Switzer}}
-We can extend these definitions to a generic $f\co Y \to X$ using the \define{mapping cylinder}: \[M_f := (Y \times I) \cup_f X.\]
+We can extend these definitions from an inclusion $i\co A \to X$ to a generic map $f\co Y \to X$ using the \define{mapping cylinder}: \[M_f := (Y \times I) \cup_f X.\]
 This space receives a map $X \to M_f$ which is a weak equivalence.
 \marginnote{It is a good exercise to check that it is a weak equivalence.}
 It also receives two maps $Y \to M_f$, one along the ``free'' end of the cylinder $Y \times I$ and one along the ``attached'' end.
-Along the free end, the map from $Y$ to $M_f$ is an inclusion, so that $(M_f, Y)$ can be thought of as a pair.
-Along the attached end, the map from $Y$ to $M_f$ factors through $X$, where it is shown to agree with $f$.
+Along the free end, the map from $Y$ to $M_f$ is an inclusion, via which $(Y \subseteq M_f)$ can be thought of as a pair.
+Along the attached end, the map from $Y$ to $M_f$ factors through $X$, via which it agrees with $f$.
 The situation is summarized in the following diagram:
 \begin{center}
 \begin{tikzcd}
@@ -804,33 +826,34 @@ Y \times \{0\} \arrow{u} \arrow{ru} \arrow{rru}
 \end{center}
 \end{remark}
 
-\newthought{We pause to emphasize} something that the reader might have dismissed as serendipity: by switching notation from $(A \subseteq X)$ to $\pi_n(X, A)$, \Cref{LexseqOfRelativeHtpy} looks very much like a corresponding theorem about relative \emph{homology} groups.
-It is extremely productive to see how far this analogy can be pushed: what theorems about homology can be replicated for homotopy?---and, when a theorem for homology fails for homotopy, is it partially recoverable?
+
+\newthought{We pause to emphasize} something that the reader might have dismissed as serendipity: by switching the notation $\pi_n(X, A) := \pi_n (A \subseteq X)$, \Cref{LexseqOfRelativeHtpy} looks very much like a corresponding theorem about relative \emph{homology} groups: it announces an exact sequence \[\cdots \to \pi_{n+1}(X, A) \to \pi_n A \to \pi_n X \to \pi_n (X, A) \to \pi_{n-1} A \to \cdots.\]
+It is extremely productive to see how far this analogy can be pushed: what theorems about homology can be replicated for homotopy?---and, when a theorem for homology fails for homotopy, is it at least partially recoverable?
 
 As a warm-up to this program, recall that the relative homology groups of a pair of inclusions $x_0 \in B \subseteq A \subseteq X$ can be interrelated.
-We will consider whether the same can be said of relative homotopy groups.
+We will see whether the same can be said of relative homotopy groups.
 To this end, consider the long exact sequences associated to the pairs $(X, A)$, $(X, B)$, and $(A, B)$, which arrange into the following commutative diagram:
-\begin{figure*}
+
 \begin{center}
 \begin{tikzcd}[column sep=0.3em]
-\cdots & \pi_{n+1}(X, A) \arrow{rr} \arrow[blue]{rd} & & \pi_n(A, B) \arrow{rd} \arrow[orange]{rr} & & \pi_{n-1} B \arrow[orange]{rd} \arrow[purple]{rr} & & \pi_{n-1} X & \cdots \\
-\cdots & & \pi_n A \arrow[orange]{ru} \arrow[blue]{rd} & & \pi_n(X, B) \arrow[purple]{ru} \arrow{rd} & & \pi_{n-1} A \arrow[blue]{ru} \arrow[orange]{rd} & & \cdots \\
-\cdots & \pi_n B \arrow[orange]{ru} \arrow[purple]{rr} & & \pi_n X \arrow[purple]{ru} \arrow[blue]{rr} & & \pi_n(X, A) \arrow[blue]{ru} \arrow{rr} & & \pi_{n-1}(A, B) & \cdots
+\cdots \arrow[blue]{r} & \pi_{n+1}(X, A) \arrow{rr} \arrow[blue]{rd} & & \pi_n(A, B) \arrow{rd} \arrow[orange]{rr} & & \pi_{n-1} B \arrow[orange]{rd} \arrow[purple]{rr} & & \pi_{n-1} X \arrow[purple]{rd} \arrow[blue]{r} & \cdots \\
+\cdots \arrow[purple]{rd} \arrow{ru} & & \pi_n A \arrow[orange]{ru} \arrow[blue]{rd} & & \pi_n(X, B) \arrow[purple]{ru} \arrow{rd} & & \pi_{n-1} A \arrow[blue]{ru} \arrow[orange]{rd} & & \cdots \\
+\cdots \arrow[orange]{r} & \pi_n B \arrow[orange]{ru} \arrow[purple]{rr} & & \pi_n X \arrow[purple]{ru} \arrow[blue]{rr} & & \pi_n(X, A) \arrow[blue]{ru} \arrow{rr} & & \pi_{n-1}(A, B) \arrow[orange]{r} \arrow{ru} & \cdots
 \end{tikzcd}
 \end{center}
-\end{figure*}
-To help with readiability, we have colored the long exact sequences associated to \textcolor{blue}{$(X, A)$}, \textcolor{orange}{$(A, B)$}, and \textcolor{purple}{$(X, B)$}.
+
+\noindent
+To help with readability, we have colored the long exact sequences associated to \textcolor{blue}{$(X, A)$}, \textcolor{orange}{$(A, B)$}, and \textcolor{purple}{$(X, B)$}.
 To complete the symmetric pattern, we have additionally included maps $\pi_n(A, B) \to \pi_n(X, B)$ and $\pi_n(X, B) \to \pi_n(X, A)$ granted to us by naturality, as well as maps $\pi_n(X, A) \to \pi_{n-1}(A, B)$ granted by completing the relevant triangle.
 Tracing through the middle, we see that these new maps form an interesting sequence, highlighted in red:
-\begin{figure*}
+
 \begin{center}
 \begin{tikzcd}[column sep=0.3em]
-\cdots & \textcolor{red}{\pi_{n+1}(X, A)} \arrow[red]{rr} \arrow{rd} & & \textcolor{red}{\pi_n(A, B)} \arrow[red]{rd} \arrow{rr} & & \pi_{n-1} B \arrow{rd} \arrow{rr} & & \pi_{n-1} X & \cdots \\
-\cdots & & \pi_n A \arrow{ru} \arrow{rd} & & \textcolor{red}{\pi_n(X, B)} \arrow{ru} \arrow[red]{rd} & & \pi_{n-1} A \arrow{ru} \arrow{rd} & & \cdots \\
-\cdots & \pi_n B \arrow{ru} \arrow{rr} & & \pi_n X \arrow{ru} \arrow{rr} & & \textcolor{red}{\pi_n(X, A)} \arrow{ru} \arrow[red]{rr} & & \textcolor{red}{\pi_{n-1}(A, B)} & \cdots
+\cdots \arrow{r} & \textcolor{red}{\pi_{n+1}(X, A)} \arrow[red]{rr} \arrow{rd} & & \textcolor{red}{\pi_n(A, B)} \arrow[red]{rd} \arrow{rr} & & \pi_{n-1} B \arrow{rd} \arrow{rr} & & \pi_{n-1} X \arrow{r} \arrow{rd} & \cdots \\
+\cdots \arrow[red]{ru} \arrow{rd} & & \pi_n A \arrow{ru} \arrow{rd} & & \textcolor{red}{\pi_n(X, B)} \arrow{ru} \arrow[red]{rd} & & \pi_{n-1} A \arrow{ru} \arrow{rd} & & \cdots \\
+\cdots \arrow{r} & \pi_n B \arrow{ru} \arrow{rr} & & \pi_n X \arrow{ru} \arrow{rr} & & \textcolor{red}{\pi_n(X, A)} \arrow{ru} \arrow[red]{rr} & & \textcolor{red}{\pi_{n-1}(A, B)} \arrow{r} \arrow[red]{ru} & \cdots
 \end{tikzcd}
 \end{center}
-\end{figure*}
 
 \begin{lemma}\marginnote{\citep[Theorem 3.20]{Switzer}}
 This sequence is exact.
@@ -838,30 +861,22 @@ This sequence is exact.
 \begin{proof}[Proof sketch]
 Checking that the composites are zero is easy enough.
 We describe how the lifting condition is proved for the left-most map pictured.
+\marginnote[-\baselineskip]{%
+\begin{center}
+\begin{tikzcd}[column sep=0.3em, scale=0.4, ampersand replacement=\&]
+\not\exists \arrow[|->]{r} \& \tilde{x} \arrow[|->]{rr} \arrow[|->]{rd} \& \& x \arrow[|->]{rd} \arrow[|->]{rr} \& \& 0 \arrow[|->]{rd} \arrow[|->]{rr} \& \& 0 \arrow[|->]{r} \arrow[|->]{rd} \& \cdots \\
+\not\exists \arrow[|->]{ru} \arrow[|->]{rd} \& \& \begin{array}{c} y - y' \\ y', y \end{array} \arrow[|->]{ru} \arrow[|->]{rd} \& \& 0 \arrow[|->]{ru} \arrow[|->]{rd} \& \& 0 \arrow[|->]{ru} \arrow[|->]{rd} \& \& \cdots \\
+\not\exists \arrow[|->]{r} \& w \arrow[|->]{ru} \arrow[|->]{rr} \& \& z \arrow[|->]{ru} \arrow[|->]{rr} \& \& 0 \arrow[|->]{ru} \arrow[|->]{rr} \& \& 0 \arrow[|->]{r} \arrow[|->]{ru} \& \cdots
+\end{tikzcd}
+\end{center}}
 Suppose that we have an element $x \in \pi_n(A, B)$ mapping to zero in $\pi_n(X, B)$.
 Its image in $\pi_{n-1} B$ is then also zero, so that we may lift it to $y \in \pi_n A$.
 Define $z \in \pi_n X$ to be the image of $y$; since $y$ is zero by the time it makes it to $\pi_n(X, B)$, so must $z$ be.
 We may then also lift $z$ to $w \in \pi_n B$.
 Pushing forward $w$ to $y' \in \pi_n A$ gives a second element in the same group, and the difference of the two elements $y - y'$ pushes forward to zero in $\pi_n X$.
-Hence, we can lift the difference to $\pi_{n+1}(X, A)$.
-This ultimately gives the desired lift of $x$.
-\todo{Overlay this diagram chase as a series of diagrams.}
+Hence, we can lift the difference to an element $\tilde x$ in $\pi_{n+1}(X, A)$.
+One checks that this gives the desired lift of $x$: the image of $\tilde x$ in $\pi_n(A, B)$ factors through its image $y - y'$ in $\pi_n(A)$, and of those operands the first is sent to $x$, the second to $0$.
 \end{proof}
-
-\begin{remark}\marginnote{\citep[3.21]{Switzer}}
-As a simple structural application, consider an inclusion $i\co A \subseteq X$ which admits a retraction $r\co X \to A$.\sidenote{That is: $r i \simeq \id_A$.}
-The induced map $\pi_* A \to \pi_* X$ is then an inclusion, and the boundary map $\pi_*(X, A) \to \pi_{*-1}(A)$ is zero.
-It follows that there are short exact sequences
-\begin{center}
-\begin{tikzcd}
-0 \arrow{r} & \pi_n A \arrow{r} & \pi_n X \arrow{r} \arrow[bend right]{l} & \pi_n(X, A) \arrow{r} & 0.
-\end{tikzcd}
-\end{center}
-For $n \ge 3$, all the groups are abelian, from which we deduce that $\pi_n X$ splits as a sum of $\pi_n A$ and $\pi_n(X, A)$.
-At $n = 2$, we learn naively that $\pi_2 X$ is a semidirect product of $\pi_2 A$ and $\pi_2(X, A)$---but this forces $\pi_2(X, A)$ to be abelian has well.
-Hence, in this situation we have
-\[\pi_{\ge 2} X = \pi_{\ge 2} A \oplus \pi_{\ge 2}(X, A).\]
-\end{remark}
 
 
 
