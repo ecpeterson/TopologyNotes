@@ -1044,19 +1044,25 @@ Most commonly, they take the form of a \define{fiber bundle}, which is a less ho
 
 \begin{definition}\label{FiberBundleDefn}%
 \marginnote{\citep[Definition 4.9]{Switzer}}
-A \define{fiber bundle} is a pair of maps $F \subseteq E \xrightarrow p B$ such that $B$ has an open cover $\{U_\alpha\}_\alpha$ admitting local homeomorphisms $\phi_\alpha\co U_\alpha \times F \to p^{-1}(U_\alpha)$ which satisfy $p \phi_\alpha = p|_{U_\alpha}$.
+A \define{fiber bundle with fiber $F$} is a map $p\co E \to B$ such that $B$ admits an open cover $\{U_\alpha\}_\alpha$ with local homeomorphisms $\phi_\alpha\co U_\alpha \times F \to p^{-1}(U_\alpha)$, which each satisfy $p \phi_\alpha = p|_{U_\alpha}$.
+\marginnote[-2\baselineskip]{%
+Briefly, a fiber product is locally and compatibly a product space.
+This definition \emph{must} be given in $\CatOf{Spaces}$ and not $h\CatOf{Spaces}$: the S-shaped space $S = ([-1, 0] \times \{0\}) \cup (\{0\} \times I) \cup (I \times \{1\})$ projects on its first coordinate to $[-1, 1]$ with contractible fibers, but it is neither a fiber bundle nor a fibration.
+}
 \end{definition}
 
 \begin{lemma}\marginnote{\citep[Proposition 4.10]{Switzer}}
-Every fiber bundle is a weak fibration.
-\marginnote{If $B$ is paracompact, then $p$ is actually a fibration.}
+Every fiber bundle is a fibration.
+\marginnote{If $B$ is paracompact, then $p$ is actually a strong fibration.}
 \end{lemma}
 \begin{proof}[Proof sketch]
-Fix an open cover as in \Cref{FiberBundleDefn}.  Given a map $f\co D^n \times I \to B$, subdivide $D^n \times I$ so finely that its pieces are each contained in one member of the cover.  Once this is arranged, one can build the desired lift purely locally.
+Fix an open cover as in \Cref{FiberBundleDefn}.
+Given a map \[f\co D^n \times I \to B\] to be lifted, subdivide the compact space $D^n \times I$ so finely that its pieces are each contained in one member of the cover.
+Once this is arranged, one can build the desired lift purely locally.
 \end{proof}
 
-The most common source of these ``local projections'' come from Lie theory: a quotient of a Lie group by a subgroup has everywhere-isomorphic fibers, and in good cases the coset space can be arranged to admit one of these covers.
-We spend most of today making this precise.
+The most common source of these ``local projections'' is Lie theory: a quotient map of a Lie group by a subgroup has everywhere-isomorphic fibers, and in good cases the coset space can be arranged to admit a suitable open cover.
+We spend most of today contemplating this case.
 
 \begin{lemma}\marginnote{\citep[Theorem 4.13]{Switzer}}
 Take $H \le G$ to be a closed subgroup of a topological group.
@@ -1065,15 +1071,16 @@ Suppose that the identity coset $H \in G/H$ has an open neighborhood $U$ with a 
 The map $p$ is then a fiber bundle with fiber $H$.
 \end{lemma}
 \begin{proof}
-Left-multiplying by $g \in G$, the condition at $H$ begets sections near all $gH \in G/H$.
-The sections together become the data of a fiber bundle by \[U_{gH} \times H \xrightarrow{s_g \times 1} G \times G \xrightarrow\mu G. \qedhere\]
+Left-multiplying by $g \in G$, the condition at $H$ begets a local section at $gH \in G/H$.
+Such a section extends to a local homeomorphism as in the definition of a fiber bundle via \[U_{gH} \times H \xrightarrow{s_g \times 1} G \times G \xrightarrow\mu G.\]
+Using these opens to cover the base shows $p$ to be a fiber bundle.
 \end{proof}
 
 \begin{example}[Stiefel manifolds]\marginnote{\citep[Examples 4.14.1]{Switzer}}
 Consider the subgroup $O(n) \subseteq O(n+k)$ of block matrices \[\left\{\left[\begin{array}{c|c} O(n) & 0 \\ \hline 0 & I \end{array} \right]\right\} \subseteq O(n+k).\]
 The quotient is the space of orthonormal $k$--frames in $\R^{n+k}$.
 \marginnote{For example, $O(n) / O(n-1)$ is homeomorphic to $S^{n-1}$.}
-To construct a local section, note there is an open neighborhood $U$ of the standard frame $(e_{n+1}, \ldots, e_{n+k})$ consisting of those $(u_{n+1}, \ldots, u_{n+k})$ satisfying the condition \[\det\left[e_1 \mid \cdots \mid e_n \mid u_{n+1} \mid \cdots \mid u_{n+k}\right] \ne 0.\]
+To construct a local section, note that there is an open neighborhood $U$ of the standard frame $(e_{n+1}, \ldots, e_{n+k})$ consisting of those $(u_{n+1}, \ldots, u_{n+k})$ satisfying the condition \[\det\left[e_1 \mid \cdots \mid e_n \mid u_{n+1} \mid \cdots \mid u_{n+k}\right] \ne 0.\]
 On $U$, the local section is defined by applying Gram--Schmidt to the block matrix of columns $[e_1 \mid \cdots \mid e_n \mid u_{n+1} \mid \cdots \mid u_{n+k}]$ to produce an element of $O(n+k)$.
 \end{example}
 
@@ -1082,7 +1089,14 @@ On $U$, the local section is defined by applying Gram--Schmidt to the block matr
 The further quotient by \[\left\{ \left[ \begin{array}{c|c} O(n) & 0 \\ \hline 0 & O(k) \end{array} \right] \right\} \le O(n+k)\] gives the space of $k$--dimensional subspaces in $\R^{n+k}$.
 Consider the open neighborhood $U$ of $(e_{n+1}, \ldots, e_{n+k})$ consisting of those subspaces $W$ which trivially intersect the subspace $\<e_1, \ldots, e_n\>$.
 By projecting $e_{n+1}, \ldots, e_{n+k}$ into $W$ and applying Gram--Schmidt, this produces an orthonormal $k$--frame, i.e., a section landing in $O(n+k) / O(n)$.
-This can ultimately be used to construct a fiber bundle \[O(n) \to \frac{O(n+k)}{O(k)} \to \frac{O(n+k)}{O(n) \times O(k)},\] even though the middle term is not a group.
+This can be used to construct a triple of fiber bundles
+\begin{center}
+\begin{tikzcd}
+& O(n) \arrow{rd} \arrow{ld} \\
+\frac{O(n+k)}{O(k)} \arrow{rr} & & \frac{O(n+k)}{O(n) \times O(k)},
+\end{tikzcd}
+\end{center}
+even though the bottom map is not a quotient from a group.
 \end{example}
 
 \begin{example}\marginnote{\citep[Examples 4.14.4, 5, 7]{Switzer}}
@@ -1092,40 +1106,42 @@ One can build analogues of these examples with $U(n)$ and $\C^n$, or with $\Sp(n
 
 \begin{example}\label{SOtoOisAFiberBundle}%
 \marginnote{\citep[Examples 4.14.3]{Switzer}}
-The sequence \[SO(n) \to O(n) \xrightarrow{\det} O(1)\] admits a section \[\pm 1 \mapsto \left( \begin{array}{c|c} \pm 1 & 0 \\ 0 & I \end{array} \right),\] which witnesses it as a fiber bundle.
+The sequence \[SO(n) \to O(n) \xrightarrow{\det} O(1)\] admits a section \[\pm 1 \mapsto \left( \begin{array}{c|c} \pm 1 & 0 \\ \hline 0 & I \end{array} \right),\] which witnesses it as a fiber bundle.
 \end{example}
 
 \begin{example}\marginnote{\citep[Proposition 4.15]{Switzer}}
 Applying the long exact sequence of homotopy for a fiber bundle to \Cref{SOtoOisAFiberBundle} shows \[\pi_{\ge 1} SO(m) \cong \pi_{\ge 1} O(n).\]
 \end{example}
 
+\noindent
 This isomorphism of homotopy groups is attractive enough that we give fiber bundles with discrete fibers a special name:
 
 \begin{definition}\marginnote{\citep[Definition 4.16]{Switzer}}
-A \define{covering} of $B$ is a fiber bundle with discrete fiber.
+A fiber bundle with discrete fiber is called a \define{covering space}.
 \end{definition}
 
 \begin{example}\marginnote{\citep[Examples 4.18.1]{Switzer}}
 The quotient sequence \[\Z \to \R \to S^1\] witnesses $\R$ as a cover of $S^1$ with discrete fiber $\Z$.
-The local section in this case is given by \[z \mapsto \frac{1}{2 \pi i} \log z.\]
+Thinking of $S^1 \subseteq \C$ as the complex numbers of unit norm, a local section is given by \[z \mapsto \frac{1}{2 \pi i} \log z.\]
 \end{example}
 
 A discrete fiber has sufficiently simple structure that one can often automatically construct fiber bundles as quotients by group actions, without needing to manufacture a local section to guarantee sane behavior.
-As our final task for today, we record this easier situation.
+We also record this easier situation.
 
 \begin{definition}\marginnote{\citep[4.19]{Switzer}}
-A discrete group $G$ acts \define{properly discontinuously} on $X$ when\ldots
+A discrete group $G$ acts \define{properly discontinuously} on a space $X$ when\ldots
 \begin{enumerate}
-    \item \ldots for all points $x \in X$ there is a neighborhood $U_x$ so that $g U_x$ never intersects $U_x$ for non-identity $g$.\label{PropDiscon1}
+    \item \ldots each point $x \in X$ admits a neighborhood $U_x$ so that $g U_x$ never intersects $U_x$ for non-identity $g$.\label{PropDiscon1}
     \item \ldots for all points $x, y \in X$ in different orbits, there are neighborhoods $U_x$, $U_y$ so that $gU_x$ never meets $U_y$.\label{PropDiscon2}
 \end{enumerate}
 \end{definition}
 
 \begin{lemma}\marginnote{\citep[Proposition 4.20]{Switzer}}
-If $G$ acts properly discontinuously on $X$, then $G \to X \xrightarrow p X/G$ is a covering (and $X/G$ is Hausdorff).
+If $G$ acts properly discontinuously on $X$, then $p\co X \to X/G$ is a covering (and $X/G$ is Hausdorff).
 \end{lemma}
 \begin{proof}
-For $[x] \in X/G$, choose a neighborhood $U_x$ guaranteed by \eqref{PropDiscon1}, and let $p(U_x)$ be the neighborhood of $[x]$ in the base.  We using the unicity in \eqref{PropDiscon1} to define the local section \[p^{-1}(p(U_x)) \to G \times p(U_x). \qedhere\]
+For $[x] \in X/G$, choose a neighborhood $U_x$ guaranteed by \eqref{PropDiscon1}, and let $p(U_x)$ be the neighborhood of $[x]$ in the base.
+The disjointness property allows us to define the local section \[p^{-1}(p(U_x)) \to G \times p(U_x). \qedhere\]
 \end{proof}
 
 \begin{remark}\marginnote{\citep[Remarks 4.21.i]{Switzer}}
@@ -1134,16 +1150,16 @@ If $\pi_0 X = 0$, then in the short exact sequence of pointed sets \[0 \to \pi_1
 
 \begin{example}\label{Pi1S1Calculation}\marginnote{\citep[Remarks 4.21.iv]{Switzer}}
 $\Z$ acting on $\R$ by $1 \cdot x = x+1$ is properly discontinuous.
-Since $\R$ is contractible, we may conclude \[\pi_n S^1 = \begin{cases} \Z & \text{when $n = 1$}, \\ 0 & \text{otherwise}. \end{cases}\]
+Since $\R$ is furthermore contractible, we conclude \[\pi_n S^1 = \begin{cases} \Z & \text{when $n = 1$}, \\ 0 & \text{otherwise}. \end{cases}\]
 \end{example}
 
 \begin{remark}\marginnote{\citep[Remarks 4.21.ii]{Switzer}}
-A covering $p\co E \to B$ is \define{regular} if $p_*(\pi_1 E) \subseteq \pi_1 B$ is normal.
-All regular covers arise as quotients by a $G$--action.
+A covering $p\co E \to B$ is \define{normal} if $p_*(\pi_1 E) \subseteq \pi_1 B$ is normal.
+All normal covers arise as quotients by a $G$--action on $E$.
 \end{remark}
 
 \begin{remark}\marginnote{\citep[Remarks 4.21.iii]{Switzer}}
-For $G$ finite, $X$ Hausdorff, and no fixed points, the $G$--action is properly discontinuous.
+For $X$ a Hausdorff space, acted on by a finite group $G$ without fixed points, the $G$--action is automatically properly discontinuous.
 \end{remark}
 
 \todo{Mention the $\pi_1$ action somewhere in all of this.}
