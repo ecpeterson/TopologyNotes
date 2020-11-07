@@ -32,6 +32,8 @@
 \counterwithin{table}{section}
 }
 
+\input{colorwheel}
+
 \newcommand{\CatOf}[1]{\mathsf{#1}}
 \newcommand{\define}[1]{\textit{#1}}
 \newcommand{\OS}[2]{\underline{\smash{#1}}_{#2}}
@@ -57,6 +59,7 @@
 
 \newcommand{\bigast}{\mathop{\scalebox{2.5}{\raisebox{-0.35ex}{$\ast$}}}}
 \newcommand{\co}{\colon\thinspace}
+\renewcommand{\emptyset}{\varnothing}
 \renewcommand{\epsilon}{\varepsilon}
 \newcommand{\eps}{\epsilon}
 \newcommand{\from}{\leftarrow}
@@ -96,5 +99,7 @@
 \newtheorem{problem}[dummy]{Problem}
 \newtheorem{task}[dummy]{Task}
 
-\title[Topology from an Algebraic Viewpoint]{Topology from an \\ Algebraic Viewpoint \\ \vspace{3\baselineskip}{\tiny \today}}
+\title[Topology from an Algebraic Viewpoint]{%
+Topology from an \\ Algebraic Viewpoint %
+\\ \vspace{3\baselineskip}{\tiny \today}}
 \author{Eric Peterson}

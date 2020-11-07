@@ -2,6 +2,12 @@
 
 \chapter{Representability}\label{RepChap}
 
+In this Chapter, we turn to one of the most unique features of homotopy theory: Brown's representability theorem shows that many of the tools of algebraic topology can themselves be thought of as homotopy types in their own right.
+We have already encountered this idea with our most fundamental tools so far: homotopy groups are corepresented by spheres, and cohomology groups are represented by Eilenberg--Mac Lane spaces, and this gives a wild generalization of this pattern.
+As an application of this idea, we introduce the notions of the \define{localization} and \define{completion} of a space, imported from their corresponding algebraic effects on homotopy groups.
+We also introduce the notion of a \define{spectrum}, whose role is to capture the elaborate structure present in a co/homology theory beyond mere representability.
+Spectra are interesting enough objects in their own right, and will play a large enough role later on, that we work through a good amount of their fundamental theory here.
+
 \todo{This used to live in the obstruction theory section, where it no longer makes sense because we don't know what infinite loopspaces are.
 It probably belongs somewhere in this chapter.}
 % \begin{example}
@@ -24,6 +30,7 @@ Let $F\co h\CatOf{Spaces}^{\op}_{\mathrm{conn}, */} \to \CatOf{Sets}_{*/}$ be a 
     \item[Wedge axiom:] $F$ converts wedges to products, as in \[F(\bigvee_\alpha X_\alpha) \cong \prod_\alpha F(X_\alpha).\]
     \item[Gluing condition:] Elements in the image of $F$ glue.
     For a decomposition $X = A_1 \cup A_2$ and for elements $f_1 \in F(A_1)$, $f_2 \in F(A_2)$ which agree on the intersection, as in \[f_1|_{A_1 \cap A_2} = f_2|_{A_1 \cap A_2},\] then there exists a glued element $f \in F(X)$ which satisfies $f_1 = f|_{A_1}$ and $f_2 = f|_{A_2}$.
+    \todo{Remark that this isn't quite the sheaf axiom.}
 \end{description}
 There then exists a \define{representing CW-complex} $Y$ and a \define{universal element} $u \in F(Y)$ such that the natural transformation
 \begin{align*}
@@ -252,7 +259,7 @@ X \arrow{r} \arrow{d} & \widehat X \arrow{d} \\
 % A \define{class} of abelian groups is a collection $\CC$ such that
 % \begin{enumerate}
 %     \item For $0 \to A' \to A \to A'' \to 0$, $A \in \CC$ if and only if $A', A'' \in \CC$.  (``Closed under $+$, $-$.'')
-%     \item For $A \in \CC$ and $B$ a group, $A \otimes B \in \CC$.  (``Closed under $\cdot$, an ideal.'')\footnote{Sometimes we just ask for $A \otimes A'$ and $\Tor(A, A')$ to lie in $\CC$.}
+%     \item For $A \in \CC$ and $B$ a group, $A \otimes B \in \CC$.  (``Closed under $\cdot$, an ideal.'')\marginnote{Sometimes we just ask for $A \otimes A'$ and $\Tor(A, A')$ to lie in $\CC$.}
 %     \item For $A \in \CC$, $H_{* > 0}(BA; \Z) \in \CC$.
 % \end{enumerate}
 % \end{definition}
@@ -610,3 +617,11 @@ This is a consequence of the following diagram:
 \end{tikzcd}
 \end{center}
 \end{proof}
+
+
+
+\begin{subappendices}
+
+\section{Grassmannians}
+
+\end{subappendices}

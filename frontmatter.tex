@@ -11,7 +11,7 @@
     \item We use these tools to effect computations, entirely algebraic in origin, but with geometric interpretations.\label{ComputationsGoal}
 \end{enumerate}
 
-This final goal is our true goal---we are not out to set up theory for its own sake, but in order to compute quantities already of interest and to motivate interest in entirely new quantities.  Because of this centrality, we highlight a particular computation to come and its flavor when presented in this framework.  We begin with the $n$--sphere $S^n$.\footnote{Most any simply-connected space with known cohomology groups will do.}  Its homotopy groups are notoriously difficult and important to compute; in fact, we will show during our exploration of \eqref{DecompGoal} that their nontriviality is essentially why homotopy theory itself is nontrivial.  In spite of---or because of---their difficulty, we would like to be able to compute as much as possible about them.  The Hurewicz theorem from \eqref{InvariantsGoal} describes a link between homotopy and homology: for a space $X$ and $m > 1$, when $\pi_{< m} X = 0$ then there is a natural isomorphism $\pi_m(X) \cong H_m(X; \Z)$.  Using our prior knowledge of the homology of the sphere, this garners us one of its homotopy groups: $\pi_n S^n \cong \Z$.  One of the decompositions studied in \eqref{DecompGoal} cleaves the homotopy groups of $S^n$ into two pieces: there is an ``exact sequence'' \[S^n[n+1, \infty) \to S^n \to K(\pi_n S^n, n),\] where these new spaces $S^n[n+1, \infty)$ and $K(\pi_n S^n, n)$ have the properties
+This final goal is our true goal---we are not out to set up theory for its own sake, but in order to compute quantities already of interest and to motivate interest in entirely new quantities.  Because of this centrality, we highlight a particular computation to come and its flavor when presented in this framework.  We begin with the $n$--sphere $S^n$.\marginnote{Most any simply-connected space with known cohomology groups will do.}  Its homotopy groups are notoriously difficult and important to compute; in fact, we will show during our exploration of \eqref{DecompGoal} that their nontriviality is essentially why homotopy theory itself is nontrivial.  In spite of---or because of---their difficulty, we would like to be able to compute as much as possible about them.  The Hurewicz theorem from \eqref{InvariantsGoal} describes a link between homotopy and homology: for a space $X$ and $m > 1$, when $\pi_{< m} X = 0$ then there is a natural isomorphism $\pi_m(X) \cong H_m(X; \Z)$.  Using our prior knowledge of the homology of the sphere, this garners us one of its homotopy groups: $\pi_n S^n \cong \Z$.  One of the decompositions studied in \eqref{DecompGoal} cleaves the homotopy groups of $S^n$ into two pieces: there is an ``exact sequence'' \[S^n[n+1, \infty) \to S^n \to K(\pi_n S^n, n),\] where these new spaces $S^n[n+1, \infty)$ and $K(\pi_n S^n, n)$ have the properties
 \begin{align*}
 \pi_* K(\pi_n S^n, n) & = \begin{cases} \pi_n S^n & \text{if $* = n$}, \\ 0 & \text{otherwise}, \end{cases} \\
 \pi_* S^n[n+1, \infty) & = \begin{cases} \pi_* S^n & \text{if $* \ge n + 1$}, \\ 0 & \text{otherwise}. \end{cases}
@@ -31,6 +31,19 @@ The Serre spectral sequence, a tool from \eqref{ComputationsGoal}, interrelates 
 \todo[inline]{Jun Hou gave a couple of lectures about the hammock localization midway through this.}
 \todo[inline]{Admit that these notes do not exhaustively cover their references.}
 \todo[inline]{Mention that this class won an award.}
+
+
+
+
+% \subsection{Acknowledgements}
+
+% Class students: Andrew Gordon, Daniel (Dongryul) Kim, Wyatt Mackey, Rohil Prasad, Reuben Stern;
+% Class assistants: Jun Hou Fung, Xiaolin Shi
+% My educators: Mike Hopkins, Matt Ando, Constantin Teleman, Hood Chatham, Geoffrey Lee, Haynes Miller, Clifford Taubes
+% Source material: Switzer, Mosher and Tangora
+% Friends and family: Samrita Dhindsa
+% Advice: Dave Carchedi
+% Direct material: Reuben Stern's A(1) pictures
 
 
 

@@ -1,8 +1,16 @@
 % -*- root: main.tex -*-
 
-\chapter{Computations in the Homotopy Groups of Spheres}
+\chapter{Computations in the Homotopy Groups of Spheres}\label{ComputationsChapter}
 
-\todo[inline]{Inject an introduction.}
+At last, we come to the program outlined in the introduction to this book, which employs all of the technology developed so far.
+
+Our goal now is to perform some computatins in the homotopy groups of spheres, themselves interesting for their role in determining what attaching maps are available during the cellular construction of homotopy types.
+Our access to these groups is indirect and manifold.
+In the first method, known as \define{Serre's method}, we will essentially construct the Postnikov decomposition of a sphere by using the Serre spectral sequence and our intimate knowledge of the Steenrod algebra to deduce how its $k$--invariants \emph{must} fit together.
+In the second method, we will assemble various stable phenomena to produce a simplification of the computation that is valid for spheres of large dimension, known as the \define{Adams spectral sequence}.
+In the third method, we will use certain exact sequences among the spheres themselves, called \define{EHP sequences}, to propagate the knowledge garnered in the first two attempts to otherwise unreachable areas.
+
+By the conclusion of this chapter, we will have computed $\pi_{n+k} S^n$ for all $n \ge 1$ and for $0 \le k \le 7$, though our methods could certainly be pushed farther by the interested reader.
 
 
 
@@ -14,11 +22,12 @@ Recall that when we were constructing Eilenberg--Mac Lane spaces, we started wit
 It turns out that the \define{Eckmann--Hilton dual} to this approach is also possible, as motivated by the following observation:
 
 \begin{remark}\label{KillingCohWithExact}
+\marginnote{\citep[Formula 11.1]{MosherTangora}}
 \marginnote{If a cohomology class is \define{spherical}, one can take the cofiber to kill the class.
 This makes more obvious use of the Eilenberg--Steenrod axioms.
 However, not all cohomology classes are spherical, and even for a spherical class a choice of spherical representative is potentially unnatural.}
 Consider a cohomology class $\omega \in H^n(X; A)$, represented by a map $\omega\co X \to K(A, n)$.
-In the spectral sequence for $K(A, n-1) \to * \to K(A, n)$, we know that the fundamental class transgresses.
+In the spectral sequence for \[K(A, n-1) \to * \to K(A, n),\] we know that the fundamental class transgresses.
 Now consider the pulled back fibration, $P_\omega$:
 \begin{center}
 \begin{tikzcd}
@@ -38,6 +47,7 @@ We start with an Eilenberg--Mac Lane space, which has \emph{both} known homotopy
 We will then repeatedly apply the exact sequence technique from \Cref{KillingCohWithExact} to excise the bottom layer of cohomology (which gives some information about homotopy via Hurewicz), ultimately producing a space with minimal homology.
 In order to make full use of \Cref{KillingCohWithExact}, we will work with mod--$2$ homology rather than integral homology---which means, according to \Cref{WhatIsModPGoodFor}, that we will produce a model for $(S^n)_2$.
 
+\marginnote{\citep[pg.\ 114--118]{MosherTangora}}
 Let's get started, beginning with $X_n = K(\Z, n)$.
 This space models a downward Postnikov trunction of $S^n$: \[S^n \to S^n[0, n] = K(\Z, n).\]
 The mod--$2$ cohomology of $S^n[0, n]$ matches that of $S^n$ through degree $n+1$, but there is a class $\Sq^2 \iota_n \in H^{n+2}(S^n[0, n]; \F_2)$ which is not present in $H^{n+2}(S^n; \F_2)$.
@@ -119,6 +129,7 @@ k & = 8: & \textcolor{red}{(\Sq^5 + \Sq^4 \Sq^1) \iota_{n+2}}, \\
 The first abberation from $H^{\le n+7}(S^n; \F_2)$ is now \[\Sq^4 \iota_n \in H^{n+4}(S^n[0, n+2]; \F_2).\]
 We would like to apply \Cref{KillingCohWithExact} to the map $\Sq^4 \iota_n\co S^n[0, n+2] \to K(\Z/2, n+4)$, but there is no class $\Sq^1 \Sq^4 \iota_n \in H^*(S^n[0, n+2]; \F_2)$, so that $\Sq^1 \iota_{n+3}$ will contribute another class in the same degree.
 This signifies that we should use $K(\Z/2^j, n+4)$ instead for some $j > 1$, according to which $j$ satisfies \[\beta_j \Sq^4 \iota_n = \Sq^3 \iota_{n+2}.\]
+\todo{The Lemma only works up to filtration.}
 To make this calculation, we appeal repeatedly to \Cref{BocksteinLemma}, which says that \[\beta_j \Sq^4 \iota_n = \Sq^1(\Sq^2 \iota_{n+2})\] would hold if \[\beta_{j-1} \Sq^4 \iota_n = \Sq^1(\Sq^2 \Sq^1 \iota_{n+1}) = d(\Sq^2 \iota_{n+2})\] were true, where $d$ denotes a transgressive differential.
 In turn, this left equality would hold if \[\beta_{j-2} \Sq^4 \iota_n = \Sq^1 (\Sq^4 \iota_n) = d(\Sq^2 \Sq^1 \iota_{n+1})\] were to hold, where $d$ is now the transgressive differential associated to the \emph{previous} exact sequence.
 This can be made to hold by taking $j = 3$, so that \[\beta_3 \Sq^4 \iota_n = \Sq^3 \iota_{n+2}.\]
@@ -142,6 +153,7 @@ k & = 8: & \textcolor{red}{\Sq^4 \iota_{n+3}}, \\
 \noindent
 From this we conclude that the next abberrant class lies in degree $7$.
 
+\marginnote{\citep[Theorem 12.2]{MosherTangora}}
 Looking back at the Postnikov layers we have constructed, we see that we have computed
 \todo{Use booktabs}
 \[\begin{array}{c|ccccccc}
@@ -156,6 +168,7 @@ We will meet this again.
 }
 
 \begin{remark}\label{UnstableSerresMethodEx}
+\marginnote{\citep[pg.\ 123--127]{MosherTangora}}
 \marginnote{
 \begin{sseqdata}[name = SerreS304, cohomological Serre grading, yscale = 0.6, x range = {0}{10}, y range = {0}{9}, xscale = 0.5]
 % bottom row
@@ -261,8 +274,8 @@ and the map $\pi_{n+1} X \to H_{n+1} X$ is onto.
 Altogether, this shows $X'$ to be $(n-1)$--connected and that there is an inclusion $\pi_n X' < \pi_n X$.
 \end{proof}
 
-\begin{theorem}
-Let $\overline H \to \S \xrightarrow \eta H$ be the fiber of the unit map.
+\begin{theorem}\marginnote{\citep[Proposition 19.12]{Switzer}}
+Let $\overline H \to \S \xrightarrow \eta H$ be the exact extension of the unit map.
 For $X$ a connected spectrum with $\pi_* X$ $2$--torsion and degreewise finite exponent, the associated co-filtered object
 \begin{center}
 \begin{tikzcd}
@@ -299,7 +312,7 @@ Our goal in this section is to learn a systematic method for computing in the $E
 The idea is that connected, graded, finite-type Hopf algebras admit filtration (essentially by ``word length'') which \emph{trivialize} their multiplication and comultiplication.
 This gives a spectral sequence beginning with the cohomology of a bouquet of exterior algebras.
 
-\begin{theorem}[May]
+\begin{theorem}[May]\marginnote{\citep{May}}
 There is a spectral sequence \emph{of algebras} with $E_1^{*, *, *} \cong \F_2[h_{ij} \mid i \ge 1, j \ge 0]$ converging to the Adams $E_2$--term for the sphere.
 The element $h_{ij}$ is represented by $\xi_i^{2^j}$, hence \[d_1 h_{ij} = \sum_{k=1}^{i-1} h_{kj} h_{(i-k)(k+j)}. \qed \]
 \end{theorem}
@@ -331,15 +344,19 @@ We now give a flavor of this computation, working column by column:
     \item The first column is populated by $h_{10}^j h_{11}$, and $d(h_{20}) = h_{10} h_{11}$ removes all but the first one.
     \item The second column is populated by $h_{10}^j h_{11}^2$, and again only $h_{11}^2$ survives.
     \item After clearing the differential $d(h_{10}^j h_{11}^2 h_{20}) = h_{10}^{1+j} h_{11}^3$, the third column is populated by $h_{11}^3$ and $h_{10}^j h_{12}$.
-    At this point, we need to invoke a useful theorem of Nakamura:
-\begin{theorem}[Nakamura]
+    At this point, we will invoke a useful theorem of Nakamura:
+\begin{theorem}[Nakamura]\marginnote{\citep{Nakamura}}
+\marginnote{%
+Nakamura actually proves these items with various bounds on the size of $x$ and $y$.
+His bound is more than enough to pursue the calculation through our range of interest, but the Theorem appears to hold even without a bound.
+}
 There are operators $\Sq^n$ acting on the May spectral sequence, satisfying\ldots
 \begin{enumerate}
     \item $\Sq^0 h_{ij} = h_{i(j+1)}$.
     \item $\Sq^1 h_{ij} = h_{ij}^2$.
     \item $\Sq^n$ is linear.
     \item $\Sq^n(x \cdot y) = \sum_{i+j=n} \Sq^i(x) \Sq^j(y)$.
-    \item $\Sq^n(d_? x) = d_? \Sq^n(x)$, where ``$?$'' is \emph{unknown}.
+    \item $\Sq^n(d_? x) = d_? \Sq^n(x)$, where ``$?$'' is as small as possible so that both sides are nonzero.
 \end{enumerate}
 \end{theorem}
     We can then compute 
@@ -409,20 +426,24 @@ There are operators $\Sq^n$ acting on the May spectral sequence, satisfying\ldot
 }
 This is already enough to recover the range we worked through with Serre's method.
 We include at right a picture of the spectral sequence through degree $15$.
-\marginnote{%
+
+\begin{remark}
 We have additionally included a pair of Adams differentials
 \begin{align*}
 d_2(h_{14}) & = h_{13}^2 h_{10}, &
-d_3(h_{10} h_{14}) & = h_{10} d_0.
+d_3(h_{10}^{1+j} h_{14}) & = h_{10}^{1+j} d_0.
 \end{align*}
 Resolving the presence of absence of these differentials manifests in Serre's method as an indeterminacy in the Serre spectral sequence at that stage.
 These differentials also have a geometric origin: their presence is equivalent to the nonexistence of a normed real division algebra of dimension $16$.
 In fact, the Adams differentials $d_2(h_{1j}) = h_{10} h_{1(j-1)}^2$ prohibit the existence of such division algebras of dimension $2^j$ for $j \ge 4$.
+\marginnote{\citep{Adams}}
 This differential was originally deduced by Adams through an intensive study of secondary cohomology operations.
+\marginnote{\citep{AdamsAtiyah}}
 Later, Adams found a second, shorter proof using Adams spectral sequences based on other cohomology theories (viz., $K$--theory and complex bordism).
+\marginnote{\citep[Corollary VI.1.5]{BMMS}}
 A third proof was produced by Bruner using power operations---a kind of spiritual cousin to Nakamura's theorem above.
 These are all well beyond the technology presented in these notes, though they are each logical subjects for the reader to study next.
-}
+\end{remark}
 
 \begin{remark}
 \marginnote{%
@@ -448,7 +469,7 @@ More than this, we can use the algebra structure of the May $E_\infty$--page to 
 Our goal today is to construct some important maps, called \define{Hopf invariants}, and to identify their fibers in one extremely important case.
 
 The main ingredient is the following reflection of algebra in topology:
-\begin{theorem}[James]
+\begin{theorem}[James]\marginnote{\citep[Proposition 4.2.2]{Neisendorfer}}
 \marginnote{%
 Though we will not recount it, the proof of this is surprisingly easy.
 The idea is to show it rational homology and in mod--$p$ homology for all $p$, then use Hurewicz.
@@ -460,6 +481,7 @@ For $X$ connected, there is an equivalence
 
 \noindent
 This splitting is highly nontrivial, and the inverse map that James's theorem guarantees is full of interesting information.
+\marginnote{\citep[pg.\ 122--124]{Neisendorfer}}
 For instance, the map \[\Susp \Loops \Susp X \xrightarrow\simeq \Susp\left(\bigvee_j X^{\sm j}\right) \to \Susp X^{\sm 2}\] is adjoint to a map \[\Loops \Susp X \xrightarrow h \Loops \Susp X^{\sm 2}\] called the \define{Hopf invariant}.
 \marginnote{
 This construction is important, for instance, in the vector fields on spheres problem: an $H$--space structure on a sphere gives rise to an interesting map
@@ -497,6 +519,7 @@ If we can show the edge homomorphism is injective,
 then the spectral sequence will have to collapse.
 
 Since the cohomology changes based on the parity of $n$, we break into those two cases.
+\marginnote{\citep[Corollary 4.4.3]{Neisendorfer}}
 Let's begin with $n = 2m + 1$.
 In this case, we have
 \begin{center}
@@ -512,6 +535,7 @@ Since the Serre spectral sequence then collapses, in order for its $E_2$--page t
 Since $F$ is simply connected, we thus learn $F \simeq S^n$.
 
 Next, we turn to the case where $n = 2m$ is even.
+\marginnote{\citep[Proposition 4.4.4]{Neisendorfer}}
 This time the same map acts by
 \begin{align*}
 \Gamma[x_{2n}] & \to \Gamma[y_n], \\
@@ -540,7 +564,10 @@ It follows that its factorization \[S^n \xrightarrow\simeq F \to \Loops \Susp S^
 
 \section{Calculations in the EHP spectral sequence}
 
-\todo{This is missing some $2$--localizations in the notation.}
+\begin{center}
+\textbf{In this section, we will implicitly $2$--localize everything.}
+\end{center}
+
 Last time, we produced an exact sequence \[S^n \to \Loops S^{2n+1} \to \Loops S^{n+1},\] and \Cref{LexseqInvolvingP} gives rise to exact sequences \[\Loops^m S^n \to \Loops^{m+1} S^{2n+1} \to \Loops^{m+1} S^{n+1}\] for all $m \ge 0$.
 Judicious choice of $m$ allows us to knit these exact sequences together into a filtered object:
 
@@ -553,7 +580,7 @@ Judicious choice of $m$ allows us to knit these exact sequences together into a 
 \end{center}
 \end{figure*}
 
-\begin{definition}
+\begin{definition}\marginnote{\citep[Proposition 1.5.7]{Ravenel}}
 Taking homotopy groups then gives the \define{EHP spectral sequence} of signature \[E^1_{s, t} = \pi_s \Loops^t S^{2t-1} \cong \pi_{s+t} S^{2t-1} \Rightarrow \pi_* \S.\]
 \end{definition}
 
@@ -598,7 +625,7 @@ The $j$\textsuperscript{th} column of the $E_\infty$--page of the spectral seque
 These facts together are enough to make a small observation: the $s = 1$ column is empty aside from a torsion-free group in position $(1, 2)$, hence this group must receive a differential if it's to compute the expected $\pi_1 \S \cong \Z/2$.
 This is actually part of a family of differentials:
 
-\begin{lemma}
+\begin{lemma}\marginnote{\citep[Proposition 1.5.13]{Ravenel}}
 The differentials \[d^1\co E^1_{s,s+1} \to E^1_{s-1,s}\] along the main diagonal are given by multiplication by $1 + (-1)^s$.
 \end{lemma}
 \begin{proof}
@@ -613,6 +640,7 @@ These maps assemble into a map of exact sequences:
 O(n-1) \arrow{r} \arrow["J_{n-1}"]{u} & O(n) \arrow{r} \arrow["J_n"]{u} & S^{n-1}. \arrow{u}
 \end{tikzcd}
 \end{center}
+\marginnote{Actually, the right-hand square only commutes after looping once, but it commutes as-is after applying $\pi_*$.}
 The behavior of this map and of the exact sequence involving the orthogonal groups is complex, but one may check geometrically that the map $S^{n-1} \to \Loops^n S^{2n-1}$ selects the bottom cell.
 
 To avoid the complexity of the orthogonal groups, we may restrict to an even simpler situation: there is a map \[\RP^{n-1} \to O(n)\] which sends a line in $\R^n$ to the reflection along that line.
@@ -627,14 +655,14 @@ but this time the bottom row is a \emph{coexact} sequence.
 The functorial Hurewicz isomorphism $\pi_{n-1} S^{n-1} \cong H_{n-1}(S^{n-1}; \Z)$ means that, for the purposes of understanding this bottommost group, we can study the behavior of the exact sequence in homology.
 This family of coexact sequences assembles into the cellular filtration of $\RP^\infty$, and the associated spectral sequence is that of \Cref{CellularHomologyWorks}.
 The differential in $C^{\mathrm{cell}}_*(\RP^\infty; \Z)$ is given by the claimed formula.
-\marginnote[-5\baselineskip]{
+\marginnote[-10\baselineskip]{
 \begin{sseqdata}[name = EHP, update existing]
 \d1(2,3)(1,2)
 \d1(4,5)(3,4)
 \d1(6,7)(5,6)
 \d1(8,9)(7,8)
 \structline(3,2)(3,3)
-\structline(3,3)(3,4)
+\structline[densely dotted](3,3)(3,4)
 \end{sseqdata}
 \printpage[name = EHP, page = 0]
 }
@@ -667,9 +695,27 @@ where it is found to be $\Z/2$.
 
 These kinds of observations power significant inductive computation.
 They also power inductive proofs of \emph{qualitative} results, as in the following:
-\todo{Finish diff'ls and structlines.}
-\marginnote{
-We also include a picture of the fully specified EHP spectral sequence in this range.
+
+\begin{corollary}
+The rational homotopy groups of spheres are given by
+\begin{align*}
+\pi_* S^{2n+1} \otimes \Q & \cong \Susp^{2n+1} \Q, &
+\pi_* S^{2n} \otimes \Q & \cong \Susp^{2n} \Q \oplus \Susp^{4n-1} \Q.
+\end{align*}
+\end{corollary}
+\begin{proof}
+We begin by studying the torsion-free groups on the main diagonal.
+After the $E_2$--page, all those groups other than $E^1_{0,1}$ get replaced by torsion groups: either $0$ or $\Z/2$.
+When truncating the spectral sequence to study the homotopy groups of the even-dimensional sphere $S^{2n}$, the torsion-free group in position $E^1_{2n-1, 2n}$ is no longer able to receive a differential, hence survives to contribute a torsion-free term to $\pi_{4n-1} S^{2n}$.
+This phenomenon does not occur for odd-dimensional spheres: the truncation in that case deletes only pairs of terms on the main diagonal.
+
+We must additionally argue that the region below the main diagonal is populated only by finite torsion groups.
+Using the truncation method, each term $E^1_{s, t} = \pi_{s+t} S^{2t-1}$ is determined by the terms $E^1_{\le t-s-1, \le 2t-1}$---that is, the distance of a term from the main diagonal determines what vertical strip of the spectral sequence is needed to understand it.
+The march of the diagonal line down-and-right outpaces the march of the vertical line to the right, powering the inductive claim that if the corner of the $E^\infty$--page is finite and torsion (apart from $E^\infty_{0,1}$), then the entire $E^\infty$--page is finite and torsion (apart from $E^\infty_{0,1}$).
+\end{proof}
+
+\marginnote[-10\baselineskip]{
+We also include a picture of the fully specified EHP spectral sequence in this range~\citep[Figure 1.5.9]{Ravenel}.
 \begin{sseqdata}[name = EHP, update existing]
 \class[fill](5,2)
 \class[fill](6,2)
@@ -689,24 +735,17 @@ We also include a picture of the fully specified EHP spectral sequence in this r
 \replaceclass(5,6)
 \d2(5,6)(4,4)
 \d2(6,6)(5,4)
+
+\structline[densely dotted](7,8)(7,7)
+\structline(7,7)(7,6)
+\structline(7,6)(7,5)
 \end{sseqdata}
 \printpage[name = EHP, page = 0]
 }
 
-\begin{corollary}
-The rational homotopy groups of spheres are given by
-\begin{align*}
-\pi_* S^{2n+1} \otimes \Q & \cong \Susp^{2n+1} \Q, &
-\pi_* S^{2n} \otimes \Q & \cong \Susp^{2n} \Q \oplus \Susp^{4n-1} \Q.
-\end{align*}
-\end{corollary}
-\begin{proof}
-We begin by studying the torsion-free groups on the main diagonal.
-After the $E_2$--page, all those groups other than $E^1_{0,1}$ get replaced by torsion groups: either $0$ or $\Z/2$.
-When truncating the spectral sequence to study the homotopy groups of the even-dimensional sphere $S^{2n}$, the torsion-free group in position $E^1_{2n-1, 2n}$ is no longer able to receive a differential, hence survives to contribute a torsion-free term to $\pi_{4n-1} S^{2n}$.
-This phenomenon does not occur for odd-dimensional spheres: the truncation in that case deletes only pairs of terms on the main diagonal.
 
-We must additionally argue that the region below the main diagonal is populated only by torsion groups.
-Using the truncation method, each term $E^1_{s, t} = \pi_{s+t} S^{2t-1}$ is determined by the terms $E^1_{\le t-s-1, \le 2t-1}$---that is, the distance of a term from the main diagonal determines what vertical strip of the spectral sequence is needed to understand it.
-The march of the diagonal line down-and-right outpaces the march of the vertical line to the right, powering the inductive claim that if the corner of the $E^\infty$--page is torsion (apart from $E^\infty_{0,1}$), then the entire $E^\infty$--page is torsion (apart from $E^\infty_{0,1}$).
-\end{proof}
+\begin{subappendices}
+
+\section{Bott periodicity}
+
+\end{subappendices}
