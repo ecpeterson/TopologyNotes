@@ -7,26 +7,28 @@ Two of our overall goals in this text are:
     \item
     To treat spaces as if they were algebraic objects, dissecting and assembling them by methods analogous to those we use with, e.g., modules.
     \item
-    To express common spaces using small amounts of information.
+    To express commonly encountered spaces using small amounts of information.
     The data of a circle or of projective space, considered as raw topological spaces, is extremely substantial, and it would be preferable to be able to name and manipulate these spaces at less cost---ideally, with finite expression.
 \end{enumerate}
 
 \noindent
-There are several routes to effect these.
+There are several routes to effect these goals.
 
 \begin{itemize}
     \item
     One can make a re-definition of a ``space'' which is inherently algebraic (or combinatorial).
+    \marginnote[-\baselineskip]{%
+    For example, \define{simplicial sets} and \define{Kan complexes} are two such combinatorial options.
+    }
     This eases the import of algebraic operations into this new context, but it requires one to link the chosen alternative definition with the traditional notion of a space.%
-    \todo{Cite? Simplicial sets, co--$E_\infty$ chain complexes?}
     \item
     Alternatively, one can begin with some of the traditional tools of algebraic topology, since we are already certain that these capture interesting topological behavior.
-    By adopting a particular perspective on their formal properties, these will become the desired algebraic operations.
+    By adopting the perspective that these will become the desired algebraic operations, we examine their formal properties to see what manner of algebra we are dealing with.
     This leaves open how well these methods achieve the goal of ``finite expression'', which we investigate through excessive computation.
 \end{itemize}
 
 \noindent
-We will take this last approach.
+Each approach is interesting in its own right, but we will focus on this last approach.
 The tools we develop and the language in which we cast them will become the fundamental methods of dissection and assembly used in all later chapters.
 
 
@@ -193,6 +195,7 @@ This product is related to the product on unpointed spaces by \[X_+ \sm Y_+ \con
 \begin{definition}\label{HoCatDefn}%
 \marginnote{\citep[0.7]{Switzer}}
 Finally, we introduce the \define{homotopy category of (pointed) spaces}, $h\CatOf{Spaces}_{*/}$, whose objects are the same as that of $\CatOf{Spaces}_{*/}$ but whose morphism sets are given by the quotient \[h\CatOf{Spaces}_{*/}(X, Y) = \frac{\CatOf{Spaces}_{*/}(X, Y)}{f \sim g},\] where $f \sim g$ indicates that there is a homotopy $H\co X \sm I_+ \to Y$ between $f$ and $g$.
+The objects are this category are often referred to as \define{homotopy types}.
 All of the basic invariants of algebraic topology descend to this quotient category: homotopy points and reduced homology groups behave the same on homotopic maps.
 Because we will work in this category so often, we will abbreviate this mapping set by \[h\CatOf{Spaces}_{*/}(X, Y) = [X, Y].\]
 \end{definition}
@@ -330,6 +333,7 @@ $S^1$ is an $H$--cogroup.
 We depict its structure maps by shading the loops in $S^1 \vee \cdots \vee S^1$ different colors, then pulling back that shading along the indicated map.
 For example, the comultiplication map $\mu'$ is given by quotienting together the basepoint and its antipode, and the corresponding color map looks like
 \todo{These would be improved by explicitly tagging the basepoint, which must remain black.}
+\todo{Generally, these pictures are buggy.}
 \begin{center}
     \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
         \ColourTransitionCircle{green,black,red,black}
