@@ -2,11 +2,12 @@
 
 \chapter{Representability}\label{RepChap}
 
-In this Chapter, we turn to one of the most unique features of homotopy theory: Brown's representability theorem shows that many of the tools of algebraic topology can themselves be thought of as homotopy types in their own right.
+In this Chapter, we turn to one of the most unique features of homotopy theory: Brown's representability theorem.
+This theorem shows that many of the tools of algebraic topology can themselves be thought of as homotopy types in their own right.
 We have already encountered this idea with our most fundamental tools so far: homotopy groups are corepresented by spheres, and cohomology groups are represented by Eilenberg--Mac Lane spaces, and this gives a wild generalization of this pattern.
 As an application of this idea, we introduce the notions of the \define{localization} and \define{completion} of a space, imported from their corresponding algebraic effects on homotopy groups.
 We also introduce the notion of a \define{spectrum}, whose role is to capture the elaborate structure present in a co/homology theory beyond mere representability.
-Spectra are interesting enough objects in their own right, and will play a large enough role later on, that we work through a good amount of their fundamental theory here.
+Spectra are interesting enough objects in their own right, and will play a large enough role later on, that we work through a good amount of their theory here.
 
 \todo{This used to live in the obstruction theory section, where it no longer makes sense because we don't know what infinite loopspaces are.
 It probably belongs somewhere in this chapter.}
@@ -25,12 +26,13 @@ However, in the course of our study of the homotopy theory of CW--complexes, we 
 Today we prove that this is not an accident: all sheaves in the homotopy category are representable.
 
 \begin{theorem}[Brown]\label{BrownRepThm}\marginnote{\citep[Theorem 9.12]{Switzer}}
-Let $F\co h\CatOf{Spaces}^{\op}_{\mathrm{conn}, */} \to \CatOf{Sets}_{*/}$ be a functor on pointed, connected spaces which satisfies the following pair of axioms:
+Let $F\co h\CatOf{Spaces}^{\op}_{\mathrm{conn}, */} \to \CatOf{Sets}_{*/}$ be a functor on the homotopy category of pointed, connected spaces which satisfies the following:
+\todo{Remark somewhere that phantom maps are not a concern if you work with space-valued lifts the whole while.}
 \begin{description}
-    \item[Wedge axiom:] $F$ converts wedges to products, as in \[F(\bigvee_\alpha X_\alpha) \cong \prod_\alpha F(X_\alpha).\]
+    \item[Wedge axiom:] $F$ converts wedges to products, as in \[F\left(\bigvee_\alpha X_\alpha\right) \cong \prod_\alpha F(X_\alpha).\]
     \item[Gluing condition:] Elements in the image of $F$ glue.
     For a decomposition $X = A_1 \cup A_2$ and for elements $f_1 \in F(A_1)$, $f_2 \in F(A_2)$ which agree on the intersection, as in \[f_1|_{A_1 \cap A_2} = f_2|_{A_1 \cap A_2},\] then there exists a glued element $f \in F(X)$ which satisfies $f_1 = f|_{A_1}$ and $f_2 = f|_{A_2}$.
-    \todo{Remark that this isn't quite the sheaf axiom.}
+    \todo{Remark that this isn't quite the sheaf axiom, since it's missing unicity.}
 \end{description}
 There then exists a \define{representing CW-complex} $Y$ and a \define{universal element} $u \in F(Y)$ such that the natural transformation
 \begin{align*}
@@ -54,17 +56,18 @@ is surjective for $q \le n$ and bijective for $q < n$.
 \end{definition}
 
 \begin{lemma}\label{NUnivToNPlusOne}\marginnote{\citep[Lemma 9.8]{Switzer}}
-If there exists an $n$--universal element, then there exists an $(n+1)$--universal element.
+If there exists an $n$--universal element on $Y$, then there exists a $Y'$ carrying an $(n+1)$--universal element.
 \end{lemma}
 \begin{proof}
 Suppose we have an $n$--universal element $u_n$ on a complex $Y$.
 From this, we would like to construct an $(n+1)$--universal element $u_{n+1}$ on a complex $Y'$.
-We set about trying to ``fix'' $[S^n, Y] \to F(S^n)$, which might have too many elements to be a bijection, and $[S^{n+1}, Y] \to F(S^{n+1})$, which might be missing some elements to be a bijection.
+We set about trying to ``fix'' $[S^n, Y] \to F(S^n)$, which might have too many elements to be a bijection, and $[S^{n+1}, Y] \to F(S^{n+1})$, which might be missing some elements to be a surjection.
 Note that because $S^n$ is an $H$--cogroup for $n \ge 1$, the map $[S^n, Y] \to F(S^n)$ is actually a map of groups.
 It follows that if we merely ensure that this surjective map does not have a kernel, it will be an isomorphism.
 \marginnote{This is exactly why we restricted attention to \emph{connected} spaces: it gives us control over all the fibers of the map $[S^n, Y] \to F(S^n)$, rather than just the fiber over the constant map.}
 
 This inspires us to consider the defect sets
+\todo{Why $A$ and $L$?  Seems like weird notation.}
 \begin{align*}
 A & = \{\alpha \in \pi_n Y \mid \alpha^* u_n = 0\}, &
 L & = F(S^{n+1}),
@@ -83,7 +86,15 @@ As for $(n+1)$--universality, it is designed to fix the defect at $\pi_n$ exactl
 
 \begin{lemma}\label{ClassifiedMapsAlwaysExtend}%
 \marginnote{\citep[Corollary 9.9, Lemma 9.11]{Switzer}}
-Let $Y$ be a space with universal element $u$, let $(X, A)$ be a CW-pair, let $v \in F(X)$ be a choice of element, and let $g\co A \to Y$ be a cellular map which classifyies $v|_A$.
+\marginnote{%
+\begin{tikzcd}[ampersand replacement=\&]
+\& v' \arrow[equal]{dl} \& \& u \arrow[|->]{ll} \\
+v|_A \& A \arrow["g'"]{r} \arrow[hookrightarrow]{d} \& Y \\
+\& X \arrow[densely dotted, "g"]{ur} \\
+v \arrow[|->]{uu} \arrow[densely dotted, bend right]{rrruuu}
+\end{tikzcd}
+}
+Let $Y$ be a space with universal element $u$, let $(X, A)$ be a CW-pair, let $v \in F(X)$ be a choice of element, and let $g\co A \to Y$ be a cellular map which classifies $v|_A$.
 There then exists a cellular map which classifies $v$ and which extends $g$.
 \end{lemma}
 \begin{proof}[Proof idea]
@@ -101,18 +112,19 @@ We apply Whitehead's theorem to the induced weak equivalence $Y \to Y'$ to produ
 \begin{proof}[{Proof of \Cref{BrownRepThm}}]
 To get surjectivity, set $A = \{x_0\}$ and apply \Cref{ClassifiedMapsAlwaysExtend}.
 To get injectivity, set $X' = X \times I$, $A' = X \times \partial I$, and apply \Cref{ClassifiedMapsAlwaysExtend} again.
-To get the statement about natural transformations, one need only chase $\id$ through \[[Y, Y] \xrightarrow\cong F(Y) \xrightarrow{T} F'(Y) \xleftarrow\cong [Y, Y']\] to produce an element $f$.
+To get the statement about natural transformations, one need only chase the identity transformation through \[[Y, Y] \xrightarrow\cong F(Y) \xrightarrow{T} F'(Y) \xleftarrow\cong [Y, Y']\] to produce an element $f$.
 \end{proof}
 
 There is a useful companion result that works with functors $F$ defined only on \emph{finite} CW-complexes.
 
-\begin{theorem}[Adams]\marginnote{\citep[Theorem 9.21]{Switzer}}
+\begin{theorem}[Adams]\marginnote{\citep[Theorem 9.21]{Switzer}}\label{BrownRepAdamsVersion}
 If $F$ is a functor to \emph{groups} from \emph{finite} CW-complexes satisfying the two conditions of Brown's theorem, then it is representable.
-Natural transformations induce maps of representing objects that are unique up to \emph{weak homotopy}: restricting along an incoming map from \emph{any} finite complex gives two homotopic maps. \qed
-\marginnote{
-A key trick is to define $\widehat F(X) = \lim_\alpha F(X_\alpha)$.
-This modification of $F$ satisfies the wedge axiom on the nose, it satisfies only a weak form of Mayer-Vietoris, but it gains the fact that the usual projection is an isomorphism: \[F(\lim{}_\alpha X_\alpha) \to \lim{}_\alpha F(X_\alpha).\]
-}
+Natural transformations induce maps of representing objects that are unique up to \emph{weak homotopy}: if $t, t'\co Y \to Z$ are two maps of representing objects inducing the maps $t_*$ and $t'_*$ on finite complexes, then any finite complex $f\co F \to Y$ has $t \circ f \simeq t' \circ f$. \qed
+\todo{There's a margin note here that I threw out as unhelpful.  See if it can be salvaged.}
+% \marginnote{
+% A key trick is to define $\widehat F(X) = \lim_\alpha F(X_\alpha)$.
+% This modification of $F$ satisfies the wedge axiom on the nose, it satisfies only a weak form of Mayer-Vietoris, but it gains the fact that the usual projection is an isomorphism: \[F(\lim{}_\alpha X_\alpha) \to \lim{}_\alpha F(X_\alpha).\]
+% }
 \end{theorem}
 
 
@@ -120,6 +132,7 @@ This modification of $F$ satisfies the wedge axiom on the nose, it satisfies onl
 \section{Arithmetic decomposition}
 
 \todo[inline]{Add citations from Sullivan.}
+\todo{What's the concrete punchline of this day?  What question did we start with which we can now answer?  What will we ask next?}
 
 In \Cref{FedererSSeq}, we deduced the existence of a spectral sequence with signature
 \begin{align*}
@@ -195,10 +208,10 @@ The rationalization of any simply connected CW--complex $X$ exists.
 \begin{proof}
 We produce two distinct constructions.
 
-Using $\pi_n S^n \cong \Z$ for $n \ge 1$, the rationalization $\Q \otimes S^n$ is simple to produce: \[\Q \otimes S^n = \colim \left( \cdots \to S^n \xrightarrow{p} S^n \right).\]
+First, using $\pi_n S^n \cong \Z$ for $n \ge 1$, the rationalization $\Q \otimes S^n$ is simple to produce:\todo{Flesh this out.} \[\Q \otimes S^n = \colim \left( \cdots \to S^n \xrightarrow{p} S^n \to \cdots \right).\]
 
 Second, we can also rationalize the Postnikov tower of $X$.
-\todo{Flesh this out.}
+\todo{Flesh this out too.}
 \marginnote{No rationalization (or localization) functor can preserve all co/exact extensions~\citep[pg.\ 40]{Sullivan}.}
 \end{proof}
 
@@ -216,7 +229,7 @@ The \define{profinite completion} $\widehat X$ of this functor is determined by 
 
 \begin{lemma}
 \todo{Indicate proof?}
-The functor $\widehat X$ satisfies the hypotheses for Brown representability. \qed
+The functor $\widehat X$ satisfies the hypotheses for Brown representability as in \Cref{BrownRepAdamsVersion}. \qed
 \end{lemma}
 
 \begin{definition}
@@ -233,10 +246,12 @@ H_n(\widehat X; \Z) & = \widehat{H_n(X; \Z)}.
 \end{lemma}
 
 \begin{lemma}\label{WhatIsModPGoodFor}
+\todo{Proof?  Also, corollary statement that $H_*(X; \F_p) \to H_*(\widehat X; \F_p)$ is an isomorphism for $X$ of finite type?}
 If $X$ is of finite type, $Y$ is $p$--complete, and $H_*(X; \F_p) \to H_*(Y; \F_p)$ is an isomorphism, then $X_p \to Y$ is a weak equivalence. \qed
 \end{lemma}
 
 \begin{theorem}
+\todo{Is there a proof of this that doesn't use the SSS or Serre finiteness?}
 A simply connected space $X$ can be recovered as the homotopy pullback
 \begin{center}
 \begin{tikzcd}
@@ -327,7 +342,7 @@ The remaining axiom, which we have not yet discussed, is the following:
 
 \begin{definition}[Suspension axiom]
 There is a natural isomorphism
-\marginnote{It's pleasing to write this identity as $\Susp \widetilde H^*(X) \cong \widetilde H^*(\Susp X)$.}
+\marginnote{It's pleasing to write this identity as \[\Susp \widetilde H^*(X) \cong \widetilde H^*(\Susp X).\]}
 \[\widetilde H^n(X) \xrightarrow\cong \widetilde H^{n+1}(\Susp X).\]
 \end{definition}
 
@@ -345,6 +360,7 @@ A second interesting feature of \Cref{FreudenthalThm} is that a spectral sequenc
 \todo{Find me a citation.  I don't seem to be in Switzer.}
 Let $X$ be an $s$--connected CW--complex, and let $Y$ be a CW--complex of dimension $t$.
 Then \[F(Y, X) \to F(\Susp Y, \Susp X)\] is a $(2s-t)$--equivalence. \qed
+\todo{Expand this argument.  Are we looking at a map of Federer spectral sequences for $[-, X] \to [X, \Loops \Susp X]$?  I'm unsure.}
 \end{corollary}
 
 \noindent It follows again that $\pi_m F(\Susp^n Y, \Susp^n X)$ is independent of $n$ for $n \gg 0$.
@@ -365,13 +381,15 @@ One need not leave $\CatOf{Spaces}$ to understand this new category:
 \marginnote{The map $h\CatOf{SuspensionSpectra} \to h\CatOf{Spaces}$ produced in this way is commonly denoted by $\Loops^\infty$.}
 The stable homotopy groups then appear as honest homotopy groups: \[\pi_n \Susp^\infty X \cong \pi_n QX.\]
 
-The functor $Q$ gives rise to a host of stable invariants: fixing a space $X$, the family of functors \[X^{-*}(-) := [-, Q \Susp^* X]\] satisfy the wedge and Mayer--Vietoris axioms (because the functors are representable) and suspension invariance (because $\Loops Q \Susp^{n+1} X = Q \Susp^n X$).
-Unfortunately, not all cohomology theories arise in this way: there is generally no space $X$ so that $QX \simeq K(A, n)$.
-This failure, however, is interesting on its own and measureable.
+The functor $Q$ gives rise to a host of stable invariants: fixing a space $X$, the family of functors \[X^{-*}(-) := [-, Q \Susp^* X]\] satisfy the wedge and Mayer--Vietoris axioms (because the functors are representable), and they are additionally \emph{suspension invariant} (because $\Loops Q \Susp \Susp^n X = Q \Susp^n X$).
+Unfortunately, not all cohomology theories arise in this way: there is generally no space $X$ so that $QX \simeq K(A, n)$.\todo{Be clear about what fails and how partial the failure is, since, e.g., $K(\Q, n) = QK(\Q, n)$.}
+This failure, however, is interesting on its own, measureable, and surmountable.
 Consider the space $QK(A, n)$: \Cref{FreudenthalThm} shows that its homotopy is given by \[\pi_* K(A, n) \cong \begin{cases} 0 & \text{when $* < n$}, \\ A & \text{when $* = n$}, \\ 0 & \text{when $n < * \le 2n$}, \\ ??? & \text{otherwise}. \end{cases}\]
 As $n$ increases, the range through which $K(A, n) \to QK(A, n)$ is an equivalence grows like $2n$.
-If we were to permit ourselves to take the colimit in $n$ \emph{and} to shift spaces downward by desuspension, then we could write \[K(A, n) = \Loops^\infty \left( \colim_n \Susp^{-n} \Susp^\infty K(A, n) \right).\]
-Here the colimit is taken along the maps $\Susp K(A, n) \to K(A, n+1)$ adjoint to $K(A, n) \to \Loops K(A, n+1)$.
+In particular, $K(A, n+1) \to QK(A, n+1)$ is a $2(n+1)$--equivalence, so that $K(A, n) = \Loops K(A, n+1) \to \Loops QK(A, n+1)$ is a $(2n+1)$--equivalence --- an improvement over the $2n$--equivalence $K(A, n) \to QK(A, n)$ by one.
+If we were to repeat this trick and take a formal colimit along the maps $\Susp K(A, n) \to K(A, n+1)$ adjoint to $K(A, n) \xrightarrow\simeq \Loops K(A, n+1)$, then we could formally write \[K(A, n) = \Loops^\infty \left( \colim_m \Susp^{-m} \Susp^\infty K(A, n + m) \right).\]
+\todo{Is there a good reason to use $\Susp^{-1}$ here rather than $\Loops$?}%
+We use this formal expression to justify the following:
 
 \begin{definition}
 A \define{spectrum} (up to homotopy) is an ind-diagram of formal desuspensions of suspension spectra.
@@ -389,8 +407,10 @@ The \define{Eilenberg--Mac Lane spectrum} is given by the formula above: \[HA = 
 \begin{example}
 The functor $X \mapsto (\pi_* \Susp^\infty X) \otimes \Z_{(p)}$ is exact, hence has an associated spectrum $\S_{(p)}$, the \define{$p$--local sphere spectrum}.
 \todo{This is \emph{covariant}.  What is the correct statement for covariant Brown representation?
-This is 14.35 in Switzer.  It's actually clear with spectra: replace $\pi_n E \sm X$ with $\pi_n F(DX, E)$ for finite $X$ and appeal to the finite form of Brown.  This absolutely should appear in the section on Spectra and homology theories.}
+This is 14.35 in Switzer.  It's actually clear with spectra: replace $\pi_n E \sm X$ with $\pi_n F(DX, E)$ for finite $X$ and appeal to the finite form of Brown.  This absolutely should appear in the section on Spectra and homology theories---but it needs SW duals and $\sm$, so this isn't easy.}
 \end{example}
+
+\todo{$K$--theory?  Bordism?}
 
 \begin{example}
 The functor $X \mapsto \CatOf{AbGps}(\pi_0^s X, \Q/\Z)$ is exact, hence has an associated spectrum $\I$.  This is called the \define{Brown--Comenetz dualizing object}.
@@ -398,9 +418,9 @@ The functor $X \mapsto \CatOf{AbGps}(\pi_0^s X, \Q/\Z)$ is exact, hence has an a
 
 Given all this, one might be motivated by a need for concreteness\marginnote{Less perjoratively: a desire to build a bridge between these ideas and geometry.} to pursue a point-set model for spectra, maps of spectra, and homotopies among maps, whose homotopy category recovers $h\CatOf{Spectra}$.
 There are many such models available, with competing strengths and deficiencies.
-We reproduce one here, due to Boardman and Vogt.
+We reproduce an easy one here, due to Lima, Boardman, and Vogt.
 
-\begin{definition}\marginnote{\citep[Definition 8.1]{Switzer}}
+\begin{definition}\label{BoardmanVogtModel}\marginnote{\citep[Definition 8.1]{Switzer}}
 A \define{spectrum} is a collection $\{E_n\}_n$ of CW--complexes together with cellular maps $i_n\co \Susp E_n \to E_{n+1}$ which are homeomorphisms onto their images.
 \marginnote{This is not so restrictive: given a suitable notion of homotopy equivalence, one may use the mapping cylinder construction to make the subcomplex and homeomorphism conditions apply.}
 \end{definition}
@@ -433,7 +453,7 @@ If a map $f\co E \to E'$ induces a weak equivalence, it is a homotopy equivalenc
 \end{theorem}
 
 \begin{corollary}\marginnote{\citep[Theorem 8.26]{Switzer}}
-The spectra $\{E_n \sm S^1\}_n$ and $\{E_{n+1}\}_n$ are equivalent, and so the spectrum $\{E_{n-1} \sm S^1\}_n$ is equivalent to $E$. \qed
+The spectra $\{E_n \sm S^1\}_n$ and $\{E_{n+1}\}_n$ are equivalent, and so the spectrum $\{E_{n-1} \sm S^1\}_n = \Loops \Susp E$ is equivalent to $E$. \qed
 \end{corollary}
 
 % Spectra are also set up to short-circuit Brown representability:
@@ -459,11 +479,12 @@ The spectra $\{E_n \sm S^1\}_n$ and $\{E_{n+1}\}_n$ are equivalent, and so the s
 We defined spectra in such a way that a cohomology theory gives rise to a spectrum by extracting the representing objects $E^n(-) = [-, E_n]$ and building from them the inductive system \[E := \colim_n \Susp^{-n} \Susp^\infty E_n.\]
 Our definition was lax enough, though, that the converse is not quite as clear: do spectra precipitate cohomology theories?
 If so, how tight is the correspondence between the two?
+\todo{This should probably be wholly reorganized.}
 
 \begin{definition}\marginnote{\citep[8.33]{Switzer}}
 For a spectrum $E$, we define its \define{associated (reduced) co/homology theories} as follows:
 \begin{itemize}
-    \item $\widetilde E^n(X) = [\Susp^\infty X, \Susp^n E]$.
+    \item $\widetilde E^n(X) = [\Susp^\infty X, \Susp^n E]$.\todo{``I guess this defines $\Loops^\infty$ through representability.''}
     \item $\widetilde E_n(X) = \pi_n(E \sm X)$, where the smash product $(E \sm X)_n =  E_n \sm X$ is induced up from $\CatOf{Spaces}$.
 \end{itemize}
 \end{definition}
@@ -472,34 +493,34 @@ In order to see that these are co/homology functors, it's useful to record
 \begin{lemma}
 \marginnote{In general, homotopy classes of maps of spectra are presented by $\pi_0$ of a kind of pro-ind-space.}%
 For $X$ a pointed space and $E$ a generic spectrum,%
-\marginnote{If one uses Brown representability of a cohomology functor to manufacture the spaces $E_n$ in the definition of $E$, then suspension invariance makes the system in the Lemma \emph{constant}.  This is called an ``$\Omega$--spectrum''.}
+\marginnote{If one uses Brown representability of a cohomology functor to manufacture the spaces $E_n$ in the definition of $E$, then suspension invariance makes the system in the Lemma \emph{constant}.  This is called an ``$\Omega$--spectrum''.}\todo{How does this formula work with $m$ and $n$ both tending to $\infty$?  Is ``constant'' in the margin note a clue?}
 \[[\Susp^\infty X, E] = \colim_{n,m} [\Susp^m X, \Susp^{m-n} E_n].\]
 \end{lemma}
 \begin{proof}
-One couples the formula for suspension spectra \[[\Susp^\infty X, \Susp^\infty Y] = \colim_m [\Susp^m X, \Susp^m Y]\] to a presentation of $E$: \[E = \colim_n \Susp^{-n} \Susp^\infty E_n. \qedhere\]
+One couples the formula for suspension spectra \[[\Susp^\infty X, \Susp^\infty Y] = \colim_m [\Susp^m X, \Susp^m Y]\] to a presentation of $E$: \[E = \colim_n \Susp^{-n} \Susp^\infty E_n. \qedhere\]\todo{Why can we pull the colimit out of the target?}
 \end{proof}
 
-To feel confident in our definition, we should check that these functors indeed satisfy the Eilenberg--Steenrod axioms.
+To feel confident in our definition, we should check that these functors indeed satisfy the Eilenberg--Steenrod axioms.\todo{define?}
 \begin{enumerate}
     \item We've built in suspension invariance:
     \begin{align*}
     \widetilde E_{n+1}(\Susp X) & \cong [S^{n+1}, E \sm \Susp X] \cong [S^n, E \sm X] \cong \widetilde E_n(X), \\
     \widetilde E^{n+1}(\Susp X) & \cong [\Susp^\infty \Susp X, \Susp^{n+1} E] \cong [\Susp^\infty X, \Susp^n E] \cong \widetilde E^n(X).
     \end{align*}
-    \item A coexact sequence \[A \xrightarrow i X \to X \cup_i CA\] of pointed spaces induces a coexact sequence of spectra \[E \sm A \to E \sm X \to E \sm (X \cup_i CA) = (E \sm X) \cup_i C(E \sm A),\] so we get the desired long exact sequence
+    \item A coexact sequence \[A \xrightarrow i X \to X \cup_i CA\] of pointed spaces induces a coexact sequence of spectra\todo{Do we need coexact = exact for spectra?} \[E \sm A \to E \sm X \to E \sm (X \cup_i CA) = (E \sm X) \cup_i C(E \sm A),\] so we get the desired long exact sequence
     \begin{center}
     \begin{tikzcd}
-    \cdots \arrow{r} & \pi_n E \sm A \arrow{r} \arrow[equal]{d} & \pi_n E \sm X \arrow{r} \arrow[equal]{d} & \pi_n E \sm C(i) \arrow{r} \arrow[equal]{d} & \cdots \\
+    \cdots \arrow{r} & \pi_n \left(E \sm A\right) \arrow{r} \arrow[equal]{d} & \pi_n \left(E \sm X\right) \arrow{r} \arrow[equal]{d} & \pi_n \left(E \sm C(i)\right) \arrow{r} \arrow[equal]{d} & \cdots \\
     \cdots \arrow{r} & \widetilde E_n(A) \arrow{r} & \widetilde E_n(X) \arrow{r} & \widetilde E_n(X, A) \arrow{r} & \cdots.
     \end{tikzcd}
     \end{center}
     For the analogous fact in cohomology, the sequence of suspension spectra \[\Susp^\infty A \to \Susp^\infty X \to \Susp^\infty (X \cup_i CA)\] is coexact, so mapping into $E$ makes it exact.
-    \todo{We haven't talked about function spectra... so is this really fair?}
+    \todo{We haven't talked about function spectra... so is this really fair?  Perhaps we only need $\sm$ and representability, which we do have.}
     \item The cohomological wedge axiom is easy: by pulling coproducts out on the left to products, we get \[\left[\bigvee_\alpha \Susp^\infty X_\alpha, E\right] = \prod_\alpha [\Susp^\infty X_\alpha, E].\]
     Homology is harder and requires a filtration trick.\marginnote{\citep[Lemma 8.34]{Switzer}}
     We know that our homology functor satisfies the \emph{finite} wedge axiom by appeal to the Mayer--Vietoris axiom.
     Smash products also commute with colimits, hence one may check \[E \sm \colim_{\substack{S \subseteq A \\ \text{$S$ finite}}} \bigvee_{\alpha \in S} X_\alpha \cong \colim_S E \sm \bigvee_{\alpha \in S} X_\alpha \cong \colim_S \bigvee_{\alpha \in S} E \sm X_\alpha \cong \bigvee_\alpha E \sm X_\alpha.\]
-    \todo{This feels clumsy.  Is it really necessary?}
+    \todo{This feels clumsy.  Is it really necessary?  This must have been some garbled $\prod^\infty$ vs $\coprod^\infty$...?  This is a \emph{compactness} argument.}
     From this, the wedge axiom follows.
 \end{enumerate}
 
@@ -512,10 +533,11 @@ Instead, there is a \define{Milnor sequence}: \[0 \to R^1 \lim_\alpha E^{n-1} X_
 
 Satisfied that we have indeed produced co/homology theories, we can investigate whether these assignments are mutual inverses.
 To compare objects, this mostly comes down to Whitehead's theorem for spectra.
-Using Brown representability for natural transformations, we can lift maps of cohomology theories up to maps of spectra: a map $E^* \xrightarrow f F^*$ induces a unique sequence of maps $E_n \xrightarrow{f_n} F_n$ and hence a map $\widetilde f\co E \to F$ of spectra.%
+Using Brown representability for natural transformations, we can lift maps of cohomology theories up to maps of spectra: a map $E^* \xrightarrow f F^*$ of cohomology functors induces a compatible family of maps $E_n \xrightarrow{f_n} F_n$ and hence a map $\widetilde f\co E \to F$ of spectra.%
 \marginnote{It's even reasonable to extend the definition of cohomology to $F^0(E) = [E, F]$, of which $\widetilde f$ is then an element.}
 From this, one sees that a natural isomorphism of cohomology theories induces a weak equivalence of spectra, and conversely.
 However, Brown representability falls short of giving a \emph{functorial} correspondence: the same natural transformation of cohomology theories can be induced by multiple homotopy-inequivalent maps of spectra.
+This difference is called a ``phantom''.
 More precisely, Brown's result shows that the construction
 \begin{align*}
 \CatOf{Spectra} & \to \CatOf{CohomologyTheories} \\
@@ -543,7 +565,7 @@ A \define{ring} is a (commutative, unital) monoid in $\CatOf{AbelianGroups}$ und
 \marginnote{It is particularly important that one does \emph{not} use the Cartesian / categorical $\times$.}
 \end{definition}
 
-Our discussion around \Cref{RepresentableGroupsLemma} then indicates a way forward: since we have constructed an object $HR$ which represents ordinary cohomology with coefficients in $R$, a monoidal structure on $H^*(-; R)$ should induce a monoidal structure on $HR$.%
+Our discussion around \Cref{RepresentableGroupsLemma} then indicates a way forward: since we have constructed an object $HR$ which represents ordinary cohomology with coefficients in $R$, a monoidal structure on $H^*(-; R)$ should induce some manner of monoid structure on $HR$.%
 \marginnote{Ideally, it would even be visibly related to the original monoidal structure on $R$.}
 In order to make sense of this, we need a monoidal structure on $h\CatOf{Spectra}$ which is compatible with the other monoidal structures in play, in the sense that the following pair of functors should be made monoidal: \[\CatOf{AbelianGroups} \xrightarrow H \CatOf{Spectra} \xleftarrow{\Susp^\infty} \CatOf{Spaces}_{*/}.\]
 We have already introduced the operation \[\Susp^\infty X \sm \Susp^\infty Y := \Susp^\infty(X \sm Y)\] for two pointed spaces $X$ and $Y$.
@@ -555,7 +577,7 @@ That is, we commuted the smash product through the ind--system, where we reduced
 In the fully general case of $E \sm F$, we may also choose a presentation of the second spectrum $F$ as $F = \{\Susp^{m_k} \Susp^\infty F_k\}_k$, and then we set \[(E \sm F)_{j,k} := \{\Susp^{n_j + m_k} \Susp^\infty E_j \sm F_k\},\] another ind--system.
 
 \begin{remark}\marginnote{\citep[pg.\ 254--267]{Switzer}}
-To define the smash product in terms of Boardman and Vogt's concrete model, we must convert this doubly-indexed ind--system into a sequential system.
+To define the smash product in terms of Boardman and Vogt's concrete model given in \Cref{BoardmanVogtModel}, we must convert this doubly-indexed ind--system into a sequential system.
 One option is to select any cofinal subsystem, but this destroys the associativity of the product (and often destroys the commutativity).
 A superior option is to ``sum over possible choices'': we set $(E \sm F)_n$ to be the colimit of the diagram under the $n$\textsuperscript{th} antidiagonal (after replacing the maps by cofibrations).
 \end{remark}
@@ -572,10 +594,10 @@ In the homotopy category, this determines a symmetric monoidal product, $\sm$, o
 A \define{ring spectrum} is a spectrum $E$ equipped with a multiplication map $\mu\co E \sm E \to E$ and a unit map $\eta\co \S \to E$ making $E$ into a (unital) monoid object in $h\CatOf{Spectra}$.
 \end{definition}
 
-\begin{corollary}
+\begin{example}
 \marginnote{The statement here applies to any ring-valued theory.}
-The cup product maps \[H^n(-; R) \times H^m(-; R) \xrightarrow\smile H^{n+m}(-; R)\] induce maps \[K(R, n) \sm K(R, m) \xrightarrow\smile K(R, n+m)\] which altogether induce a product \[HR \sm HR \to HR. \qed\]
-\end{corollary}
+The cup product maps \[H^n(-; R) \times H^m(-; R) \xrightarrow\smile H^{n+m}(-; R)\] induce maps \[K(R, n) \sm K(R, m) \xrightarrow\smile K(R, n+m)\] which altogether induce a product \[HR \sm HR \to HR.\]
+\end{example}
 
 \begin{example}
 The sphere spectrum, $\S$, is the monoidal unit and hence also a ring.

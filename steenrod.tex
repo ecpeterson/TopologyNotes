@@ -325,7 +325,7 @@ The associated spectral sequence has $E^2$--page given by \[E^2_{p, q} = H_p(\CP
 However, it is easy enough to see that $\CP^2$ is connected, so we learn \[H_0(\CP^2; H_q S^1) \cong \begin{cases} \Z & \text{when $q = 0$}, \\ \Z & \text{when $q = 1$}, \\ 0 & \text{otherwise}. \end{cases}\]
 From this, we start to paint the spectral sequence.
 \marginnote[-6\baselineskip]{
-\begin{sseqdata}[ name = FiniteCP2, homological Serre grading, yscale = 0.6 ]
+\begin{sseqdata}[ name = FiniteCP2, homological Serre grading, yscale = 0.6, xscale = 0.6 ]
 \class(0,0) % unit class
 \class(0,1) % unit class, tensored with the fundamental class of S^1
 %\d3(1,0)(0,2)
@@ -397,7 +397,7 @@ Additionally, it satisfies a Leibniz law for the differentials: \[d_r(x y) = (d_
 \marginnote{\citep[Example 15.32]{Switzer}}
 As a jumping-off point, let's consider the interplay between \Cref{LeibinzInSSS} and \Cref{HomologicalCP2SSeq}, where we considered the exact sequence \[S^1 \to * \to K(\Z, 2).\]
 \marginnote{
-\begin{sseqdata}[ name = CohomCPinfty, cohomological Serre grading, yscale = 0.6, x range = {0}{6}, xscale = 0.5 ]
+\begin{sseqdata}[ name = CohomCPinfty, cohomological Serre grading, yscale = 0.4, x range = {0}{6}, xscale = 0.4 ]
 \class(0,0) % 1
 \class(0,1) % e
 \class(2,0) % x
@@ -458,7 +458,7 @@ This totally describes the product structure on the $E_2$--page of the Serre spe
 \begin{example}\marginnote{\citep[Exercise 15.36]{Switzer}}
 We now turn to a slightly more complex example: the exact sequence \[\Loops S^3 \to * \to S^3.\]
 \marginnote{
-\begin{sseqdata}[ name = LoopsS3, cohomological Serre grading, yscale = 0.6, y range = {0}{6}]
+\begin{sseqdata}[ name = LoopsS3, cohomological Serre grading, yscale = 0.6, y range = {0}{6}, xscale=0.6]
 \class["1"](0,0) % 1
 \class["e"](3,0) % e
 \class["x"](0,2) % x
@@ -508,7 +508,7 @@ This ring is called a \define{divided power algebra}, and one usually writes \[H
 Let us now consider the superficially similar exact sequence \[\Loops S^2 \to * \to S^2.\]
 Again, the analysis proceeds identically to that in \Cref{CohomCPinftySSeq} up until we begin to trace the behavior of classes under the multiplication map.
 \marginnote{
-\begin{sseqdata}[ name = LoopsS2, cohomological Serre grading, yscale = 0.8, y range = {0}{5}]
+\begin{sseqdata}[ name = LoopsS2, cohomological Serre grading, yscale = 0.8, y range = {0}{5}, xscale=0.8]
 \class["1"](0,0)
 \class["e"](2,0)
 \class["f"](0,1)
@@ -550,7 +550,7 @@ In the second case, $x$ has degree $4n-2$ and $f$ has degree $2n-1$.
 \begin{example}\marginnote{\citep[15.30]{Switzer}}
 The Serre spectral sequence of a spherical fibration is commonly called its \define{Gysin sequence}.
 \marginnote{
-\begin{sseqdata}[name = GysinRPinfty, cohomological Serre grading, yscale = 0.6, x range = {0}{8}, xscale = 0.5 ]
+\begin{sseqdata}[name = GysinRPinfty, cohomological Serre grading, yscale = 0.6, x range = {0}{8}, xscale = 0.3 ]
 \class["1"](0,0)
 \class["e"](0,1)
 \class["x"](2,0)
@@ -679,7 +679,7 @@ This information fills out the left-most column of the spectral sequence with a 
 
 Because the spectral sequence is converging to the cohomology of a point, we must find differentials which clear this tower.
 \marginnote{
-\begin{sseqdata}[name = KF2comma2, yscale = 0.3, x range = {0}{8}, y range = {0}{8}, xscale=0.5]
+\begin{sseqdata}[name = KF2comma2, yscale = 0.3, x range = {0}{8}, y range = {0}{8}, xscale=0.3]
 \class(0,0)
 \class(0,1)
 \class(0,2)
@@ -770,7 +770,7 @@ Let us consider what happens with Serre spectral sequece associated to cohomolog
 Writing $H^*(K(\Z, 2); \Z) \cong \Z[x]$, the same reasoning as before dictates the presence of a class $y$ wtih $d_2 x = y$.
 The Leibniz law then gives \[d_2 x^n = n x^{n-1} y,\] where now all of these targets are nonzero.
 \marginnote{
-\begin{sseqdata}[name = KZIntegral, cohomological Serre grading, yscale = 0.6, x range = {0}{8}, y range = {0}{10}, xscale = 0.5]
+\begin{sseqdata}[name = KZIntegral, cohomological Serre grading, yscale = 0.6, x range = {0}{8}, y range = {0}{10}, xscale = 0.3]
 % H^* CP^infty = Z[x]
 \class(0,0)
 \class(0,2)
