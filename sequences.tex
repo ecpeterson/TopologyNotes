@@ -1,44 +1,47 @@
 % -*- root: main.tex -*-
 
-\chapter{Homotopy Types and Exact Sequences}
+\chapter{Homotopy Types and Exact Sequences}\label{ExactSeqsChapter}
 
-Two of our overall goals in this text are:
+Two overall goals in this text are:
 \begin{enumerate}
     \item
-    To treat spaces as if they were algebraic objects, dissecting and assembling them by methods analogous to those we use with, e.g., modules.
+    To treat topological objects as if they were algebraic, dissecting and assembling them by methods analogous to those we use with, e.g., modules.
     \item
-    To express common spaces using small amounts of information.
+    To express commonly encountered spaces using small amounts of information.
     The data of a circle or of projective space, considered as raw topological spaces, is extremely substantial, and it would be preferable to be able to name and manipulate these spaces at less cost---ideally, with finite expression.
 \end{enumerate}
 
 \noindent
-There are several routes to effect these.
+There are several routes to effect these goals.
 
 \begin{itemize}
     \item
     One can make a re-definition of a ``space'' which is inherently algebraic (or combinatorial).
-    This eases the import of algebraic operations into this new context, but it requires one to link the chosen alternative definition with the traditional notion of a space.%
-    \todo{Cite? Simplicial sets, co--$E_\infty$ chain complexes?}
+    \marginnote[-\baselineskip]{%
+    For example, \define{simplicial sets} and \define{Kan complexes} are two such combinatorial options.
+    Though we won't use them, \define{varieties} are a popular purely algebraic notion of ``space''.
+    }
+    This eases the import of algebraic operations into this new context, but it requires one to link the chosen alternative definition with a traditional notion of a space.%
     \item
     Alternatively, one can begin with some of the traditional tools of algebraic topology, since we are already certain that these capture interesting topological behavior.
-    By adopting a particular perspective on their formal properties, these will become the desired algebraic operations.
+    By supposing that these tools are ``shadows'' of---or perhaps are themselves---the desired operations which act directly on spaces, we examine their formal properties to see what manner of algebra we are dealing with.
     This leaves open how well these methods achieve the goal of ``finite expression'', which we investigate through excessive computation.
 \end{itemize}
 
 \noindent
-We will take this last approach.
-The tools we develop and the language in which we cast them will become the fundamental methods of dissection and assembly used in all later chapters.
+Each approach is interesting in its own right, but we will focus on this last approach.
+The tools we develop in this chapter and the language in which we cast them will become the fundamental methods of dissection and assembly used in all later chapters.
 
 
 
 
 \section{The categories of spaces, pointed spaces, and pairs}\label{CategoriesSection}
 
-We first set up the basics of category theory and introduce a few basic examples, which amounts to setting the stage on which the rest of the course will play out.
-Since one of our express intentions is do very little geometry or ``point-set'' topology, much of this Lecture will concern itself with boldly asserting such facts in category-theoretic language, so that they can be guiltlessly referred to later.
+We first set up the basics of category theory and introduce a few example categories, which amounts to setting the stage on which the rest of the course will play out.
+Since one of our express intentions is do very little geometry or ``point-set'' topology, much of this Lecture will concern itself with boldly asserting such facts recast in category-theoretic language, so that they can be guiltlessly referred to later.
 
 We begin with some basic operations that one may perform on spaces.
-The categorical perspective is to understand objects in a category not by intrinsic presentations, like how the points in a space are arranged, but by their extrinsic effects, like they relate to other objects in the category.
+The categorical perspective is to understand objects in a category not by intrinsic presentations, like how the points in a space are arranged, but by their extrinsic effects, like how they relate to other objects in the category.
 With this as a guiding principle, we give categorically-minded interpretations of some common operations performed on spaces:
 \begin{description}
     \item[Products]\marginnote{\citep[0.2]{Switzer}}
@@ -55,10 +58,11 @@ With this as a guiding principle, we give categorically-minded interpretations o
     Let $X$ be a space with a \define{decomposition} $X = \bigcup_j A_j$ into closed subsets.%
     \marginnote[-\baselineskip]{This also holds when each $A_j$ is open in $X$.}
     Then the set $\CatOf{Spaces}(X, Y)$ bijects with the set \[\{(f_j \in \CatOf{Spaces}(A_j, Y)) : f_j|_{A_j \cap A_k} = f_k|_{A_j \cap A_k}\}\] of morphisms on the various components which agree on the overlaps.
+    \todo{Remark about opens and unique extension to closures?  Of course, this requires a separability hypothesis on the target.}
     \item[Quotients]\marginnote{\citep[0.3]{Switzer}}
-    For $\sim$ an equivalence relation on $X$, there is a space $X / \sim$ such that the set $\CatOf{Spaces}(X / \sim, Y)$ bijects with the subset \[\{f \in \CatOf{Spaces}(X, Y) \mid x \sim x' \Rightarrow f(x) = f(x')\}\] of those continuous maps which are constant on the partition components of $\sim$.
+    For $\sim$ an equivalence relation on $X$, there is a space $X / \sim$ such that the set $\CatOf{Spaces}(X / \sim, Y)$ bijects with the subset \[\{f \in \CatOf{Spaces}(X, Y) \mid x \sim x' \Rightarrow f(x) = f(x')\}\] of those continuous maps which are constant on the partition given by $\sim$.
     As a special case, let $A \subseteq X$ be nonempty, and define $X/A$ by extending the total relation on $A$ by the identity relation on $X$ (i.e., the associated partition consists of singletons and $A$).
-    Equivalently, maps in $\CatOf{Spaces}(X/A, T)$ correspond exactly to those maps in $\CatOf{Spaces}(X, T)$ which are constant on $A$.
+    Equivalently, maps in $\CatOf{Spaces}(X/A, T)$ correspond exactly to those maps in $\CatOf{Spaces}(X, T)$ which are constant on (nonempty) $A$.
     In diagrammatic terms, this becomes:
     \begin{center}
     \begin{tikzcd}
@@ -67,7 +71,7 @@ With this as a guiding principle, we give categorically-minded interpretations o
     & & T
     \end{tikzcd}
     \end{center}
-    Adopting this diagram as the \emph{definition}, this yields $X / \emptyset = X \sqcup *$, which authors sometimes posit as a ``convention''.
+    Adopting this diagram instead as the \emph{definition}, this yields $X / \emptyset = X \sqcup *$, which authors sometimes posit as an unmoored ``convention''.
 \end{description}
 
 \noindent
@@ -81,9 +85,9 @@ We mention one further construction which we will be very keen to make use of, a
     If $X$ is locally compact, then the evaluation map $\mathit{ev}\co Y^X \times X \to Y$ is continuous.
     If $X$ and $Z$ are locally compact as well as Hausdorff, then the currying function $Y^{Z \times X} \to (Y^Z)^X$ is a homeomorphism.
     \marginnote[-5\baselineskip]{%
-    For a fixed space $Y$, the coproduct and gluing properties characterize the functor $\CatOf{Spaces}(-, Y)$ \define{represented} by $Y$ as a \define{sheaf}, i.e., a functor $\CatOf{Spaces}^{\op} \to \CatOf{Sets}$ which preserves limits.
+    For a fixed space $Y$, the coproduct and gluing properties characterize the functor $\CatOf{Spaces}(-, Y)$ \define{represented} by $Y$ as a \define{sheaf}, i.e., a functor $\CatOf{Spaces}^{\op} \to \CatOf{Sets}$ which preserves limits (for certain covers).
     Unfortunately, the fragility of function spaces stymies the converse: not all sheaves on $\CatOf{Spaces}$ (or even on locally compact, Hausdorff spaces) are representable.
-    Since our affection for representable functors will grow substantially in the coming sections, we will find relief in \Cref{BrownRepSec}, which gives a representability criterion adapted to homotopy theory.
+    Our affection for representable functors will grow substantially in the coming sections, and we will find relief in \Cref{BrownRepSec}, which gives a representability criterion adapted to homotopy theory.
     }
 \end{description}
 
@@ -96,7 +100,7 @@ For instance, if $Q$ is some unknown space so that $\CatOf{Spaces}(Q, T)$ natura
 \end{remark}
 
 \noindent
-These constructions also interact well in most cases of geometric interest.
+These constructions also interact well with each other in most cases of geometric interest.
 For example:
 
 \begin{lemma}\label{ProdQuotInterchange}\marginnote{\citep[0.4]{Switzer}}\pushQED{\qed}
@@ -119,7 +123,7 @@ If $A \subseteq X$ is closed and $H(a, t) = H(a', t)$ for all $a, a' \in A$ and 
 Relative homotopy provides a convenient segue into two other categories of interest: the category of relative pairs and the category of pointed spaces.
 
 \begin{definition}
-The category of \define{relative pairs} has objects given by inclusions $A \subseteq X$, and a morphism $(A \subseteq X) \to (B \subseteq Y)$ between two such pairs is given by a continuous map $f\co X \to Y$ which has the property $f(A) \subseteq B$.
+The category of \define{relative pairs} has objects given by inclusions $A \subseteq X$, and a morphism $(A \subseteq X) \to (B \subseteq Y)$ between two such pairs is given by a continuous map $f\co X \to Y$ with the property $f(A) \subseteq B$.
 \marginnote[-3\baselineskip]{%
 There is no reason one must stop at a single inclusion.
 Chains of inclusions---even infinite chains---are interesting, and they are generally referred to as \define{filtered spaces}.
@@ -128,13 +132,18 @@ These pairs and their maps appear naturally when discussing relative homology or
 \end{definition}
 
 \begin{definition}\marginnote{\citep[0.12]{Switzer}}
-The category $\CatOf{Spaces}_{*/}$ of \define{pointed spaces} has objects given by $\{x_0\} \subseteq X$ for some choice of singleton $\{x_0\}$, and a morphism $(\{x_0\} \subseteq X) \to (\{y_0\} \subseteq Y)$ between two such pointed spaces is a map $f\co X \to Y$ with the property $f(x_0) = y_0$.
+The category $\CatOf{Spaces}_{*/}$ of \define{pointed spaces}
+\footnote{%
+This notation is to be read as ``spaces under the singleton'' or ``spaces with a specified map from the singleton''.
+Namely, the map $* \to X$ selects $x_0$.
+}%
+has objects given by $\{x_0\} \subseteq X$ for some choice of singleton $\{x_0\}$, and a morphism $(\{x_0\} \subseteq X) \to (\{y_0\} \subseteq Y)$ between two such pointed spaces is a map $f\co X \to Y$ with the property $f(x_0) = y_0$.
 Pointed spaces and their maps arise when defining reduced homology or homotopy groups (e.g., the fundamental group).
-This presentation makes plain that pointed spaces form a full subcategory of relative pairs: they are the special case where the privileged subset is a singleton.
+Pointed spaces form a full subcategory of relative pairs: they are the special case where the privileged subset is a singleton.
 \end{definition}
 
 These categories admit all of the same categorical constructions as $\CatOf{Spaces}$: they have products, coproducts, and quotients, their morphisms glue, and one can build function objects when the spaces involved carry appropriate adjectives.
-In many cases, if one forgets about the privileged subset and considers just the underlying object of $\CatOf{Spaces}$, the construction even agrees with the one in $\CatOf{Spaces}$.
+In many cases, if one forgets about the privileged subset and considers just the underlying object of $\CatOf{Spaces}$, the construction even agrees with that in $\CatOf{Spaces}$.
 \marginnote[-2\baselineskip]{%
 This observation is owed to some adjunctions: a pair and a pointed space both forget to a space, a space becomes pointed by adding a disjoint basepoint, and a pair becomes a pointed space by quotienting the privileged subspace to a point.
 Each of these functors admits an adjoint, which helps pin down the formulas below.
@@ -156,6 +165,7 @@ Each of these functors admits an adjoint, which helps pin down the formulas belo
 
 In trying to find analogues of these claims in pointed spaces, there is the following snag: the coproduct of two pointed spaces \emph{in the category of relative pairs} is given by \[(\{x_0\} \subseteq X) \sqcup (\{y_0\} \subseteq Y) = (\{x_0, y_0\} \subseteq (X \sqcup Y)),\] but this coproduct has escaped the subcategory $\CatOf{Spaces}_{*/}$.
 One can forcefully correct this by quotienting the privileged subspace so that it becomes a point---and, in fact, this recovers the correct coproduct in pointed spaces:
+\todo{Convert the margin note about adjunctions into the main text?  One could then also comment on currying as an example of an adjunction.}
 
 \begin{definition}
 For two pointed spaces $\{x_0\} \subseteq X$ and $\{y_0\} \subseteq Y$, their \define{wedge sum} $X \vee Y$ is the coproduct in the category of pointed spaces: \[\CatOf{Spaces}_{*/}(X \vee Y, T) = \CatOf{Spaces}_{*/}(X, T) \times \CatOf{Spaces}_{*/}(Y, T).\]
@@ -163,7 +173,10 @@ In terms of the pair, it is given by \[X \vee Y = \frac{\{x_0, y_0\} \subseteq (
 \end{definition}
 
 The relationship between the products in relative pairs and in pointed spaces is much looser: the product of pointed spaces is given by \[(\{x_0\} \subseteq X) \times (\{y_0\} \subseteq Y) = (\{(x_0, y_0)\} \subseteq (X \times Y)),\] where the complexity in the privileged subspace has seemingly evaporated.
-\marginnote{We didn't have to quotient this time because of the chirality of the limits involved: coproducts and quotients are both colimits, but a product is a limit.}
+\marginnote{%
+For the reader who knows about limits: we didn't have to quotient this time because of the chirality of the limits involved.
+Namely, coproducts and quotients are both colimits, but a product is a limit.
+}%
 However, we find ourselves in a further awkward position when we investigate the currying law for the function object for pointed spaces:
 \begin{align*}
 (\{y_0\} \subseteq Y)^{((Z \times \{x_0\}) \cup (\{z_0\} \times X)) \subseteq Z \times X} & = (\{y_0\} \subseteq Y)^{(\{z_0\} \subseteq Z) \times (\{x_0\} \subseteq X)} \\
@@ -175,6 +188,7 @@ We can, again, force it to become pointed:
 \begin{definition}\marginnote{\citep[2.4]{Switzer}}
 The \define{smash product} of two pointed spaces $\{x_0\} \subseteq X$ and $\{z_0\} \subseteq Z$ is given by \[(\{x_0\} \subseteq X) \sm (\{z_0\} \subseteq Z) := \frac{X \times Z}{(X \times \{z_0\}) \cup (\{x_0\} \times Z)} = \frac{X \times Z}{X \vee Z}.\]
 This gives a \define{monoidal structure} on $\CatOf{Spaces}_{*/}$ which is \emph{not} the Cartesian one.
+\todo{Define a monoidal structure?}
 \marginnote{That is: the one given by the ordinary product.}
 \end{definition}
 
@@ -192,9 +206,12 @@ This product is related to the product on unpointed spaces by \[X_+ \sm Y_+ \con
 
 \begin{definition}\label{HoCatDefn}%
 \marginnote{\citep[0.7]{Switzer}}
-Finally, we introduce the \define{homotopy category of (pointed) spaces}, $h\CatOf{Spaces}_{*/}$, whose objects are the same as that of $\CatOf{Spaces}_{*/}$ but whose morphism sets are given by the quotient \[h\CatOf{Spaces}_{*/}(X, Y) = \frac{\CatOf{Spaces}_{*/}(X, Y)}{f \sim g},\] where $f \sim g$ indicates that there is a homotopy $H\co X \sm I_+ \to Y$ between $f$ and $g$.
+Finally, we introduce the \define{homotopy category of (pointed) spaces}, $h\CatOf{Spaces}_{*/}$, with the ``$h$'' denoting ``homotopy''.
+Its objects are the same as that of $\CatOf{Spaces}_{*/}$ but whose morphism sets are given by the quotient \[h\CatOf{Spaces}_{*/}(X, Y) = \frac{\CatOf{Spaces}_{*/}(X, Y)}{f \sim g},\] where $f \sim g$ indicates that there is a homotopy $H\co X \sm I_+ \to Y$ between $f$ and $g$.
+The objects are this category are often referred to as \define{homotopy types}.
+The reduced morphism sets mean that many maps in $\CatOf{Spaces}$ acquire inverses when considered as maps in $h\CatOf{Spaces}$, e.g., the inclusion $* \to \R$.
 All of the basic invariants of algebraic topology descend to this quotient category: homotopy points and reduced homology groups behave the same on homotopic maps.
-Because we will work in this category so often, we will abbreviate this mapping set by \[h\CatOf{Spaces}_{*/}(X, Y) = [X, Y].\]
+Because we will work in this category so often, we will abbreviate this mapping set to \[h\CatOf{Spaces}_{*/}(X, Y) = [X, Y].\]
 \end{definition}
 
 
@@ -202,7 +219,7 @@ Because we will work in this category so often, we will abbreviate this mapping 
 
 \section{Perspectives on the fundamental group}
 
-With these categorical definitions in place, we are in position to begin investigating the traditional tools of algebraic topology in their terms.
+With categorical definitions in place, we are in position to investigate the traditional tools of algebraic topology in these terms.
 In this section, we treat the fundamental group, though we begin with an even simpler invariant.
 
 \begin{definition}\marginnote{\citep[2.1]{Switzer}}
@@ -252,6 +269,7 @@ G \arrow["0"]{d} \arrow["\chi \times \id"]{r} \& G \times G \arrow["\mu"]{d} \& 
 \end{tabular}
 \end{center}
 More generally, a \define{group object} in a pointed category $\CatOf{C}$ is a pointed object $G$ such that $G^{\times 2}$ and $G^{\times 0}$ exist, equipped with maps $\mu$ and $\chi$ satisfying the same diagrams.
+\todo{Remark on non-Cartesian monoidal structures?}
 \end{definition}
 
 \begin{definition}\marginnote{\citep[Definition 2.9]{Switzer}}
@@ -259,7 +277,7 @@ An \define{$H$--group} $K$ is group object in $h\CatOf{Spaces}_{*/}$, i.e., a po
 \end{definition}
 
 \begin{lemma}\label{RepresentableGroupsLemma}
-If $G$ is a group object in a category $\CatOf{C}$, then $\CatOf{C}(-, G)$ is a functor from $\CatOf{C}^{\op}$ to $\CatOf{Groups}$.
+If $G$ is a group object in a category $\CatOf{C}$, then $\CatOf{C}(-, G)$ is a functor from $\CatOf{C}^{\op}$ \todo{Definition of $\op$?} to $\CatOf{Groups}$.
 \end{lemma}
 \begin{proof}
 Recall that the defining property of the product $X \times Y$ is \[\CatOf{C}(T, X \times Y) \cong \CatOf{C}(T, X) \times \CatOf{C}(T, Y).\]
@@ -277,6 +295,7 @@ This is a consequence of the \define{Yoneda lemma}: any natural transformation b
 \end{remark}
 
 \begin{corollary}\marginnote{\citep[Proposition 2.14]{Switzer}}
+\todo{We use $L$ in Section 1.3.}
 For $K$ an $H$--group, $[-, K]$ is valued in groups. \qed
 \end{corollary}
 
@@ -284,12 +303,13 @@ For $K$ an $H$--group, $[-, K]$ is valued in groups. \qed
 The usual verification that the fundamental group of a space is a group can be viewed as giving an $H$--space structure on $Y^{S^1} =: \Loops Y$.
 The multiplication map $\mu$ is given by rescaling and concatenating two loops, and the inversion map $\chi$ is given by reversing a loop.
 Hence, not only is the fundamental group $\pi_1 Y = \pi_0 \Omega Y = [S^0, \Omega Y]$ a group, but actually $[X, \Omega Y]$ is naturally a group for any $X$.
+\todo{I remmeber $[Y, X]$ being convenient notation in past contexts.  Review this whole doc to see if it would fit here too.}
 \end{example}
 
 What about the other formulation?
 We also have that $\pi_1 Y = [S^1, Y]$ is naturally group-valued as $Y$ varies.
 From this, one might expect the root cause does not reside in the $Y$--dependent object ``$\Loops Y$'' but rather in $S^1$ alone.
-In order to address this by the same tactic, we must confront the structure required on $X$ in order to make $[X, Y]$ into a group.
+In order to address this by the same tactic, we must confront the structure on $X$ which makes $[X, Y]$ a group.
 Using the identity $[X \vee X, Y] \cong [X, Y] \times [X, Y]$, we are led to the following definition:
 
 \begin{definition}\marginnote{\citep[Definition 2.16]{Switzer}}
@@ -319,7 +339,7 @@ An \define{$H$--cogroup} $K$ is then a cogroup object in $h\CatOf{Spaces}_{*/}$.
 \end{definition}
 
 \begin{corollary}\marginnote{\citep[Proposition 2.21]{Switzer}}
-For $H$ an $H$--cogroup, $[H, -]$ is valued in groups. \qed
+For $K$ an $H$--cogroup, $[K, -]$ is valued in groups. \qed
 \marginnote{%
 Again, the Yoneda lemma for \emph{corepresentable} functors gives a converse to this claim.
 }
@@ -330,6 +350,7 @@ $S^1$ is an $H$--cogroup.
 We depict its structure maps by shading the loops in $S^1 \vee \cdots \vee S^1$ different colors, then pulling back that shading along the indicated map.
 For example, the comultiplication map $\mu'$ is given by quotienting together the basepoint and its antipode, and the corresponding color map looks like
 \todo{These would be improved by explicitly tagging the basepoint, which must remain black.}
+\todo{Generally, these pictures are buggy.}
 \begin{center}
     \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
         \ColourTransitionCircle{green,black,red,black}
@@ -401,7 +422,7 @@ while the right arm has color map
     \end{tikzpicture}
     ,
 \end{center}
-and coassociativity is checked by noting that the pulled-back color maps can be homotoped into one another.
+and coassociativity is checked by noting that the pulled-back color maps can be rotated into one another.
 Similarly, counitality is checked by noting that the color map
 \begin{center}
     \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
@@ -417,7 +438,7 @@ Similarly, counitality is checked by noting that the color map
         \end{scope}
     \end{tikzpicture}
 \end{center}
-is homotopic to that of
+is a rescaling of
 \begin{center}
     \begin{tikzpicture}[scale=0.5, baseline={([yshift=-1ex]current bounding box.center)}]
         \ColourTransitionCircle{black,red}
@@ -532,10 +553,11 @@ We tame this complexity by showing that each of these choices gives the same mul
 
 \begin{lemma}[Eckmann--Hilton]\label{EckmannHilton}%
 \marginnote{\citep[Proposition 2.24]{Switzer}}
-Let $S$ be a set with two products $\circ$ and $*$ which share a unit $e$ and which satisfy \[(x * x') \circ (y * y') = (x \circ y) * (x' \circ y').\]  Then $\circ = *$ and both are associative and commutative.
+Let $S$ be a set with two products $\circ$ and $*$ which share a unit $e$ and which satisfy the distributive law: \[(x * x') \circ (y * y') = (x \circ y) * (x' \circ y').\]  Then the products agree, and both are associative and commutative.
 \end{lemma}
 \begin{proof}
-We cleverly redistribute:
+\todo{We don't show associativity!}
+To show commutativity, we cleverly redistribute:
 \begin{align*}
 x \circ y & = (x * e) \circ (e * y) = (x \circ e) * (e \circ y) = x * y, \\
 x \circ y & = (e * x) \circ (y * e) = (e \circ y) * (x \circ e) = y * x. \qedhere
@@ -610,27 +632,26 @@ For $n \ge 2$, $\pi_n X$ has only one multiplication, and it is commutative. \qe
 An \emph{extremely} common device in algebraic topology is the exact sequence:
 
 \begin{definition}\marginnote{\citep[2.29]{Switzer}}
-A pair of maps of groups \[N \xrightarrow f G \xrightarrow g H\] is called \define{exact} when $\im f = \ker g$.
+A composable pair of maps of groups \[N \xrightarrow f G \xrightarrow g H\] is called \define{exact} when $\im f = \ker g$.
 More weakly, a sequence of pointed sets $X \xrightarrow f Y \xrightarrow g Z$ is \define{exact} if $\im f = g^{-1}(*)$.
 \end{definition}
 
 \noindent
 Last time, we put structures onto spaces $K$ and $L$ so that $[K, -]$ and $[-, L]$ became valued in groups.
-Today we are after something similar: we would like to study when continuous maps $A \to B \to C$ induce exact sequences of the functors they co/represent.
+Today we are after something similar: we would like to study when continuous maps $X \xrightarrow f Y \xrightarrow g Z$ induce exact sequences of the functors they co/represent.
 
 \begin{definition}\marginnote{\citep[{Definitions 2.30 and 2.49}]{Switzer}}
-If the sequence of pointed sets \[[-, A] \to [-, B] \to [-, C]\] is exact, then we say that the underlying sequence of spaces is \define{exact}.
-If the sequence of pointed sets \[[A, -] \from [B, -] \from [C, -]\] is exact, then we say that the underlying sequence of spaces is \define{coexact}.%
+If the sequence of pointed sets \[[-, X] \xrightarrow{f_*} [-, Y] \xrightarrow{g_*} [-, Z]\] is exact, then we say that the underlying sequence of spaces is \define{exact}.
+If the sequence of pointed sets \[[X, -] \xleftarrow{f^*} [Y, -] \xleftarrow{g^*} [Z, -]\] is exact, then we say that the underlying sequence of spaces is \define{coexact}.%
 \marginnote[-5\baselineskip]{%
 These more commonly go by the names \define{fiber} and \define{cofiber} sequences of spaces.
-We will work later to justify these alternative names.
 }
 \end{definition}
 
-At first brush, one might imagine that such sequences are somewhat rare, or that they at least require some nice properties of $A$, $B$, or $f$.%
+At first brush, one might imagine that such sequences are somewhat rare, or that they at least require some nice properties of the spaces $X$, $Y$, $Z$ or of the maps $f$, $g$.%
 \marginnote[-\baselineskip]{%
 This scarcity is true for maps of groups: $f\co H \to G$ can only participate in an exact sequence when $\im f$ is normal.
-It is a good exercise to check that these constructions for spaces do not violate this.
+It is a good exercise to check that the following constructions for spaces do not violate this.
 }
 In fact, these sequences are bountiful in homotopy theory---a first sign that our approach to the subject is a sound one.
 
@@ -669,6 +690,7 @@ Note that the exponential adjunction gives a bijection between maps $CX \to T$ a
 Hence, if $\phi \circ f\co X \to T$ is null, then this gives a map $CX \to T$ which agrees with $f$ on the edge of $I$, and the gluing operation determines a map $Z \to T$ which restricts to $\phi$ on $Y$.
 Conversely, a map $\widetilde \phi\co Z \to T$ which restricts to $\phi$ on $Y$ can itself be restricted to $CX$, and this gives the required null-homotopy of $\phi \circ f$.
 \end{proof}
+\todo{Mention moduli objects?---moduli of maps + homotopies?}
 
 The remarkable lack of hypotheses in \Cref{CoexactSeqsExist} mean that coexact sequences can be extended indefinitely to the right: \[X \xrightarrow f Y \xrightarrow g Y \cup_f CX \to (Y \cup_f CX) \cup_g CY \to \cdots.\]
 The naive presentations of these spaces quickly become unwieldy, but the following alternative presentations are quite tractible:
@@ -715,8 +737,9 @@ Pinching the middle of the cone $CX$ gives a map \[Y \cup_f CX \to (Y \cup_f CX)
 The map $[Z, T] \to [Y, T]$ is invariant under this action, and on orbits it is an injection. \qed
 \end{lemma}
 }
+\todo{Remove numbering from margin.}
 
-There are also dual results for exact sequences: any map of spaces participates in an (infinite) exact sequence.
+There are also dual results for exact sequences: any map of spaces participates in an (infinite) exact sequence extending to the left.
 
 \begin{lemma}\marginnote{\citep[Proposition 2.54]{Switzer}}
 Any map $f\co X \to Y$ extends to an exact sequence \[P_f \to X \xrightarrow f Y,\] where $P_f$ is given by \[P_f = \{(x, \gamma) \in X \times PY \mid f(x) = \gamma(1)\}.\]
@@ -728,11 +751,13 @@ P_f \arrow{r} \arrow{d} \& X \arrow["f"]{d} \\
 PY \arrow{r} \& Y
 \end{tikzcd}
 \end{center}
-Again, this square is not a pullback in $h\CatOf{Spaces}_{*/}$, but $PY$ is contractible, earning this object the name \define{homotopy fiber}.
+Again, this square is not a pullback in $h\CatOf{Spaces}_{*/}$, but $PY = Y^I$ is contractible, earning this object the name \define{homotopy fiber}.
+(Note that while the pointed function space $Y^I$ is contractible, the unpointed function space of maps from $I$ to $Y$ is weakly equivalent to $Y$.)
 }
 \end{lemma}
 \begin{proof}[Proof sketch]
 Again, the construction of $P_f$ rests on building into it the data of a null-homotopy.
+\todo{Another opportunity for a description in terms of a moduli problem.}
 Suppose that $\theta\co T \to Y$ is a null-homotopic map.
 A null-homotopy of $\theta$ is the same as a map $T \sm I = CT \to Y$ restricting to $\theta$, which is in turn the same as a map $T \to PY = Y^I$ restricting to $\theta$.
 To model a map $\phi\co T \to X$ for which $\theta = f \circ \phi$ becomes null-homotopic, we attach $PY$ along $X$ as in the statement.
@@ -743,6 +768,7 @@ To model a map $\phi\co T \to X$ for which $\theta = f \circ \phi$ becomes null-
 Iterating this gives \[\cdots \to \Loops^2 X \to \Loops P_f \to \Loops X \to \Loops Y \to P_f \to X \xrightarrow f Y. \qedhere \popQED\]
 \end{lemma}
 
+\todo{Move this into the next section as motivation?}
 In particular, by applying $\pi_0(-) = [S^0, -]$ and employing the definition $\pi_n X = \pi_0 \Loops^n X$, we get an exact sequence of homotopy groups: \[\cdots \to \pi_2 X \to \pi_2 Y \to \pi_1 P_f \to \pi_1 X \to \pi_1 Y \to \pi_0 P_f \to \pi_0 X \to \pi_0 Y.\]
 One of our goals in this class will be to understand what understanding $\pi_*$ earns us, how it changes as $X$ changes, and how $X$ can be effectively dissected to build up knowledge of $\pi_*$ along the way.
 This long exact sequence will be one of our main tools for doing so.
@@ -752,14 +778,15 @@ This long exact sequence will be one of our main tools for doing so.
 
 \section{Relative homotopy groups}
 
+\todo{Motivate this with $H^*(X, A) = H^*(X \cup CA)$.  $P_f$ seems poorly adapted to $H^*$ but well-adapted to $\pi_*$.}
 The construction $P_f$ from the previous lecture is a little mysterious.
-To close out this Chapter, we will explore it in two lights: today and a bit later on.
+To close out this Chapter, we will explore it in two lights\todo{``Two lights'': bad, awkward}: today and a bit later on.
 
 Let us return to the setting of pairs $(X, A, x_0)$ of topological spaces, and let's use $i\co A \to X$ to denote the inclusion of the preferred subspace.
 The following is a direct rephrasing of the definition of $P_i$ from the previous section:
 
-\begin{lemma}\marginnote{\citep[Definition 3.8]{Switzer}}
-The exact continuation $P_i$ of $i$ is given by the function object \[P_i = (X, A, x_0)^{(I, \partial I, 0)}. \qed\]
+\begin{lemma}\marginnote{\citep[Definition 3.8]{Switzer}}\pushQED{\qed}
+The exact continuation $P_i$ of $i$ is given by the function object \[P_i = (X, A, x_0)^{(I, \partial I, 0)}. \qedhere \popQED\]
 \end{lemma}
 
 \noindent
@@ -769,12 +796,13 @@ Inspired by this, we consider the adjunction juggle:
 For a pair $(A \subseteq X)$, we define the \define{$n$\textsuperscript{th} relative homotopy group} to be \[\pi_n(A \subseteq X) := [(S^{n-1} \subseteq D^n), (A \subseteq X)] \cong [S^{n-1}, P_i] = \pi_{n-1} P_i.\]
 \marginnote[-3\baselineskip]{%
 Note that this means that the first relative group is a \emph{set}, the second a \emph{group}, and third and above \emph{abelian groups}---one off from the usual sequence of properties.
-}
+}%
 That is, $\pi_n(A \subseteq X)$ consists of $n$--disk maps into $X$ with boundary $\partial D^n$ lying in $A$, considered up to relative homotopy.
 \end{definition}
 
 \begin{corollary}\label{LexseqOfRelativeHtpy}%
 \marginnote{\citep[Proposition 3.9]{Switzer}}
+\todo{Describe these maps in terms of restrictions.}
 There is a long exact sequence \[\cdots \to \pi_{n+1}(A \subseteq X) \to \pi_n A \to \pi_n X \to \pi_n (A \subseteq X) \to \pi_{n-1} A \to \cdots. \qed\]
 \end{corollary}
 
@@ -791,6 +819,7 @@ This observation moves us to remark on when there is \emph{no} discrepancy:
 A pair $A \subseteq X$ is \define{$n$--connected} if $\pi_{\le n}(A \subseteq X) = 0$.
 Equivalently, the map $\pi_{<n} A \to \pi_{<n} X$ is an isomorphism and $\pi_n A \to \pi_n X$ is an epimorphism.
 The pair $A \subseteq X$ is a \define{weak equivalence} if it is $\infty$--connected.
+\todo{Usually ``weak equivalence'' refers to a map.  Immediately get in the habit; there's nothing special about pairs here.}
 \end{definition}
 
 \begin{remark}\marginnote{\citep[3.21]{Switzer}}
@@ -810,6 +839,7 @@ Hence, in this situation we have
 \end{remark}
 
 \begin{remark}\marginnote{\citep[3.15]{Switzer}}
+\todo{Forward reference to an analogous statement for the $P$ construction.}
 We can extend these definitions from an inclusion $i\co A \to X$ to a generic map $f\co Y \to X$ using the \define{mapping cylinder}: \[M_f := (Y \times I) \cup_f X.\]
 This space receives a map $X \to M_f$ which is a weak equivalence.
 \marginnote{It is a good exercise to check that it is a weak equivalence.}
@@ -827,8 +857,12 @@ Y \times \{0\} \arrow{u} \arrow{ru} \arrow{rru}
 \end{remark}
 
 
+\todo{This belongs earlier, maybe even just the start of this section.}
 \newthought{We pause to emphasize} something that the reader might have dismissed as serendipity: by switching the notation $\pi_n(X, A) := \pi_n (A \subseteq X)$, \Cref{LexseqOfRelativeHtpy} looks very much like a corresponding theorem about relative \emph{homology} groups: it announces an exact sequence \[\cdots \to \pi_{n+1}(X, A) \to \pi_n A \to \pi_n X \to \pi_n (X, A) \to \pi_{n-1} A \to \cdots.\]
-It is extremely productive to see how far this analogy can be pushed: what theorems about homology can be replicated for homotopy?---and, when a theorem for homology fails for homotopy, is it at least partially recoverable?
+It is extremely productive to see how far this analogy can be pushed: what theorems about homology can be replicated for homotopy?
+When a theorem for homology fails for homotopy, is it at least partially recoverable?
+What is the discrepancy?
+\todo{Emphasize that homology is computable because it has these theorems, and homotopy has them too!}
 
 As a warm-up to this program, recall that the relative homology groups of a pair of inclusions $x_0 \in B \subseteq A \subseteq X$ can be interrelated.
 We will see whether the same can be said of relative homotopy groups.
@@ -856,7 +890,7 @@ Tracing through the middle, we see that these new maps form an interesting seque
 \end{center}
 
 \begin{lemma}\marginnote{\citep[Theorem 3.20]{Switzer}}
-This sequence is exact.
+The highlighted sequence is exact.
 \end{lemma}
 \begin{proof}[Proof sketch]
 Checking that the composites are zero is easy enough.
@@ -883,17 +917,17 @@ One checks that this gives the desired lift of $x$: the image of $\tilde x$ in $
 
 \section{Fibrations}
 
-Relative to the small and polite model for the coexact continuation $C_f$, the presentation of the exact continuation $P_f$ as a function space feels large and unwieldly.%
+In contrast to the small and polite model for the coexact continuation $C_f$, the presentation of the exact continuation $P_f$ as a function space feels large and unwieldly.%
 \marginnote[-2\baselineskip]{
 For instance, if $f\co X \to Y$ is a map of spaces of dimension $d_X$ and $d_Y$, then the dimension of $C_f$ is no more than $d_Y$ and $1 + d_X$.
 On the other hand, $P_f$ is firmly infinite-dimensional.
 One might ask whether this is inescapable, and we will resolve this much later in \Cref{ComputationsChapter}.
 }
-In this section we explore a more familiar context in which spaces \emph{like} $P_f$ arise, as well as conditions that they are weak models for exact continuations.
+In this section and the next, we explore a more familiar context in which spaces \emph{like} $P_f$ arise, as well as conditions under which these model exact continuations.
 
-To get off the ground, recall the whole point of the design of $P$ was its participation in the long exact sequence%
+To get off the ground, recall the whole point of the design of $P_f$ was its participation in the long exact sequence%
 \marginnote{\Cref{LexseqInvolvingP}}
-\[\cdots \to \pi_2 X \to \pi_1 P \to \pi_1 X \to \pi_1 Y \to \pi_0 P \to \pi_0 X \to \pi_0 Y.\]
+\[\cdots \to \pi_2 Y \to \pi_1 P_f \to \pi_1 X \to \pi_1 Y \to \pi_0 P_f \to \pi_0 X \to \pi_0 Y.\]
 Inasmuch as the exact sequence is truly what we're after, we might consider alternative situations in which such sequences arise.
 
 \begin{example}\marginnote{\citep[Theorem 4.1]{Switzer}}
@@ -919,18 +953,19 @@ We will ultimately ask for ``one half'' of this data (i.e., one projection and o
 
 \begin{definition}\marginnote{\citep[Definition 4.2]{Switzer}}
 A map $p\co E \to B$
+\todo{$p\co X \to Y$?}
 \marginnote{``$E$'' for Espace (fr.), ``$B$'' for Base.}
-has the \define{homotopy lifting property} with respect to a space $X$ when for all solid diagrams
+has the \define{homotopy lifting property} with respect to a space $T$ when for all solid diagrams
 \begin{center}
 \begin{tikzcd}
-X \arrow["f"]{r} \arrow["- \times 0"]{d} & E \arrow["p"]{d} \\
-X \times I \arrow["H"]{r} \arrow[densely dotted, "{\widetilde H}"]{ru} & B
+T \arrow["f"]{r} \arrow["- \times 0"]{d} & E \arrow["p"]{d} \\
+T \times I \arrow["H"]{r} \arrow[densely dotted, "{\widetilde H}"]{ru} & B
 \end{tikzcd}
 \end{center}
 there exists a dashed diagonal lift $\widetilde H$.
 That is, homotopies in $B$ lift to homotopies in $E$.
-A \define{strong fibration} has the HLP for all spaces.
-A \define{fibration} has the HLP for at least the disks $D^n$.
+% A \define{strong fibration} has the HLP for all spaces.
+A \define{fibration} has the HLP for (at least) the disks $D^n$.
 The \define{fiber} of a fibration is $F = p^{-1}(b_0) \subseteq E$.
 \end{definition}
 
@@ -939,7 +974,7 @@ The projection $\pi_X\co X \times Y \to X$ is a fibration with fiber $Y$.
 \end{example}
 
 \begin{example}\marginnote{\citep[Proposition 4.3]{Switzer}}
-Evaluation $\mathit{ev}\co PX \to X$ gives a fibration with fiber $\Loops X$.
+For $PX = X^I$ the pointed path space, evaluation $\mathit{ev}\co PX \to X$ gives a fibration with fiber $\Loops X$.
 \end{example}
 
 For the remainder of the lecture, we will work to justify that this definition yields the intended long exact sequence of homotopy groups.
@@ -984,7 +1019,7 @@ Applying the HLP for $p$ gives $\widetilde{H'}$.  Reversing the application of $
 \end{proof}
 
 \begin{corollary}\marginnote{\citep[Theorem 4.6]{Switzer}}
-For $p\co E \to B$ a fibration and for subspaces $B' \subseteq B$ and $E' := p^{-1}(B') \subseteq E$, the natural map $\pi_{\ge 1}(E, E') \to \pi_{\ge 1}(B, B')$ is an isomorphism.
+For $p\co E \to B$ a fibration with subspaces $B' \subseteq B$ and $E' := p^{-1}(B') \subseteq E$, the natural map $\pi_{\ge 1}(E, E') \to \pi_{\ge 1}(B, B')$ is an isomorphism.
 \end{corollary}
 \begin{proof}
 Begin with a class $\omega \co (I, \partial I) \to (B, B')$ in $\pi_1(B, B')$, and consider the lifting square induced by $p\co E \to B$, without considering $B'$ and $E'$:
@@ -1008,10 +1043,11 @@ I \times I \arrow["H"]{r} \arrow["\widetilde{H}", densely dotted]{ru} & B,
 where $U = \partial (I \times I) \setminus (I \times \{1\})$ is a $\sqcup$--shaped figure, the top arrow acts by $\omega_1$ and $\omega_2$ on the two legs, and it carries the bottom of the figure to the basepoint.
 The same procedure as in the second half of \Cref{HLPsForPairsVsPtds} produces a filler $\widetilde H$, which witnesses equality in $\pi_1(E, E')$.%
 \marginnote[-\baselineskip]{%
-More precisely, we avail ourselves of a pointed self-homeomorphism of $I \times I$ which restricts to a homeomorphism of $U$ with $I \times \{0\}$.
+Specifically, we avail ourselves of a pointed self-homeomorphism of $I \times I$ which restricts to a homeomorphism of $U$ with $I \times \{0\}$.
 }
 
 To dispatch the other homotopy groups, we use the equivalences
+\todo{It is confusing to put the subspace on the left in this notation for a pair but on the right in the usual relative homology / homotopy notation.  Be consistent, use $\supseteq$?}
 \begin{center}
 \begin{tikzcd}
 \pi_m(E, E') \arrow{d} \arrow[equal]{r} & \pi_{m-1} (E' \subseteq E)^{(\partial I \subseteq I)} \arrow{d} \arrow[equal]{r} & \pi_{m-1} ((E' \subseteq E)^{(\partial I \subseteq I)}, (E')^I) \arrow{d} \\
@@ -1022,7 +1058,7 @@ The first equivalence is definitional, and the second follows from contractibili
 \Cref{HLPsForPairsVsPtds} entails that the map \[((E' \subseteq E)^{(\partial I, I)}, (E')^I) \to ((B' \subseteq B)^{(\partial I, I)}, (B')^I)\] inducing the rightmost vertical map is a fibration.  Taking as an inductive hypothesis that it is an isomorphism on $\pi_{m-1}$ entails the inductive conclusion that the leftmost vertical map is an isomorphism.
 \end{proof}
 
-\begin{corollary}\marginnote{\citep[4.7]{Switzer}}
+\begin{corollary}\label{PiStarLexseqForFibration}\marginnote{\citep[4.7]{Switzer}}
 There is a long exact sequence \[\cdots \to \pi_n F \to \pi_n E \to \pi_n B \to \pi_{n-1} F \to \cdots.\]
 \end{corollary}
 \begin{proof}
@@ -1030,6 +1066,7 @@ Set $B' = \{b_0\}$ in the above, and identify these terms respectively with \[\c
 \end{proof}
 
 \begin{corollary}\label{LoopsShiftsPi}\marginnote{\citep[Corollary 4.8]{Switzer}}
+\todo{Didn't this already hold for $P_f$?  Why is this here?}
 If $E$ is contractible (e.g., as in the fibration $\mathit{ev}\co PX \to X$), then the going-around map $\pi_{n+1} B \to \pi_n F$ is an isomorphism. \qed
 \end{corollary}
 
@@ -1044,11 +1081,13 @@ Most commonly, they take the form of a \define{fiber bundle}, which is a less ho
 
 \begin{definition}\label{FiberBundleDefn}%
 \marginnote{\citep[Definition 4.9]{Switzer}}
-A \define{fiber bundle with fiber $F$} is a map $p\co E \to B$ such that $B$ admits an open cover $\{U_\alpha\}_\alpha$ with local homeomorphisms $\phi_\alpha\co U_\alpha \times F \to p^{-1}(U_\alpha)$, which each satisfy $p \phi_\alpha = p|_{U_\alpha}$.
-\marginnote[-2\baselineskip]{%
-Briefly, a fiber product is locally and compatibly a product space.
-This definition \emph{must} be given in $\CatOf{Spaces}$ and not $h\CatOf{Spaces}$: the S-shaped space $S = ([-1, 0] \times \{0\}) \cup (\{0\} \times I) \cup (I \times \{1\})$ projects on its first coordinate to $[-1, 1]$ with contractible fibers, but it is neither a fiber bundle nor a fibration.
-}
+A \define{fiber bundle with fiber $F$} is a map $p\co E \to B$ such that $B$ admits an open cover $\{U_\alpha\}_\alpha$ with local homeomorphisms $\phi_\alpha\co U_\alpha \times F \to p^{-1}(U_\alpha)$, each participating in a commuting triangle
+\begin{center}
+\begin{tikzcd}
+U_\alpha \times F \arrow["\mathrm{proj}"]{rd} \arrow["\phi_\alpha"]{rr} & & p^{-1}(U_\alpha) \arrow["p"]{ld} \\
+& U_\alpha.
+\end{tikzcd}
+\end{center}
 \end{definition}
 
 \begin{lemma}\marginnote{\citep[Proposition 4.10]{Switzer}}
@@ -1061,7 +1100,11 @@ Given a map \[f\co D^n \times I \to B\] to be lifted, subdivide the compact spac
 Once this is arranged, one can build the desired lift purely locally.
 \end{proof}
 
-The most common source of these ``local projections'' is Lie theory: a quotient map of a Lie group by a subgroup has everywhere-isomorphic fibers, and in good cases the coset space can be arranged to admit a suitable open cover.
+\marginnote{%
+Briefly, a fiber product is locally and compatibly a product space.
+This definition \emph{must} be given in $\CatOf{Spaces}$ and not $h\CatOf{Spaces}$: the S-shaped space $S = ([-1, 0] \times \{0\}) \cup (\{0\} \times I) \cup (I \times \{1\})$ projects on its first coordinate to $[-1, 1]$ with contractible fibers, but it is neither a fiber bundle nor a fibration.
+}%
+The most common source of these ``local projections'' are the \define{homogeneous spaces} of Lie theory: a quotient map of a Lie group by a subgroup has everywhere-isomorphic fibers, and in good cases the coset space can be arranged to admit a suitable open cover.
 We spend most of today contemplating this case.
 
 \begin{lemma}\marginnote{\citep[Theorem 4.13]{Switzer}}
@@ -1071,13 +1114,14 @@ Suppose that the identity coset $H \in G/H$ has an open neighborhood $U$ with a 
 The map $p$ is then a fiber bundle with fiber $H$.
 \end{lemma}
 \begin{proof}
+\todo{May need to discuss this in terms of $G$--bundles to meet requirements of next section.}
 Left-multiplying by $g \in G$, the condition at $H$ begets a local section at $gH \in G/H$.
 Such a section extends to a local homeomorphism as in the definition of a fiber bundle via \[U_{gH} \times H \xrightarrow{s_g \times 1} G \times G \xrightarrow\mu G.\]
 Using these opens to cover the base shows $p$ to be a fiber bundle.
 \end{proof}
 
 \begin{example}[Stiefel manifolds]\marginnote{\citep[Examples 4.14.1]{Switzer}}
-Consider the subgroup $O(n) \subseteq O(n+k)$ of block matrices \[\left\{\left[\begin{array}{c|c} O(n) & 0 \\ \hline 0 & I \end{array} \right]\right\} \subseteq O(n+k).\]
+Consider the subgroup $O(n) \subseteq O(n+k)$ of block matrices \[\left\{\left[\begin{array}{c|c} O(n) & 0 \\ \hline 0 & I \end{array} \right]\right\} \le O(n+k).\]
 The quotient is the space of orthonormal $k$--frames in $\R^{n+k}$.
 \marginnote{For example, $O(n) / O(n-1)$ is homeomorphic to $S^{n-1}$.}
 To construct a local section, note that there is an open neighborhood $U$ of the standard frame $(e_{n+1}, \ldots, e_{n+k})$ consisting of those $(u_{n+1}, \ldots, u_{n+k})$ satisfying the condition \[\det\left[e_1 \mid \cdots \mid e_n \mid u_{n+1} \mid \cdots \mid u_{n+k}\right] \ne 0.\]
@@ -1097,20 +1141,22 @@ This can be used to construct a triple of fiber bundles
 \end{tikzcd}
 \end{center}
 even though the bottom map is not a quotient from a group.
+\todo{Add a concrete example for Grassmannians, like projective space.}
 \end{example}
 
 \begin{example}\marginnote{\citep[Examples 4.14.4, 5, 7]{Switzer}}
-These linear algebraic examples do not rest on properties of the reals.
-One can build analogues of these examples with $U(n)$ and $\C^n$, or with $\Sp(n)$ and $\H^n$.
+These linear algebraic examples do not rest on $\mathbb R$.
+One can build analogues of these examples with $U(n)$ and $\C^n$, or even with $\Sp(n)$ and $\H^n$.
 \end{example}
 
 \begin{example}\label{SOtoOisAFiberBundle}%
 \marginnote{\citep[Examples 4.14.3]{Switzer}}
 The sequence \[SO(n) \to O(n) \xrightarrow{\det} O(1)\] admits a section \[\pm 1 \mapsto \left( \begin{array}{c|c} \pm 1 & 0 \\ \hline 0 & I \end{array} \right),\] which witnesses it as a fiber bundle.
+\todo{This base is extremely unexciting.  Should probably do Spin too.}
 \end{example}
 
 \begin{example}\marginnote{\citep[Proposition 4.15]{Switzer}}
-Applying the long exact sequence of homotopy for a fiber bundle to \Cref{SOtoOisAFiberBundle} shows \[\pi_{\ge 1} SO(m) \cong \pi_{\ge 1} O(n).\]
+Applying \Cref{PiStarLexseqForFibration} to \Cref{SOtoOisAFiberBundle} yields \[\pi_{\ge 1} SO(n) \cong \pi_{\ge 1} O(n).\]
 \end{example}
 
 \noindent
@@ -1123,6 +1169,7 @@ A fiber bundle with discrete fiber is called a \define{covering space}.
 \begin{example}\marginnote{\citep[Examples 4.18.1]{Switzer}}
 The quotient sequence \[\Z \to \R \to S^1\] witnesses $\R$ as a cover of $S^1$ with discrete fiber $\Z$.
 Thinking of $S^1 \subseteq \C$ as the complex numbers of unit norm, a local section is given by \[z \mapsto \frac{1}{2 \pi i} \log z.\]
+\Cref{PiStarLexseqForFibration} gives an exact sequence of pointed sets \[0 \to \pi_1 S^1 \to \pi_0 \Z \to 0.\]
 \end{example}
 
 A discrete fiber has sufficiently simple structure that one can often automatically construct fiber bundles as quotients by group actions, without needing to manufacture a local section to guarantee sane behavior.
@@ -1143,13 +1190,14 @@ If $G$ acts properly discontinuously on $X$, then $p\co X \to X/G$ is a covering
 For $[x] \in X/G$, choose a neighborhood $U_x$ guaranteed by \eqref{PropDiscon1}, and let $p(U_x)$ be the neighborhood of $[x]$ in the base.
 The disjointness property allows us to define the local section \[p^{-1}(p(U_x)) \to G \times p(U_x). \qedhere\]
 \end{proof}
+\todo{From here \emph{up} to ``A discrete fiber...'' can be demoted to a condensed remark.}
 
 \begin{remark}\marginnote{\citep[Remarks 4.21.i]{Switzer}}
 If $\pi_0 X = 0$, then in the short exact sequence of pointed sets \[0 \to \pi_1 X \to \pi_1 X/G \to \pi_0 G \to 0\] the last map is actually a group homomorphism.
 \end{remark}
 
 \begin{example}\label{Pi1S1Calculation}\marginnote{\citep[Remarks 4.21.iv]{Switzer}}
-$\Z$ acting on $\R$ by $1 \cdot x = x+1$ is properly discontinuous.
+Since $\Z \le \R$ is a closed subgroup, $\Z$ acting on $\R$ by $1 \cdot x = x+1$ is properly discontinuous.
 Since $\R$ is furthermore contractible, we conclude \[\pi_n S^1 = \begin{cases} \Z & \text{when $n = 1$}, \\ 0 & \text{otherwise}. \end{cases}\]
 \end{example}
 
@@ -1162,14 +1210,22 @@ All normal covers arise as quotients by a $G$--action on $E$.
 For $X$ a Hausdorff space, acted on by a finite group $G$ without fixed points, the $G$--action is automatically properly discontinuous.
 \end{remark}
 
-\todo{Mention the $\pi_1$ action somewhere in all of this.}
-
+\todo{Mention the $\pi_1$ action somewhere in all of this.  Specifically, $G$ acting on $\pi_1 X/G$.}
+\todo{I have scrawled ``mention that this is a \emph{group} quotient!'', but I don't know in reference to what.}
 
 
 
 \begin{subappendices}
 
 \section{Vector bundles}
+
+Theory of infinitesimal embeddings
+
+$G$--bundles
+
+Associated bundle construction for $\Aut F$ and $h\Aut F$
+
+Prop 11.44 states that $O(n)$ is a deformation retraction of $GL_n(\mathbb R)$
 
 
 
